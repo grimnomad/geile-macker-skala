@@ -1,0 +1,44 @@
+{
+  "name": "@gms/shared",
+  "version": "0.0.1",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "engines": {
+    "node": ">=10"
+  },
+  "scripts": {
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test",
+    "lint": "tsdx lint",
+    "prepare": "tsdx build",
+    "size": "size-limit",
+    "analyze": "size-limit --why"
+  },
+  "module": "dist/shared.esm.js",
+  "size-limit": [
+    {
+      "path": "dist/shared.cjs.production.min.js",
+      "limit": "10 KB"
+    },
+    {
+      "path": "dist/shared.esm.js",
+      "limit": "10 KB"
+    }
+  ],
+  "devDependencies": {
+    "@size-limit/preset-small-lib": "^4.7.0",
+    "eslint-plugin-simple-import-sort": "^6.0.1",
+    "eslint-plugin-prettier": "^3.1.4",
+    "prettier": "^2.2.1",
+    "size-limit": "^4.7.0",
+    "tsdx": "^0.14.1",
+    "tslib": "^2.0.3"
+  },
+  "dependencies": {
+  }
+}

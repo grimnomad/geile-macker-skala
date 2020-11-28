@@ -1,0 +1,33 @@
+{
+  "folders": [
+    {
+      "path": "client",
+      "name": "@gms/client"
+    },
+    {
+      "path": "server",
+      "name": "@gms/server"
+    },
+    {
+      "path": "shared",
+      "name": "@gms/shared"
+    },
+    {
+      "path": ".",
+      "name": "@gms/root"
+    }
+  ],
+  "settings": {
+    "eslint.validate": [
+      "javascript",
+      "javascriptreact",
+      "typescript",
+      "typescriptreact"
+    ],
+    "eslint.alwaysShowStatus": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll": true
+    },
+    "typescript.tsdk": "@gms/root/node_modules/typescript/lib"
+  }
+}
