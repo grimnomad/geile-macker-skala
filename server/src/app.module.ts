@@ -1,9 +1,16 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 
+import { AuthModule } from './auth';
+
 @Module({
-  imports: [MongooseModule.forRoot('mongodb://localhost/gsm')],
+  imports: [
+    MongooseModule.forRoot('mongodb://localhost/gsm', { useCreateIndex: true }),
+    AuthModule
+  ],
   controllers: [],
   providers: []
 })
-export class AppModule {}
+class AppModule {}
+
+export { AppModule };
