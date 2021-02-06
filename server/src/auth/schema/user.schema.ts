@@ -8,10 +8,10 @@ class User implements IUser {
   handle: string;
 
   @Prop({ required: true })
-  forename: string;
+  firstName: string;
 
   @Prop({ required: true })
-  surname: string;
+  lastName: string;
 
   @Prop({ required: true })
   password: string;

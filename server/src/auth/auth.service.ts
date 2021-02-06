@@ -13,13 +13,13 @@ class AuthService {
   ) {}
 
   async signUp(signUpDTO: AuthSignUpDTO): Promise<void> {
-    const { handle, forename, surname, password } = signUpDTO;
+    const { handle, firstName, lastName, password } = signUpDTO;
 
     const user = createObject<IUser>({
       handle,
       password,
-      forename,
-      surname
+      firstName,
+      lastName
     });
 
     const userDocument = new this.userModel(user);

@@ -2,9 +2,9 @@ interface IUser {
   /** Unique identifier for the user */
   handle: string;
   /** An users forename/first name */
-  forename: string;
+  firstName: string;
   /** An users surname/last name */
-  surname: string;
+  lastName: string;
   /** A password */
   password: string;
 }

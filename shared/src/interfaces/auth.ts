@@ -2,9 +2,9 @@ interface IAuthCredentials {
   /** Unique identifier for the user */
   handle: string;
   /** An users first name/forename */
-  forename: string;
+  firstName: string;
   /** An users last name/surname */
-  surname: string;
+  lastName: string;
   /** A password */
   password: string;
 }
