@@ -1,3 +1,4 @@
+import { createObject, ErrorItem, ValidationErrorResponse } from '@gms/shared';
 import { BadRequestException, Injectable, PipeTransform } from '@nestjs/common';
 import { ObjectSchema } from 'joi';
 
@@ -9,7 +10,24 @@ class JoiValidationPipe implements PipeTransform {
     const { error } = this.schema.validate(value);
 
     if (error) {
-      throw new BadRequestException('Validation failed');
+      const errorItems = error.details.map((detail) => {
+        const { message, context } = detail;
+
+        const error = createObject<ErrorItem>({
+          message: message,
+          property: context.label
+        });
+
+        return error;
+      });
+
+      const message = createObject<ValidationErrorResponse>({
+        errors: errorItems,
+        message: 'Validation failed',
+        statusCode: 400
+      });
+
+      throw new BadRequestException(message);
     }
 
     return value;
