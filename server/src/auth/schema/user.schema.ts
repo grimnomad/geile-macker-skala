@@ -1,17 +1,17 @@
-import { IUser } from '@gms/shared';
+import { UserDTO } from '@gms/shared';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, ObjectId } from 'mongoose';
 
 @Schema({ versionKey: false })
-class User implements IUser {
+class User implements UserDTO {
   @Prop({ required: true, unique: true, index: true })
   handle: string;
 
   @Prop({ required: true })
-  firstName: string;
+  first_name: string;
 
   @Prop({ required: true })
-  lastName: string;
+  last_name: string;
 
   @Prop({ required: true })
   password: string;
@@ -19,7 +19,7 @@ class User implements IUser {
 
 const UserSchema = SchemaFactory.createForClass(User);
 
-type UserDocument = IUser & Document<ObjectId>;
+type UserDocument = User & Document<ObjectId>;
 
 export type { UserDocument };
 export { User, UserSchema };

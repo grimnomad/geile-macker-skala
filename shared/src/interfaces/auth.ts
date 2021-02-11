@@ -9,8 +9,20 @@ interface IAuthCredentials {
   password: string;
 }
 
-type AuthSignUpDTO = IAuthCredentials;
+interface AuthCredentialsDTO {
+  handle: string;
+  first_name: string;
+  last_name: string;
+  password: string;
+}
 
-type AuthSignInDTO = Pick<IAuthCredentials, 'handle' | 'password'>;
+type AuthSignUpDTO = AuthCredentialsDTO;
 
-export type { AuthSignInDTO, AuthSignUpDTO, IAuthCredentials };
+type AuthSignInDTO = Pick<AuthCredentialsDTO, 'handle' | 'password'>;
+
+export type {
+  AuthCredentialsDTO,
+  AuthSignInDTO,
+  AuthSignUpDTO,
+  IAuthCredentials
+};

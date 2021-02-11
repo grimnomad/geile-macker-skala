@@ -1,3 +1,3 @@
 export * from './auth';
+export * from './responses';
 export * from './user';
-export * from './validation-error';
