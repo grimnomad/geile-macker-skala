@@ -15,6 +15,9 @@ class User implements UserDTO {
 
   @Prop({ required: true })
   password: string;
+
+  @Prop({ required: true })
+  salt: string;
 }
 
 const UserSchema = SchemaFactory.createForClass(User);
