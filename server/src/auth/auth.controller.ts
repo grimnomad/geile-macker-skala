@@ -2,7 +2,8 @@ import {
   AuthSignInDTO,
   AuthSignUpDTO,
   CommonResponseDTO,
-  createObject
+  createObject,
+  SignInResponse
 } from '@gms/shared';
 import {
   Body,
@@ -14,9 +15,9 @@ import {
   UseFilters,
   UsePipes
 } from '@nestjs/common';
-import { MongoExceptionFilter } from 'src/filters';
-import { JoiValidationPipe } from 'src/pipes';
 
+import { MongoExceptionFilter } from '../filters';
+import { JoiValidationPipe } from '../pipes';
 import { AuthService } from './auth.service';
 import { SignInSchema, SignUpSchema } from './validation';
 
@@ -36,10 +37,10 @@ class AuthController {
   @Post('signin')
   @HttpCode(HttpStatus.OK)
   @UsePipes(new JoiValidationPipe(SignInSchema))
-  async signIn(@Body() signInDTO: AuthSignInDTO): Promise<void> {
-    const user = await this.authService.signIn(signInDTO);
+  async signIn(@Body() signInDTO: AuthSignInDTO): Promise<SignInResponse> {
+    const token = await this.authService.signIn(signInDTO);
 
-    if (!user) {
+    if (!token) {
       const message = createObject<CommonResponseDTO>({
         message: 'Invalid credentials',
         status_code: HttpStatus.UNAUTHORIZED
@@ -47,6 +48,14 @@ class AuthController {
 
       throw new UnauthorizedException(message);
     }
+
+    const message = createObject<SignInResponse>({
+      message: 'User successfully signed in.',
+      status_code: HttpStatus.OK,
+      token
+    });
+
+    return message;
   }
 }
 

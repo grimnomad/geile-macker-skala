@@ -1,16 +1,19 @@
 import { AuthSignInDTO, AuthSignUpDTO, createObject } from '@gms/shared';
 import { Injectable } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 import { InjectModel } from '@nestjs/mongoose';
 import * as bcrypt from 'bcrypt';
 import { Model } from 'mongoose';
 
 import { User, UserDocument } from './schema';
+import { JWTPayload } from './types';
 
 @Injectable()
 class AuthService {
   constructor(
     @InjectModel(User.name)
-    private readonly userModel: Model<UserDocument>
+    private readonly userModel: Model<UserDocument>,
+    private readonly jwtService: JwtService
   ) {}
 
   async signUp(signUpDTO: AuthSignUpDTO): Promise<void> {
@@ -33,7 +36,7 @@ class AuthService {
     await userDocument.save();
   }
 
-  async signIn(signInDTO: AuthSignInDTO): Promise<User | null> {
+  async signIn(signInDTO: AuthSignInDTO): Promise<string | null> {
     const { handle, password } = signInDTO;
 
     const user = await this.userModel.findOne({ handle }).lean();
@@ -42,7 +45,12 @@ class AuthService {
       const isValid = await this.validatePassword(password, user);
 
       if (isValid) {
-        return user;
+        const payload = createObject<JWTPayload>({
+          handle: user.handle
+        });
+        const token = await this.jwtService.signAsync(payload);
+
+        return token;
       }
     }
 

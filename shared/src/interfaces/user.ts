@@ -5,8 +5,6 @@ interface IUser {
   firstName: string;
   /** An users surname/last name */
   lastName: string;
-  /** A password */
-  password: string;
 }
 
 interface UserDTO {
@@ -16,8 +14,6 @@ interface UserDTO {
   first_name: string;
   /** An users surname/last name */
   last_name: string;
-  /** A password */
-  password: string;
 }
 
 export type { IUser, UserDTO };

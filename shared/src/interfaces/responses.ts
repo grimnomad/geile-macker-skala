@@ -17,4 +17,13 @@ interface ValidationErrorResponse extends CommonResponseDTO {
   errors: ErrorItem[];
 }
 
-export type { CommonResponseDTO, ErrorItem, ValidationErrorResponse };
+interface SignInResponse extends CommonResponseDTO {
+  token: string;
+}
+
+export type {
+  CommonResponseDTO,
+  ErrorItem,
+  SignInResponse,
+  ValidationErrorResponse
+};
