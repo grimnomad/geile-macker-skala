@@ -5,8 +5,8 @@ import { InjectModel } from '@nestjs/mongoose';
 import { PassportStrategy } from '@nestjs/passport';
 import { Model } from 'mongoose';
 import { ExtractJwt, Strategy } from 'passport-jwt';
-import { EnvironmentVariables } from 'src/types';
 
+import { EnvironmentVariables } from '../types';
 import { User, UserDocument } from './schema';
 import { JWTPayload } from './types';
 
