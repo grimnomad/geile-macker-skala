@@ -1,9 +1,11 @@
 import { createObject, UserDTO } from '@gms/shared';
 import { Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { InjectModel } from '@nestjs/mongoose';
 import { PassportStrategy } from '@nestjs/passport';
 import { Model } from 'mongoose';
 import { ExtractJwt, Strategy } from 'passport-jwt';
+import { EnvironmentVariables } from 'src/types';
 
 import { User, UserDocument } from './schema';
 import { JWTPayload } from './types';
@@ -12,11 +14,12 @@ import { JWTPayload } from './types';
 class JWTStrategy extends PassportStrategy(Strategy) {
   constructor(
     @InjectModel(User.name)
-    private readonly userModel: Model<UserDocument>
+    private readonly userModel: Model<UserDocument>,
+    private readonly configService: ConfigService<EnvironmentVariables>
   ) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      secretOrKey: 'gms'
+      secretOrKey: configService.get<string>('JWT_SECRET')
     });
   }
 
