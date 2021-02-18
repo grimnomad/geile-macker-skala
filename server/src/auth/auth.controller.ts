@@ -1,8 +1,6 @@
 import {
   AuthSignInDTO,
   AuthSignUpDTO,
-  createObject,
-  ResponseDTO,
   SignInResponse,
   UserDTO
 } from '@gms/shared';
@@ -17,9 +15,9 @@ import {
   UseInterceptors,
   UsePipes
 } from '@nestjs/common';
-import { ResponseInterceptor } from 'src/interceptors';
 
 import { MongoExceptionFilter } from '../filters';
+import { ResponseInterceptor } from '../interceptors';
 import { JoiValidationPipe } from '../pipes';
 import { AuthService } from './auth.service';
 import { SignInSchema, SignUpSchema } from './validation';
@@ -52,14 +50,7 @@ class AuthController {
     const token = await this.authService.signIn(signInDTO);
 
     if (!token) {
-      const message = createObject<ResponseDTO<unknown>>({
-        message: 'Invalid credentials',
-        status_code: HttpStatus.UNAUTHORIZED,
-        data: null,
-        send_at: new Date().toISOString()
-      });
-
-      throw new UnauthorizedException(message);
+      throw new UnauthorizedException('Invalid credentials');
     }
 
     return token;
