@@ -1,8 +1,12 @@
-interface CommonResponseDTO {
+interface ResponseDTO<T> {
   /** HTTP status code */
   status_code: number;
   /** Description */
   message: string;
+  /** Timestamp */
+  send_at: string;
+  /** Actual data */
+  data: T;
 }
 
 interface ErrorItem {
@@ -12,18 +16,8 @@ interface ErrorItem {
   message: string;
 }
 
-interface ValidationErrorResponse extends CommonResponseDTO {
-  /** List of validation errors */
-  errors: ErrorItem[];
-}
+type ValidationErrorResponse = ResponseDTO<ErrorItem[]>;
 
-interface SignInResponse extends CommonResponseDTO {
-  token: string;
-}
+type SignInResponse = ResponseDTO<string>;
 
-export type {
-  CommonResponseDTO,
-  ErrorItem,
-  SignInResponse,
-  ValidationErrorResponse
-};
+export type { ErrorItem, ResponseDTO, SignInResponse, ValidationErrorResponse };

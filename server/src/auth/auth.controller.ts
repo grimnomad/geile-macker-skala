@@ -1,9 +1,10 @@
 import {
   AuthSignInDTO,
   AuthSignUpDTO,
-  CommonResponseDTO,
   createObject,
-  SignInResponse
+  ResponseDTO,
+  SignInResponse,
+  UserDTO
 } from '@gms/shared';
 import {
   Body,
@@ -13,8 +14,10 @@ import {
   Post,
   UnauthorizedException,
   UseFilters,
+  UseInterceptors,
   UsePipes
 } from '@nestjs/common';
+import { ResponseInterceptor } from 'src/interceptors';
 
 import { MongoExceptionFilter } from '../filters';
 import { JoiValidationPipe } from '../pipes';
@@ -30,32 +33,36 @@ class AuthController {
     new MongoExceptionFilter({ '11000': 'This handle is already taken' })
   )
   @UsePipes(new JoiValidationPipe(SignUpSchema))
-  async signUp(@Body() signUpDTO: AuthSignUpDTO): Promise<void> {
-    await this.authService.signUp(signUpDTO);
+  @UseInterceptors(
+    new ResponseInterceptor<UserDTO>('User successfully created an account.')
+  )
+  async signUp(@Body() signUpDTO: AuthSignUpDTO): Promise<UserDTO> {
+    const userDTO = await this.authService.signUp(signUpDTO);
+
+    return userDTO;
   }
 
   @Post('signin')
   @HttpCode(HttpStatus.OK)
   @UsePipes(new JoiValidationPipe(SignInSchema))
-  async signIn(@Body() signInDTO: AuthSignInDTO): Promise<SignInResponse> {
+  @UseInterceptors(
+    new ResponseInterceptor<SignInResponse>('User successfully signed in.')
+  )
+  async signIn(@Body() signInDTO: AuthSignInDTO): Promise<string> {
     const token = await this.authService.signIn(signInDTO);
 
     if (!token) {
-      const message = createObject<CommonResponseDTO>({
+      const message = createObject<ResponseDTO<unknown>>({
         message: 'Invalid credentials',
-        status_code: HttpStatus.UNAUTHORIZED
+        status_code: HttpStatus.UNAUTHORIZED,
+        data: null,
+        send_at: new Date().toISOString()
       });
 
       throw new UnauthorizedException(message);
     }
 
-    const message = createObject<SignInResponse>({
-      message: 'User successfully signed in.',
-      status_code: HttpStatus.OK,
-      token
-    });
-
-    return message;
+    return token;
   }
 }
 

@@ -1,4 +1,9 @@
-import { AuthSignInDTO, AuthSignUpDTO, createObject } from '@gms/shared';
+import {
+  AuthSignInDTO,
+  AuthSignUpDTO,
+  createObject,
+  UserDTO
+} from '@gms/shared';
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectModel } from '@nestjs/mongoose';
@@ -16,7 +21,7 @@ class AuthService {
     private readonly jwtService: JwtService
   ) {}
 
-  async signUp(signUpDTO: AuthSignUpDTO): Promise<void> {
+  async signUp(signUpDTO: AuthSignUpDTO): Promise<UserDTO> {
     const { handle, first_name, last_name, password } = signUpDTO;
 
     const salt = await bcrypt.genSalt();
@@ -34,6 +39,14 @@ class AuthService {
     const userDocument = new this.userModel(user);
 
     await userDocument.save();
+
+    const userDTO = createObject<UserDTO>({
+      first_name,
+      handle,
+      last_name
+    });
+
+    return userDTO;
   }
 
   async signIn(signInDTO: AuthSignInDTO): Promise<string | null> {
