@@ -1,4 +1,4 @@
-import { CommonResponseDTO, createObject } from '@gms/shared';
+import { createObject, ResponseDTO } from '@gms/shared';
 import {
   ArgumentsHost,
   Catch,
@@ -24,9 +24,11 @@ class MongoExceptionFilter implements ExceptionFilter {
       case 11000: {
         const statusCode = HttpStatus.CONFLICT;
 
-        const responseDTO = createObject<CommonResponseDTO>({
+        const responseDTO = createObject<ResponseDTO<string>>({
           status_code: statusCode,
-          message: this.errorOptions[exception.code]
+          message: this.errorOptions[exception.code],
+          data: null,
+          send_at: new Date().toISOString()
         });
 
         response.status(statusCode).json(responseDTO);

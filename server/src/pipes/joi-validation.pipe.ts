@@ -22,9 +22,10 @@ class JoiValidationPipe implements PipeTransform {
       });
 
       const message = createObject<ValidationErrorResponse>({
-        errors: errorItems,
+        data: errorItems,
         message: 'Validation failed',
-        status_code: 400
+        status_code: 400,
+        send_at: new Date().toISOString()
       });
 
       throw new BadRequestException(message);
