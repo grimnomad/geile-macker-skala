@@ -16,6 +16,7 @@ async function bootstrap(): Promise<void> {
   const interceptors = setupInterceptors();
 
   app.useGlobalInterceptors(...interceptors);
+  app.enableCors();
 
   const PORT = configService.get<number>('PORT');
   const MONGODB_URI = configService.get<string>('MONGODB_URI');
