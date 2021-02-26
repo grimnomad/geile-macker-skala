@@ -16,9 +16,11 @@ import {
   UsePipes
 } from '@nestjs/common';
 
-import { MongoExceptionFilter } from '../filters';
-import { ResponseInterceptor } from '../interceptors';
-import { JoiValidationPipe } from '../pipes';
+import {
+  JoiValidationPipe,
+  MongoExceptionFilter,
+  ResponseInterceptor
+} from '../utils';
 import { AuthService } from './auth.service';
 import { SignInSchema, SignUpSchema } from './validation';
 

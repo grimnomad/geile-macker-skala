@@ -1,20 +1,10 @@
-import { Logger, NestInterceptor } from '@nestjs/common';
+import { Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 
 import { AppModule } from './app.module';
-import { UnauthorizedExceptionInterceptor } from './interceptors';
+import { setupInterceptors } from './setup';
 import { EnvironmentVariables } from './types';
-
-function setupInterceptors(): NestInterceptor[] {
-  const unauthorizedExceptionInterceptor = new UnauthorizedExceptionInterceptor();
-
-  const interceptors: NestInterceptor[] = [];
-
-  interceptors.push(unauthorizedExceptionInterceptor);
-
-  return interceptors;
-}
 
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(AppModule);
