@@ -25,8 +25,7 @@ class AuthService {
     const { handle, first_name, last_name, password } = signUpDTO;
 
     const salt = await bcrypt.genSalt();
-
-    const hash = await this.hashPassword(password, salt);
+    const hash = await bcrypt.hash(password, salt);
 
     const user = createObject<User>({
       handle,
@@ -55,7 +54,7 @@ class AuthService {
     const user = await this.userModel.findOne({ handle }).lean();
 
     if (user) {
-      const isValid = await this.validatePassword(password, user);
+      const isValid = await bcrypt.compare(password, user.password);
 
       if (isValid) {
         const payload = createObject<JWTPayload>({
@@ -68,23 +67,6 @@ class AuthService {
     }
 
     return null;
-  }
-
-  private async hashPassword(password: string, hash: string): Promise<string> {
-    const hashedPassword = await bcrypt.hash(password, hash);
-
-    return hashedPassword;
-  }
-
-  private async validatePassword(
-    password: string,
-    user: User
-  ): Promise<boolean> {
-    const hash = await this.hashPassword(password, user.salt);
-
-    const isValid = user.password === hash;
-
-    return isValid;
   }
 }
 
