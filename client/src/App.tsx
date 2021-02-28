@@ -10,8 +10,8 @@ function App(): ReactElement {
       <Header />
       <Switch>
         <Suspense fallback={'Loading'}>
-          {routes.map((route) => (
-            <Route {...route} />
+          {routes.map((route, index) => (
+            <Route {...route} key={index} />
           ))}
         </Suspense>
       </Switch>
