@@ -1,10 +1,11 @@
 import { createGlobalStyle } from 'styled-components';
 
+import { ColorMixin } from './ColorMixin';
+
 const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
-    background-color: ${(props) => props.theme.primary};
-    color: ${(props) => props.theme.secondary}
+    ${ColorMixin}
   }
 `;
 
