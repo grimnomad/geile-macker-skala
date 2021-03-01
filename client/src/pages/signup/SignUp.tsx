@@ -1,68 +1,68 @@
 import { AuthSignUpDTO, createObject } from '@gms/shared';
-import { ReactElement, useState } from 'react';
-import { useMutation } from 'react-query';
+import { useFormik } from 'formik';
+import { ReactElement } from 'react';
 
-async function signUp(signUpDTO: AuthSignUpDTO): Promise<void> {
-  const requestInit = createObject<RequestInit>({
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json;charset=utf-8'
-    },
-    body: JSON.stringify(signUpDTO)
-  });
-
-  const response = await fetch(
-    'http://localhost:3001/auth/signup',
-    requestInit
-  );
-
-  const data = await response.json();
-
-  console.log(data);
-}
+import { useSignUp } from '../../api';
+import { SignUpSchema } from './signup.schema';
 
 function SignUp(): ReactElement {
-  const { mutate } = useMutation(signUp);
-  const [handle, setHandle] = useState('');
-  const [password, setPassword] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+  const { mutate } = useSignUp();
+
+  const { handleSubmit, values, handleChange } = useFormik({
+    initialValues: {
+      handle: '',
+      password: '',
+      firstName: '',
+      lastName: ''
+    },
+    validationSchema: SignUpSchema,
+    onSubmit: (values, helpers) => {
+      const { firstName, handle, lastName, password } = values;
+      const { resetForm } = helpers;
+
+      const signUpDTO = createObject<AuthSignUpDTO>({
+        first_name: firstName,
+        handle,
+        last_name: lastName,
+        password
+      });
+
+      mutate(signUpDTO, {
+        onSuccess: () => {
+          resetForm();
+        }
+      });
+    }
+  });
 
   return (
-    <div>
+    <form onSubmit={handleSubmit}>
       <input
         type="text"
-        value={handle}
-        onChange={(event) => setHandle(event.currentTarget.value)}
+        name="handle"
+        value={values.handle}
+        onChange={handleChange}
       />
       <input
         type="text"
-        value={firstName}
-        onChange={(event) => setFirstName(event.currentTarget.value)}
+        name="firstName"
+        value={values.firstName}
+        onChange={handleChange}
       />
       <input
         type="text"
-        value={lastName}
-        onChange={(event) => setLastName(event.currentTarget.value)}
+        name="lastName"
+        value={values.lastName}
+        onChange={handleChange}
       />
       <input
         type="password"
-        value={password}
-        onChange={(event) => setPassword(event.currentTarget.value)}
+        name="password"
+        value={values.password}
+        onChange={handleChange}
       />
-      <button
-        onClick={() =>
-          mutate({
-            first_name: firstName,
-            handle,
-            last_name: lastName,
-            password
-          })
-        }
-      >
-        Sign up
-      </button>
-    </div>
+      <button type="submit">Sign up</button>
+    </form>
   );
 }
 
