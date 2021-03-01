@@ -23,6 +23,8 @@ class UnauthorizedExceptionInterceptor implements NestInterceptor {
 
         return throwError(new UnauthorizedException(message));
       }
+
+      return throwError(err);
     });
 
     return next.handle().pipe(createError);
