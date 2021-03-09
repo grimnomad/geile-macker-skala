@@ -3,12 +3,21 @@ import { useFormik } from 'formik';
 import { ReactElement } from 'react';
 
 import { useSignUp } from '../../api';
+import { Input } from '../../components';
 import { SignUpSchema } from './signup.schema';
+import { SignUpContainer, SignUpForm } from './styles';
 
 function SignUp(): ReactElement {
   const { mutate } = useSignUp();
 
-  const { handleSubmit, values, handleChange } = useFormik({
+  const {
+    handleSubmit,
+    handleChange,
+    handleBlur,
+    values,
+    errors,
+    touched
+  } = useFormik({
     initialValues: {
       handle: '',
       password: '',
@@ -36,33 +45,44 @@ function SignUp(): ReactElement {
   });
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        name="handle"
-        value={values.handle}
-        onChange={handleChange}
-      />
-      <input
-        type="text"
-        name="firstName"
-        value={values.firstName}
-        onChange={handleChange}
-      />
-      <input
-        type="text"
-        name="lastName"
-        value={values.lastName}
-        onChange={handleChange}
-      />
-      <input
-        type="password"
-        name="password"
-        value={values.password}
-        onChange={handleChange}
-      />
-      <button type="submit">Sign up</button>
-    </form>
+    <SignUpContainer>
+      <SignUpForm onSubmit={handleSubmit}>
+        <Input
+          name="handle"
+          placeholder="Handle"
+          value={values.handle}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          hasError={touched.handle && !!errors.handle}
+        />
+        <Input
+          name="firstName"
+          placeholder="Vorname"
+          value={values.firstName}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          hasError={touched.firstName && !!errors.firstName}
+        />
+        <Input
+          name="lastName"
+          placeholder="Nachname"
+          value={values.lastName}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          hasError={touched.lastName && !!errors.lastName}
+        />
+        <Input
+          type="password"
+          name="password"
+          placeholder="Passwort"
+          value={values.password}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          hasError={touched.password && !!errors.password}
+        />
+        <button type="submit">Sign up</button>
+      </SignUpForm>
+    </SignUpContainer>
   );
 }
 
