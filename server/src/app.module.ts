@@ -1,9 +1,15 @@
-import { Module } from '@nestjs/common';
+import {
+  MiddlewareConsumer,
+  Module,
+  NestModule,
+  RequestMethod
+} from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 
 import { AuthModule } from './auth';
 import { EnvironmentVariables } from './types';
+import { MorganMiddleware } from './utils';
 
 @Module({
   imports: [
@@ -22,6 +28,12 @@ import { EnvironmentVariables } from './types';
     AuthModule
   ]
 })
-class AppModule {}
+class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer): void {
+    consumer
+      .apply(MorganMiddleware)
+      .forRoutes({ path: '*', method: RequestMethod.ALL });
+  }
+}
 
 export { AppModule };
