@@ -10,7 +10,14 @@ async function signUp(signUpDTO: AuthSignUpDTO): Promise<void> {
     body: JSON.stringify(signUpDTO)
   });
 
-  await fetch('http://localhost:3001/auth/signup', requestInit);
+  const response = await fetch(
+    'http://localhost:3001/auth/signup',
+    requestInit
+  );
+
+  if (!response.ok) {
+    throw new Error(response.statusText);
+  }
 }
 
 function useSignUp(): UseMutationResult<void, unknown, AuthSignUpDTO, unknown> {
