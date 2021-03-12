@@ -22,7 +22,8 @@ function SignUp(): ReactElement {
       handle: '',
       password: '',
       firstName: '',
-      lastName: ''
+      lastName: '',
+      repeatedPassword: ''
     },
     validationSchema: SignUpSchema,
     onSubmit: (values, helpers) => {
@@ -79,6 +80,15 @@ function SignUp(): ReactElement {
           onChange={handleChange}
           onBlur={handleBlur}
           hasError={touched.password && !!errors.password}
+        />
+        <Input
+          type="password"
+          name="repeatedPassword"
+          placeholder="Passwort wiederholen"
+          value={values.repeatedPassword}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          hasError={touched.repeatedPassword && !!errors.repeatedPassword}
         />
         <button type="submit">Sign up</button>
       </SignUpForm>

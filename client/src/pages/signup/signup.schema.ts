@@ -13,7 +13,14 @@ const SignUpSchema = Yup.object().shape({
     .min(2, 'Der Nachname muss mindestens eine Länge von 2 Zeichen haben!')
     .max(50, 'Der Nachname darf maximal eine Länge von 50 Zeichen haben!')
     .required('Der Nachname muss angegeben werden!'),
-  password: Yup.string().required('Das Password muss angegeben werden!')
+  password: Yup.string().required('Das Password muss angegeben werden!'),
+  repeatedPassword: Yup.string().when('password', {
+    is: (val: string) => (val && val.length > 0 ? true : false),
+    then: Yup.string().oneOf(
+      [Yup.ref('password')],
+      'Beide Passwörter müssen gleich sein'
+    )
+  })
 });
 
 export { SignUpSchema };
