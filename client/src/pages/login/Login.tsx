@@ -4,7 +4,7 @@ import { ReactElement } from 'react';
 import { useHistory } from 'react-router';
 
 import { useLogIn } from '../../api';
-import { Input } from '../../components';
+import { FormEntry } from '../../components';
 import { LogInSchema } from './login.schema';
 import { LogInContainer, LogInForm } from './styles';
 
@@ -37,16 +37,16 @@ function Login(): ReactElement {
   return (
     <LogInContainer>
       <LogInForm onSubmit={handleSubmit}>
-        <Input
+        <FormEntry
           id="handle"
-          placeholder="Handle"
+          label="Handle"
           value={values.handle}
           onChange={handleChange}
         />
-        <Input
+        <FormEntry
           id="password"
+          label="Password"
           type="password"
-          placeholder="Passwort"
           value={values.password}
           onChange={handleChange}
         />

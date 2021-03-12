@@ -4,7 +4,7 @@ import { ReactElement } from 'react';
 import { useHistory } from 'react-router';
 
 import { useLogIn, useSignUp } from '../../api';
-import { Input } from '../../components';
+import { FormEntry } from '../../components';
 import { SignUpSchema } from './signup.schema';
 import { SignUpContainer, SignUpForm } from './styles';
 
@@ -60,43 +60,43 @@ function SignUp(): ReactElement {
   return (
     <SignUpContainer>
       <SignUpForm onSubmit={handleSubmit}>
-        <Input
-          name="handle"
-          placeholder="Handle"
+        <FormEntry
+          id="handle"
+          label="Handle"
           value={values.handle}
           onChange={handleChange}
           onBlur={handleBlur}
           hasError={touched.handle && !!errors.handle}
         />
-        <Input
-          name="firstName"
-          placeholder="Vorname"
+        <FormEntry
+          id="firstName"
+          label="Vorname"
           value={values.firstName}
           onChange={handleChange}
           onBlur={handleBlur}
           hasError={touched.firstName && !!errors.firstName}
         />
-        <Input
-          name="lastName"
-          placeholder="Nachname"
+        <FormEntry
+          id="lastName"
+          label="Nachname"
           value={values.lastName}
           onChange={handleChange}
           onBlur={handleBlur}
           hasError={touched.lastName && !!errors.lastName}
         />
-        <Input
+        <FormEntry
+          id="password"
+          label="Passwort"
           type="password"
-          name="password"
-          placeholder="Passwort"
           value={values.password}
           onChange={handleChange}
           onBlur={handleBlur}
           hasError={touched.password && !!errors.password}
         />
-        <Input
+        <FormEntry
+          id="repeatedPassword"
+          label="Passwort wiederholen"
           type="password"
-          name="repeatedPassword"
-          placeholder="Passwort wiederholen"
           value={values.repeatedPassword}
           onChange={handleChange}
           onBlur={handleBlur}
