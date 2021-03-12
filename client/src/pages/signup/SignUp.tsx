@@ -1,14 +1,18 @@
-import { AuthSignUpDTO, createObject } from '@gms/shared';
+import { AuthSignInDTO, AuthSignUpDTO, createObject } from '@gms/shared';
 import { useFormik } from 'formik';
 import { ReactElement } from 'react';
+import { useHistory } from 'react-router';
 
-import { useSignUp } from '../../api';
+import { useLogIn, useSignUp } from '../../api';
 import { Input } from '../../components';
 import { SignUpSchema } from './signup.schema';
 import { SignUpContainer, SignUpForm } from './styles';
 
 function SignUp(): ReactElement {
-  const { mutate } = useSignUp();
+  const { mutate: signUp } = useSignUp();
+  const { mutate: logIn } = useLogIn();
+
+  const history = useHistory();
 
   const {
     handleSubmit,
@@ -26,9 +30,8 @@ function SignUp(): ReactElement {
       repeatedPassword: ''
     },
     validationSchema: SignUpSchema,
-    onSubmit: (values, helpers) => {
+    onSubmit: (values) => {
       const { firstName, handle, lastName, password } = values;
-      const { resetForm } = helpers;
 
       const signUpDTO = createObject<AuthSignUpDTO>({
         first_name: firstName,
@@ -37,9 +40,18 @@ function SignUp(): ReactElement {
         password
       });
 
-      mutate(signUpDTO, {
+      signUp(signUpDTO, {
         onSuccess: () => {
-          resetForm();
+          const signInDTO = createObject<AuthSignInDTO>({
+            handle,
+            password
+          });
+
+          logIn(signInDTO, {
+            onSuccess: () => {
+              history.push('/');
+            }
+          });
         }
       });
     }

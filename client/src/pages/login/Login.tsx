@@ -9,7 +9,7 @@ import { LogInSchema } from './login.schema';
 import { LogInContainer, LogInForm } from './styles';
 
 function Login(): ReactElement {
-  const { mutate } = useLogIn();
+  const { mutate: logIn } = useLogIn();
   const history = useHistory();
 
   const { values, handleChange, handleSubmit } = useFormik({
@@ -26,7 +26,7 @@ function Login(): ReactElement {
         password
       });
 
-      mutate(signInDTO, {
+      logIn(signInDTO, {
         onSuccess: () => {
           history.push('/');
         }
