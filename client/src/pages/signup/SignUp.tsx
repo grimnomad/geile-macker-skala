@@ -4,9 +4,9 @@ import { ReactElement } from 'react';
 import { useHistory } from 'react-router';
 
 import { useLogIn, useSignUp } from '../../api';
-import { FormEntry } from '../../components';
+import { Button, Form, FormButtonGroup, FormEntry } from '../../components';
 import { SignUpSchema } from './signup.schema';
-import { SignUpContainer, SignUpForm } from './styles';
+import { SignUpContainer } from './styles';
 
 function SignUp(): ReactElement {
   const { mutate: signUp } = useSignUp();
@@ -59,7 +59,7 @@ function SignUp(): ReactElement {
 
   return (
     <SignUpContainer>
-      <SignUpForm onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit}>
         <FormEntry
           id="handle"
           label="Handle"
@@ -102,8 +102,10 @@ function SignUp(): ReactElement {
           onBlur={handleBlur}
           hasError={touched.repeatedPassword && !!errors.repeatedPassword}
         />
-        <button type="submit">Sign up</button>
-      </SignUpForm>
+        <FormButtonGroup>
+          <Button type="submit">Sign up</Button>
+        </FormButtonGroup>
+      </Form>
     </SignUpContainer>
   );
 }

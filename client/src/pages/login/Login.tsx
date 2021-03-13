@@ -4,9 +4,9 @@ import { ReactElement } from 'react';
 import { useHistory } from 'react-router';
 
 import { useLogIn } from '../../api';
-import { FormEntry } from '../../components';
+import { Button, Form, FormButtonGroup, FormEntry } from '../../components';
 import { LogInSchema } from './login.schema';
-import { LogInContainer, LogInForm } from './styles';
+import { LogInContainer } from './styles';
 
 function Login(): ReactElement {
   const { mutate: logIn } = useLogIn();
@@ -36,7 +36,7 @@ function Login(): ReactElement {
 
   return (
     <LogInContainer>
-      <LogInForm onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit}>
         <FormEntry
           id="handle"
           label="Handle"
@@ -50,8 +50,10 @@ function Login(): ReactElement {
           value={values.password}
           onChange={handleChange}
         />
-        <button type="submit">Log in</button>
-      </LogInForm>
+        <FormButtonGroup>
+          <Button type="submit">Log in</Button>
+        </FormButtonGroup>
+      </Form>
     </LogInContainer>
   );
 }

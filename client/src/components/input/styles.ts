@@ -18,7 +18,7 @@ const StyledInput = styled.input.attrs((props) => ({
   background-color: ${(props) => props.theme.primary};
   outline: none;
   padding: 0 10px;
-  width: 100%;
+  width: calc(100% - 20px);
   margin: 0 10px 5px 10px;
 
   ${(props) => (props.hasError ? ErrorBorder : StandardBorder)}
