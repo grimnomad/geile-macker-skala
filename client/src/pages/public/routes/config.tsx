@@ -3,19 +3,19 @@ import { lazy } from 'react';
 import { RouteConfig } from './types';
 
 const HomePape = lazy(async () => {
-  const module = await import('../pages/home');
+  const module = await import('../home');
 
   return { default: module.Home };
 });
 
 const SignUpPage = lazy(async () => {
-  const module = await import('../pages/signup');
+  const module = await import('../signup');
 
   return { default: module.SignUp };
 });
 
 const LogInPage = lazy(async () => {
-  const module = await import('../pages/login');
+  const module = await import('../login');
 
   return { default: module.Login };
 });

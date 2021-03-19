@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { CenterMixin } from '../../theme';
+import { CenterMixin } from '../../../theme';
 
 const SignUpContainer = styled.div`
   ${CenterMixin}

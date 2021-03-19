@@ -1,18 +1,14 @@
-import { AuthSignInDTO, AuthSignUpDTO, createObject } from '@gms/shared';
+import { AuthSignUpDTO, createObject } from '@gms/shared';
 import { useFormik } from 'formik';
 import { ReactElement } from 'react';
-import { useHistory } from 'react-router';
 
-import { useLogIn, useSignUp } from '../../api';
-import { Button, Form, FormButtonGroup, FormEntry } from '../../components';
+import { Button, Form, FormButtonGroup, FormEntry } from '../../../components';
+import { useAuth } from '../../../components/auth';
 import { SignUpSchema } from './signup.schema';
 import { SignUpContainer } from './styles';
 
 function SignUp(): ReactElement {
-  const { mutate: signUp } = useSignUp();
-  const { mutate: logIn } = useLogIn();
-
-  const history = useHistory();
+  const { signup } = useAuth();
 
   const {
     handleSubmit,
@@ -40,20 +36,7 @@ function SignUp(): ReactElement {
         password
       });
 
-      signUp(signUpDTO, {
-        onSuccess: () => {
-          const signInDTO = createObject<AuthSignInDTO>({
-            handle,
-            password
-          });
-
-          logIn(signInDTO, {
-            onSuccess: () => {
-              history.push('/');
-            }
-          });
-        }
-      });
+      signup(signUpDTO);
     }
   });
 

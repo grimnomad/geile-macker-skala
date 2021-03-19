@@ -15,7 +15,7 @@ const Logo = styled.h1`
   font-size: 2em;
 `;
 
-const Button = styled.button`
+const HeaderButton = styled.button`
   ${ColorMixin};
   border: none;
   font-size: 1em;
@@ -36,8 +36,8 @@ const Button = styled.button`
   }
 `;
 
-const ButtonBar = styled.div`
+const HeaderBar = styled.div`
   ${CenterMixin};
 `;
 
-export { Button, ButtonBar, Logo, Wrapper };
+export { HeaderBar, HeaderButton, Logo, Wrapper };

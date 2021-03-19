@@ -3,6 +3,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
+import { AuthProvider } from './components/auth';
 import { GlobalStyle, theme } from './theme';
 
 const queryClient = new QueryClient({
@@ -23,10 +24,12 @@ function AppProviders(props: AppProvidersProps): ReactElement {
   return (
     <BrowserRouter>
       <QueryClientProvider client={queryClient}>
-        <ThemeProvider theme={theme}>
-          {children}
-          <GlobalStyle />
-        </ThemeProvider>
+        <AuthProvider>
+          <ThemeProvider theme={theme}>
+            {children}
+            <GlobalStyle />
+          </ThemeProvider>
+        </AuthProvider>
       </QueryClientProvider>
     </BrowserRouter>
   );

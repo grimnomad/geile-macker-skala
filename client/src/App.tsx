@@ -1,20 +1,17 @@
 import { ReactElement, Suspense } from 'react';
-import { Route, Switch } from 'react-router-dom';
 
-import { Header, Layout } from './components';
-import { routes } from './routes';
+import { Layout } from './components';
+import { useAuth } from './components/auth';
+import { Private, Public } from './pages';
 
 function App(): ReactElement {
+  const { handle } = useAuth();
+
   return (
     <Layout>
-      <Header />
-      <Switch>
-        <Suspense fallback={'Loading'}>
-          {routes.map((route, index) => (
-            <Route {...route} key={index} />
-          ))}
-        </Suspense>
-      </Switch>
+      <Suspense fallback="Loading">
+        {handle ? <Private /> : <Public />}
+      </Suspense>
     </Layout>
   );
 }

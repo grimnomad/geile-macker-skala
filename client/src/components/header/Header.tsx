@@ -1,26 +1,18 @@
-import { ReactElement } from 'react';
-import { useHistory } from 'react-router-dom';
+import { ReactElement, ReactNode } from 'react';
 
-import { Button, ButtonBar, Logo, Wrapper } from './styles';
+import { Logo, Wrapper } from './styles';
 
-function Header(): ReactElement {
-  const history = useHistory();
+interface HeaderProps {
+  readonly children?: ReactNode;
+}
 
-  function signIn(): void {
-    history.push('/signup');
-  }
-
-  function logIn(): void {
-    history.push('/login');
-  }
+function Header(props: HeaderProps): ReactElement {
+  const { children } = props;
 
   return (
     <Wrapper>
       <Logo>Geile Macker Skala</Logo>
-      <ButtonBar>
-        <Button onClick={signIn}>Sign in</Button>
-        <Button onClick={logIn}>Log in</Button>
-      </ButtonBar>
+      {children}
     </Wrapper>
   );
 }

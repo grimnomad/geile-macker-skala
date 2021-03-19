@@ -1,16 +1,14 @@
 import { AuthSignInDTO, createObject } from '@gms/shared';
 import { useFormik } from 'formik';
 import { ReactElement } from 'react';
-import { useHistory } from 'react-router';
 
-import { useLogIn } from '../../api';
-import { Button, Form, FormButtonGroup, FormEntry } from '../../components';
+import { Button, Form, FormButtonGroup, FormEntry } from '../../../components';
+import { useAuth } from '../../../components/auth';
 import { LogInSchema } from './login.schema';
 import { LogInContainer } from './styles';
 
 function Login(): ReactElement {
-  const { mutate: logIn } = useLogIn();
-  const history = useHistory();
+  const { login } = useAuth();
 
   const { values, handleChange, handleSubmit } = useFormik({
     initialValues: {
@@ -26,11 +24,7 @@ function Login(): ReactElement {
         password
       });
 
-      logIn(signInDTO, {
-        onSuccess: () => {
-          history.push('/');
-        }
-      });
+      login(signInDTO);
     }
   });
 
