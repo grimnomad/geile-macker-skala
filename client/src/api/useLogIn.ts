@@ -1,7 +1,7 @@
-import { AuthSignInDTO, createObject } from '@gms/shared';
+import { AuthSignInDTO, createObject, SignInResponse } from '@gms/shared';
 import { useMutation, UseMutationResult } from 'react-query';
 
-async function logIn(signInDTO: AuthSignInDTO): Promise<void> {
+async function logIn(signInDTO: AuthSignInDTO): Promise<SignInResponse> {
   const requestInit = createObject<RequestInit>({
     method: 'POST',
     headers: {
@@ -18,9 +18,18 @@ async function logIn(signInDTO: AuthSignInDTO): Promise<void> {
   if (!response.ok) {
     throw new Error(response.statusText);
   }
+
+  const data: SignInResponse = await response.json();
+
+  return data;
 }
 
-function useLogIn(): UseMutationResult<void, unknown, AuthSignInDTO, unknown> {
+function useLogIn(): UseMutationResult<
+  SignInResponse,
+  unknown,
+  AuthSignInDTO,
+  unknown
+> {
   return useMutation(logIn);
 }
 
