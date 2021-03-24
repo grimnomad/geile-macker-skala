@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useMemo } from 'react';
 
 interface UseLocalStorageReturn {
   set(value: string): void;
@@ -13,27 +13,26 @@ interface UseLocalStorageReturn {
  * @returns An object with set, get, clear, and remove functions
  */
 function useLocalStorage(key: string): UseLocalStorageReturn {
-  const set = useCallback(
-    (value: string) => {
-      localStorage.setItem(key, value);
-    },
+  const funcs = useMemo<UseLocalStorageReturn>(
+    () => ({
+      set: (value: string) => {
+        localStorage.setItem(key, value);
+      },
+      clear: () => {
+        localStorage.clear();
+      },
+      get: () => {
+        const value = localStorage.getItem(key);
+        return value;
+      },
+      remove: () => {
+        localStorage.removeItem(key);
+      }
+    }),
     [key]
   );
 
-  const get = useCallback(() => {
-    const value = localStorage.getItem(key);
-    return value;
-  }, [key]);
-
-  const clear = useCallback(() => {
-    localStorage.clear();
-  }, []);
-
-  const remove = useCallback(() => {
-    localStorage.removeItem(key);
-  }, [key]);
-
-  return { set, get, remove, clear };
+  return funcs;
 }
 
 export type { UseLocalStorageReturn };
