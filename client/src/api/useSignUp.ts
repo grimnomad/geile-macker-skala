@@ -21,7 +21,9 @@ async function signUp(signUpDTO: AuthSignUpDTO): Promise<void> {
 }
 
 function useSignUp(): UseMutationResult<void, unknown, AuthSignUpDTO, unknown> {
-  return useMutation(signUp);
+  const mutation = useMutation(signUp);
+
+  return mutation;
 }
 
 export { useSignUp };

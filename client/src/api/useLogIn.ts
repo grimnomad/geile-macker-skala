@@ -30,7 +30,9 @@ function useLogIn(): UseMutationResult<
   AuthSignInDTO,
   unknown
 > {
-  return useMutation(logIn);
+  const mutation = useMutation(logIn);
+
+  return mutation;
 }
 
 export { useLogIn };
