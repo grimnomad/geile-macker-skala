@@ -36,8 +36,12 @@ const HeaderButton = styled.button`
   }
 `;
 
+const HeaderUsername = styled.div`
+  margin: 0 10px 0 0;
+`;
+
 const HeaderBar = styled.div`
   ${CenterMixin};
 `;
 
-export { HeaderBar, HeaderButton, Logo, Wrapper };
+export { HeaderBar, HeaderButton, HeaderUsername, Logo, Wrapper };

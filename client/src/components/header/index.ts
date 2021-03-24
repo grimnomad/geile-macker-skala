@@ -1,2 +1,2 @@
 export * from './Header';
-export { HeaderBar, HeaderButton } from './styles';
+export { HeaderBar, HeaderButton, HeaderUsername } from './styles';
