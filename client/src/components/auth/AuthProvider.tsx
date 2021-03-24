@@ -16,7 +16,9 @@ function AuthProvider(props: AuthProviderProps): ReactElement {
 
   const { set, remove, get } = useLocalStorage('token');
 
-  const [handle, setHandle] = useState<string | null>(get());
+  const token = parseJwt(get() ?? '');
+
+  const [handle, setHandle] = useState<string | null>(token?.handle ?? null);
 
   const history = useHistory();
 
@@ -28,9 +30,12 @@ function AuthProvider(props: AuthProviderProps): ReactElement {
       logIn(signInDTO, {
         onSuccess: (response) => {
           const token = parseJwt(response.data);
-          setHandle(token.handle);
-          set(response.data);
-          history.push('/');
+
+          if (token) {
+            setHandle(token.handle);
+            set(response.data);
+            history.push('/');
+          }
         }
       });
     },

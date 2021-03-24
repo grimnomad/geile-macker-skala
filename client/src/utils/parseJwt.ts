@@ -4,7 +4,11 @@ interface ParsedToken {
   iat: number;
 }
 
-function parseJwt(token: string): ParsedToken {
+function parseJwt(token: string): ParsedToken | null {
+  if (token.length === 0) {
+    return null;
+  }
+
   const base64Url = token.split('.')[1];
   const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
   const jsonPayload = decodeURIComponent(
