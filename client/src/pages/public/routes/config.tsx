@@ -1,8 +1,8 @@
 import { lazy } from 'react';
 
-import { RouteConfig } from './types';
+import { RouteConfig } from '../../common';
 
-const HomePape = lazy(async () => {
+const HomePage = lazy(async () => {
   const module = await import('../home');
 
   return { default: module.Home };
@@ -23,7 +23,7 @@ const LogInPage = lazy(async () => {
 const routes: RouteConfig[] = [
   {
     path: '/',
-    component: HomePape,
+    component: HomePage,
     exact: true
   },
   {
