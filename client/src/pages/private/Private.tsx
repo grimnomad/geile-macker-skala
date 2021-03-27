@@ -1,4 +1,5 @@
-import { Fragment, ReactElement } from 'react';
+import { Fragment, ReactElement, Suspense } from 'react';
+import { Route, Switch } from 'react-router';
 
 import {
   Header,
@@ -7,6 +8,7 @@ import {
   HeaderUsername
 } from '../../components';
 import { useAuth } from '../../components/auth';
+import { routes } from '../public/routes';
 
 function Private(): ReactElement {
   const { logout, handle } = useAuth();
@@ -19,6 +21,13 @@ function Private(): ReactElement {
           <HeaderButton onClick={logout}>Logout</HeaderButton>
         </HeaderBar>
       </Header>
+      <Switch>
+        <Suspense fallback={'Loading'}>
+          {routes.map((route, index) => (
+            <Route {...route} key={index} />
+          ))}
+        </Suspense>
+      </Switch>
     </Fragment>
   );
 }
