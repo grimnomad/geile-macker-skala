@@ -8,6 +8,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 
 import { AuthModule } from './auth';
+import { ScaleModule } from './scale';
 import { EnvironmentVariables } from './types';
 import { MorganMiddleware } from './utils';
 
@@ -25,7 +26,8 @@ import { MorganMiddleware } from './utils';
         useCreateIndex: true
       })
     }),
-    AuthModule
+    AuthModule,
+    ScaleModule
   ]
 })
 class AppModule implements NestModule {
