@@ -13,7 +13,7 @@ describe('JoiValidationPipe', () => {
     const obj = {};
 
     function act(): void {
-      pipe.transform(obj);
+      pipe.transform(obj, { type: 'body' });
     }
 
     expect(act).toThrowError();
@@ -24,7 +24,7 @@ describe('JoiValidationPipe', () => {
 
     const obj = { name: 'test' };
 
-    const result = pipe.transform(obj);
+    const result = pipe.transform(obj, { type: 'body' });
 
     expect(result).toEqual(obj);
   });
