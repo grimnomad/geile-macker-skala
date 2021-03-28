@@ -1,9 +1,11 @@
 import {
   applyDecorators,
   Post,
+  UseGuards,
   UseInterceptors,
   UsePipes
 } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 
 import { ResponseInterceptor } from '../interceptors';
 import { JoiValidationPipe } from '../pipes';
@@ -12,18 +14,25 @@ interface CreateInput {
   readonly schema: ConstructorParameters<typeof JoiValidationPipe>[0];
   readonly message: ConstructorParameters<typeof ResponseInterceptor>[0];
   readonly path?: Parameters<typeof Post>[0];
+  readonly withAuth?: boolean;
 }
 
 function Create(input: CreateInput): ReturnType<typeof applyDecorators> {
-  const { message, schema, path } = input;
+  const { message, schema, path, withAuth = true } = input;
 
-  const decorators = applyDecorators(
-    Post(path),
-    UsePipes(new JoiValidationPipe(schema)),
-    UseInterceptors(new ResponseInterceptor<unknown>(message))
-  );
+  const decorators: Parameters<typeof applyDecorators> = [];
 
-  return decorators;
+  decorators.push(Post(path));
+  decorators.push(UsePipes(new JoiValidationPipe(schema)));
+  decorators.push(UseInterceptors(new ResponseInterceptor<unknown>(message)));
+
+  if (withAuth) {
+    decorators.push(UseGuards(AuthGuard('jwt')));
+  }
+
+  const appliedDecorators = applyDecorators(...decorators);
+
+  return appliedDecorators;
 }
 
 export { Create };
