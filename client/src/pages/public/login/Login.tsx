@@ -1,48 +1,47 @@
 import { AuthSignInDTO, createObject } from '@gms/shared';
-import { useFormik } from 'formik';
 import { ReactElement } from 'react';
+import { useForm } from 'react-hook-form';
 
 import { Button, Form, FormButtonGroup, FormEntry } from '../../../components';
 import { useAuth } from '../../../components/auth';
-import { LogInSchema } from './login.schema';
 import { LogInContainer } from './styles';
+
+interface FormValues {
+  handle: string;
+  password: string;
+}
 
 function Login(): ReactElement {
   const { login } = useAuth();
 
-  const { values, handleChange, handleSubmit } = useFormik({
-    initialValues: {
-      handle: '',
-      password: ''
-    },
-    validationSchema: LogInSchema,
-    onSubmit: (values) => {
-      const { handle, password } = values;
+  const { register, handleSubmit } = useForm<FormValues>();
 
-      const signInDTO = createObject<AuthSignInDTO>({
-        handle,
-        password
-      });
+  function onSubmit(data: FormValues): void {
+    const { handle, password } = data;
 
-      login(signInDTO);
-    }
-  });
+    const signInDTO = createObject<AuthSignInDTO>({
+      handle,
+      password
+    });
+
+    login(signInDTO);
+  }
 
   return (
     <LogInContainer>
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit(onSubmit)}>
         <FormEntry
-          id="handle"
           label="Handle"
-          value={values.handle}
-          onChange={handleChange}
+          {...register('handle', {
+            required: 'Der Handle muss angegeben werden!'
+          })}
         />
         <FormEntry
-          id="password"
           label="Password"
           type="password"
-          value={values.password}
-          onChange={handleChange}
+          {...register('password', {
+            required: 'Das Passwort muss angegeben werden!'
+          })}
         />
         <FormButtonGroup>
           <Button type="submit">Log in</Button>

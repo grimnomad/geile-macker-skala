@@ -1,89 +1,109 @@
 import { AuthSignUpDTO, createObject } from '@gms/shared';
-import { useFormik } from 'formik';
 import { ReactElement } from 'react';
+import { useForm } from 'react-hook-form';
 
 import { Button, Form, FormButtonGroup, FormEntry } from '../../../components';
 import { useAuth } from '../../../components/auth';
-import { SignUpSchema } from './signup.schema';
 import { SignUpContainer } from './styles';
+
+interface FormValues {
+  handle: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+  repeatedPassword: string;
+}
 
 function SignUp(): ReactElement {
   const { signup } = useAuth();
 
   const {
+    register,
     handleSubmit,
-    handleChange,
-    handleBlur,
-    values,
-    errors,
-    touched
-  } = useFormik({
-    initialValues: {
-      handle: '',
-      password: '',
-      firstName: '',
-      lastName: '',
-      repeatedPassword: ''
-    },
-    validationSchema: SignUpSchema,
-    onSubmit: (values) => {
-      const { firstName, handle, lastName, password } = values;
+    getValues,
+    formState
+  } = useForm<FormValues>();
+  const { errors } = formState;
 
-      const signUpDTO = createObject<AuthSignUpDTO>({
-        first_name: firstName,
-        handle,
-        last_name: lastName,
-        password
-      });
+  function onSubmit(data: FormValues): void {
+    const { firstName, handle, lastName, password } = data;
 
-      signup(signUpDTO);
-    }
-  });
+    const signUpDTO = createObject<AuthSignUpDTO>({
+      first_name: firstName,
+      handle,
+      last_name: lastName,
+      password
+    });
+
+    signup(signUpDTO);
+  }
+
+  function matchesPassword(value: string): boolean | string {
+    const { password } = getValues();
+
+    const isEqual = password === value;
+    const message = 'Beide Passwörter müssen gleich sein';
+
+    return isEqual || message;
+  }
 
   return (
     <SignUpContainer>
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit(onSubmit)}>
         <FormEntry
-          id="handle"
           label="Handle"
-          value={values.handle}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          hasError={touched.handle && !!errors.handle}
+          {...register('handle', {
+            required: 'Der Handle muss angegeben werden!',
+            minLength: {
+              value: 3,
+              message:
+                'Der Handle muss mindestens eine Länge von 3 Zeichen haben!'
+            },
+            maxLength: {
+              value: 20,
+              message:
+                'Der Handle darf maximal eine Länge von 20 Zeichen haben!'
+            }
+          })}
+          hasError={!!errors.handle}
         />
         <FormEntry
-          id="firstName"
           label="Vorname"
-          value={values.firstName}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          hasError={touched.firstName && !!errors.firstName}
+          {...register('firstName', {
+            required: 'Der Vorname muss angegeben werden!',
+            minLength:
+              'Der Vorname muss mindestens eine Länge von 2 Zeichen haben!',
+            maxLength:
+              'Der Vorname darf maximal eine Länge von 50 Zeichen haben!'
+          })}
+          hasError={!!errors.firstName}
         />
         <FormEntry
-          id="lastName"
           label="Nachname"
-          value={values.lastName}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          hasError={touched.lastName && !!errors.lastName}
+          {...register('lastName', {
+            required: 'Der Nachname muss angegeben werden!',
+            minLength:
+              'Der Nachname muss mindestens eine Länge von 2 Zeichen haben!',
+            maxLength:
+              'Der Nachname darf maximal eine Länge von 50 Zeichen haben!'
+          })}
+          hasError={!!errors.lastName}
         />
         <FormEntry
-          id="password"
           label="Passwort"
           type="password"
-          value={values.password}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          hasError={touched.password && !!errors.password}
+          {...register('password', {
+            required: 'Das Password muss angegeben werden!'
+          })}
+          hasError={!!errors.password}
         />
         <FormEntry
-          id="repeatedPassword"
           label="Passwort wiederholen"
           type="password"
-          value={values.repeatedPassword}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          hasError={touched.repeatedPassword && !!errors.repeatedPassword}
+          {...register('repeatedPassword', {
+            validate: (value) => matchesPassword(value)
+          })}
+          hasError={!!errors.repeatedPassword}
         />
         <FormButtonGroup>
           <Button type="submit">Sign up</Button>
