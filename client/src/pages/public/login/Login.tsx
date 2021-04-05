@@ -2,8 +2,13 @@ import { AuthSignInDTO, createObject } from '@gms/shared';
 import { ReactElement } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { Button, Form, FormButtonGroup, FormEntry } from '../../../components';
-import { useAuth } from '../../../components/auth';
+import {
+  Button,
+  Form,
+  FormButtonGroup,
+  FormEntry,
+  useAuth
+} from '../../../components';
 import { LogInContainer } from './styles';
 
 interface FormValues {

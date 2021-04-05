@@ -3,7 +3,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
-import { AuthProvider } from './components/auth';
+import { AuthProvider } from './components';
 import { GlobalStyle, theme } from './theme';
 
 const queryClient = new QueryClient({
