@@ -51,11 +51,11 @@ function AuthProvider(props: AuthProviderProps): ReactElement {
             handle,
             password
           });
-          logIn(signInDTO);
+          login(signInDTO);
         }
       });
     },
-    [logIn, signUp]
+    [login, signUp]
   );
 
   const logout = useCallback(() => {
