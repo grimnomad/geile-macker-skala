@@ -8,7 +8,7 @@ import {
   HeaderUsername
 } from '../../components';
 import { useAuth } from '../../components/auth';
-import { routes } from '../public/routes';
+import { routes } from '../private/routes';
 
 function Private(): ReactElement {
   const { logout, handle } = useAuth();
