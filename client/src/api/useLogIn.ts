@@ -1,16 +1,12 @@
 import { AuthSignInDTO, createObject, SignInResponse } from '@gms/shared';
 import { useMutation, UseMutationResult } from 'react-query';
 
+import { createPost } from '../utils';
+
 async function logIn(
   signInDTO: AuthSignInDTO
 ): Promise<Readonly<SignInResponse>> {
-  const requestInit = createObject<RequestInit>({
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json;charset=utf-8'
-    },
-    body: JSON.stringify(signInDTO)
-  });
+  const requestInit = createPost(signInDTO);
 
   const response = await fetch(
     'http://localhost:3001/auth/signin',

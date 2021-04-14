@@ -1,14 +1,10 @@
-import { AuthSignUpDTO, createObject } from '@gms/shared';
+import { AuthSignUpDTO } from '@gms/shared';
 import { useMutation, UseMutationResult } from 'react-query';
 
+import { createPost } from '../utils';
+
 async function signUp(signUpDTO: AuthSignUpDTO): Promise<void> {
-  const requestInit = createObject<RequestInit>({
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json;charset=utf-8'
-    },
-    body: JSON.stringify(signUpDTO)
-  });
+  const requestInit = createPost(signUpDTO);
 
   const response = await fetch(
     'http://localhost:3001/auth/signup',
