@@ -1,6 +1,7 @@
 import { AuthSignInDTO, createObject, SignInResponse } from '@gms/shared';
 import { useMutation, UseMutationResult } from 'react-query';
 
+import { SERVER_URL } from '../config';
 import { createPost } from '../utils';
 
 async function logIn(
@@ -8,10 +9,7 @@ async function logIn(
 ): Promise<Readonly<SignInResponse>> {
   const requestInit = createPost(signInDTO);
 
-  const response = await fetch(
-    'http://localhost:3001/auth/signin',
-    requestInit
-  );
+  const response = await fetch(`${SERVER_URL}/auth/signin`, requestInit);
 
   if (!response.ok) {
     throw new Error(response.statusText);
