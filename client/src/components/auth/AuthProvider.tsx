@@ -65,7 +65,9 @@ function AuthProvider(props: AuthProviderProps): ReactElement {
   }, [history, remove]);
 
   return (
-    <AuthContext.Provider value={{ handle, login, signup, logout }}>
+    <AuthContext.Provider
+      value={{ handle, login, signup, logout, token: get() }}
+    >
       {children}
     </AuthContext.Provider>
   );
