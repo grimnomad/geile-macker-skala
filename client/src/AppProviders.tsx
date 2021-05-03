@@ -3,7 +3,9 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
+import { APIProvider } from './api/APIProvider';
 import { AuthProvider } from './components';
+import { SERVER_URL } from './config';
 import { GlobalStyle, theme } from './theme';
 
 const queryClient = new QueryClient({
@@ -23,14 +25,16 @@ function AppProviders(props: AppProvidersProps): ReactElement {
 
   return (
     <BrowserRouter>
-      <QueryClientProvider client={queryClient}>
-        <AuthProvider>
-          <ThemeProvider theme={theme}>
-            {children}
-            <GlobalStyle />
-          </ThemeProvider>
-        </AuthProvider>
-      </QueryClientProvider>
+      <APIProvider url={SERVER_URL}>
+        <QueryClientProvider client={queryClient}>
+          <AuthProvider>
+            <ThemeProvider theme={theme}>
+              {children}
+              <GlobalStyle />
+            </ThemeProvider>
+          </AuthProvider>
+        </QueryClientProvider>
+      </APIProvider>
     </BrowserRouter>
   );
 }

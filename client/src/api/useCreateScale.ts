@@ -2,26 +2,7 @@ import { createObject, CreateScaleDTO, ScaleDTO } from '@gms/shared';
 import { useMutation, UseMutationResult } from 'react-query';
 
 import { useAuth } from '../components';
-import { SERVER_URL } from '../config';
-import { createPost } from '../utils';
-
-async function createScale(
-  scaleDTO: CreateScaleDTO,
-  token: Parameters<typeof createPost>[2]
-): Promise<ScaleDTO> {
-  const requestInit = createPost(scaleDTO, null, token);
-  const response = await fetch(`${SERVER_URL}/scale`, requestInit);
-
-  if (!response.ok) {
-    throw new Error(response.statusText);
-  }
-
-  const payload = await response.json();
-
-  const data = createObject<ScaleDTO>(payload);
-
-  return data;
-}
+import { useFetch, UseFetchInput } from './APIProvider';
 
 function useCreateScale(): UseMutationResult<
   Readonly<ScaleDTO>,
@@ -30,12 +11,16 @@ function useCreateScale(): UseMutationResult<
   unknown
 > {
   const { token } = useAuth();
-  const mutation = useMutation<
-    Readonly<ScaleDTO>,
-    unknown,
-    CreateScaleDTO,
-    unknown
-  >((data) => createScale(data, token));
+
+  const requestOptions = createObject<RequestInit>({ method: 'POST' });
+  const useFetchInput = createObject<UseFetchInput>({
+    path: '/scale',
+    token,
+    requestOptions
+  });
+  const createScale = useFetch<CreateScaleDTO, ScaleDTO>(useFetchInput);
+
+  const mutation = useMutation(createScale);
 
   return mutation;
 }
