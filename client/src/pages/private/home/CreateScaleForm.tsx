@@ -42,7 +42,9 @@ function CreateScaleForm(props: CreateScaleFormProps): ReactElement {
       />
       <FormButtonGroup>
         <Button type="submit">Erstellen</Button>
-        <Button onClick={onClose}>Abbrechen</Button>
+        <Button type="button" onClick={onClose}>
+          Abbrechen
+        </Button>
       </FormButtonGroup>
     </Form>
   );
