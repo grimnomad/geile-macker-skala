@@ -1,9 +1,12 @@
 import { Fragment, ReactElement } from 'react';
 
+import { useReadScales } from '../../../api';
 import { SideBar, useDialog } from '../../../components';
 import { CreateScaleForm } from './CreateScaleForm';
 
 function Home(): ReactElement {
+  const { data: scales, status } = useReadScales();
+
   const [renderDialog, toggleDialog] = useDialog({
     component: CreateScaleForm,
     props: (toggle) => ({
@@ -12,11 +15,16 @@ function Home(): ReactElement {
     })
   });
 
+  if (status === 'loading') {
+    return <Fragment>Loading</Fragment>;
+  }
+
   return (
     <Fragment>
       <SideBar action={{ label: 'Skala erstellen', onClick: toggleDialog }}>
-        <SideBar.Entry name="Test" />
-        <SideBar.Entry name="Test2" />
+        {scales?.map((scale, index) => (
+          <SideBar.Entry key={index} name={scale.name} />
+        ))}
       </SideBar>
       {renderDialog()}
     </Fragment>

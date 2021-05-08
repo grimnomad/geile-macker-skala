@@ -1,6 +1,7 @@
 import { createObject, CreateScaleDTO } from '@gms/shared';
 import { ReactElement } from 'react';
 import { useForm } from 'react-hook-form';
+import { useQueryClient } from 'react-query';
 
 import { useCreateScale } from '../../../api';
 import { Button, Form, FormButtonGroup, FormEntry } from '../../../components';
@@ -20,6 +21,7 @@ function CreateScaleForm(props: CreateScaleFormProps): ReactElement {
   const { register, handleSubmit } = useForm<FormValues>();
 
   const { mutate: createScale } = useCreateScale();
+  const queryClient = useQueryClient();
 
   function onSubmit(data: FormValues): void {
     const { name } = data;
@@ -28,6 +30,7 @@ function CreateScaleForm(props: CreateScaleFormProps): ReactElement {
     createScale(scaleDTO, {
       onSuccess: () => {
         onOK();
+        queryClient.invalidateQueries('scales');
       }
     });
   }

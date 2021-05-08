@@ -3,7 +3,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
-import { APIProvider } from './api/APIProvider';
+import { APIProvider } from './api';
 import { AuthProvider } from './components';
 import { SERVER_URL } from './config';
 import { GlobalStyle, theme } from './theme';

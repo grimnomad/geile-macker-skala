@@ -27,8 +27,6 @@ function useFetch<TInput, TOutput>(
 
   const retrieve = useCallback(
     async (input: TInput) => {
-      const body = JSON.stringify(input);
-
       let headers = createObject<Headers>({
         'Content-Type': 'application/json;charset=utf-8'
       });
@@ -39,11 +37,17 @@ function useFetch<TInput, TOutput>(
         });
       }
 
-      const requestInit = createObject<RequestInit>({
+      let requestInit = createObject<RequestInit>({
         headers,
-        body,
         ...requestOptions
       });
+
+      if (requestOptions.method !== 'GET') {
+        requestInit = produce(requestInit, (draft) => {
+          const body = JSON.stringify(input);
+          draft.body = body;
+        });
+      }
 
       const response = await fetch(`${url}${path}`, requestInit);
 

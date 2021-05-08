@@ -1,7 +1,7 @@
 import { createObject, CreateScaleDTO, ScaleDTO, UserDTO } from '@gms/shared';
 import { Body, Controller } from '@nestjs/common';
 
-import { Create, GetUser } from '../utils';
+import { Create, GetUser, Read } from '../utils';
 import { ScaleService } from './scale.service';
 import { ScaleEntity } from './types';
 import { CreateScaleSchema } from './validation';
@@ -27,6 +27,15 @@ class ScaleController {
     const scaleDTO = await this.scaleService.create(scaleEntity);
 
     return scaleDTO;
+  }
+
+  @Read({
+    message: 'All scales were successfully retrieved.'
+  })
+  async getAll(@GetUser() user: UserDTO): Promise<ReadonlyArray<ScaleDTO>> {
+    const scales = await this.scaleService.getAll(user);
+
+    return scales;
   }
 }
 

@@ -1,4 +1,4 @@
-import { createObject, ScaleDTO } from '@gms/shared';
+import { createObject, ScaleDTO, UserDTO } from '@gms/shared';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
@@ -25,6 +25,20 @@ class ScaleService {
     });
 
     return scaleDTO;
+  }
+
+  async getAll(user: UserDTO): Promise<ReadonlyArray<ScaleDTO>> {
+    const documents = await this.scaleModel.find({ creator: user.handle });
+
+    const scales = documents.map<ScaleDTO>((document) => ({
+      name: document.name,
+      creator: document.creator,
+      admins: document.admins,
+      created_at: document.get('created_at'),
+      updated_at: document.get('updated_at')
+    }));
+
+    return scales;
   }
 }
 
