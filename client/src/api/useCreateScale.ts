@@ -2,7 +2,7 @@ import { createObject, CreateScaleDTO, ScaleDTO } from '@gms/shared';
 import { useMutation, UseMutationResult } from 'react-query';
 
 import { useAuth } from '../components';
-import { useFetch, UseFetchInput } from './APIProvider';
+import { FetchOptions, usePost } from './APIProvider';
 
 function useCreateScale(): UseMutationResult<
   Readonly<ScaleDTO>,
@@ -12,13 +12,10 @@ function useCreateScale(): UseMutationResult<
 > {
   const { token } = useAuth();
 
-  const requestOptions = createObject<RequestInit>({ method: 'POST' });
-  const useFetchInput = createObject<UseFetchInput>({
-    path: '/scale',
-    token,
-    requestOptions
+  const options = createObject<FetchOptions>({
+    token
   });
-  const createScale = useFetch<CreateScaleDTO, ScaleDTO>(useFetchInput);
+  const createScale = usePost<CreateScaleDTO, ScaleDTO>('/scale', options);
 
   const mutation = useMutation(createScale);
 

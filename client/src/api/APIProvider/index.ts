@@ -1,2 +1,4 @@
 export * from './APIProvider';
-export * from './useFetch';
+export * from './types';
+export * from './useGet';
+export * from './usePost';

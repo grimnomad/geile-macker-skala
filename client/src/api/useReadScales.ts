@@ -2,7 +2,7 @@ import { createObject, ResponseDTO, Scale, ScaleDTO } from '@gms/shared';
 import { useQuery, UseQueryResult } from 'react-query';
 
 import { useAuth } from '../components';
-import { useFetch, UseFetchInput } from './APIProvider';
+import { FetchOptions, useGet } from './APIProvider';
 
 function mapData(responseDTO: ResponseDTO<ScaleDTO[]>): Readonly<Scale>[] {
   const scales = responseDTO.data.map((scaleDTO) => {
@@ -23,15 +23,12 @@ function mapData(responseDTO: ResponseDTO<ScaleDTO[]>): Readonly<Scale>[] {
 function useReadScales(): UseQueryResult<Readonly<Scale>[], unknown> {
   const { token } = useAuth();
 
-  const requestOptions = createObject<RequestInit>({ method: 'GET' });
-  const useFetchInput = createObject<UseFetchInput>({
-    path: '/scale',
-    token,
-    requestOptions
+  const options = createObject<FetchOptions>({
+    token
   });
-  const getAll = useFetch<unknown, ResponseDTO<ScaleDTO[]>>(useFetchInput);
+  const get = useGet<ResponseDTO<ScaleDTO[]>>('/scale', options);
 
-  return useQuery('scales', getAll, {
+  return useQuery('scales', get, {
     select: mapData
   });
 }

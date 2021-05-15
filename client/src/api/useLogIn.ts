@@ -1,7 +1,7 @@
-import { AuthSignInDTO, createObject, SignInResponse } from '@gms/shared';
+import { AuthSignInDTO, SignInResponse } from '@gms/shared';
 import { useMutation, UseMutationResult } from 'react-query';
 
-import { useFetch } from './APIProvider';
+import { usePost } from './APIProvider';
 
 function useLogIn(): UseMutationResult<
   Readonly<SignInResponse>,
@@ -9,11 +9,7 @@ function useLogIn(): UseMutationResult<
   AuthSignInDTO,
   unknown
 > {
-  const requestOptions = createObject<RequestInit>({ method: 'POST' });
-  const logIn = useFetch<AuthSignInDTO, SignInResponse>({
-    path: '/auth/signin',
-    requestOptions
-  });
+  const logIn = usePost<AuthSignInDTO, SignInResponse>('/auth/signin');
   const mutation = useMutation(logIn);
 
   return mutation;
