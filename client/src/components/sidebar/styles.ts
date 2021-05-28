@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { ColorMixin } from '../../theme';
 
 const Container = styled.div`
-  width: 10rem;
+  width: 12rem;
   height: 100%;
   padding: 1rem;
   display: flex;
@@ -12,7 +12,20 @@ const Container = styled.div`
 `;
 
 const EntryContainer = styled.div`
-  margin: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem;
+  height: 100%;
+  width: 100%;
+
+  &:hover {
+    background-color: ${(props) => props.theme.tertiary};
+  }
+`;
+
+const EntryName = styled.div`
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const Top = styled.div`
@@ -47,4 +60,4 @@ const Button = styled.button`
   }
 `;
 
-export { Bottom, Button, Container, EntryContainer, Top };
+export { Bottom, Button, Container, EntryContainer, EntryName, Top };
