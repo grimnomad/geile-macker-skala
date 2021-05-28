@@ -1,7 +1,7 @@
 import { createObject } from '@gms/shared';
 import { useCallback, useContext } from 'react';
 
-import { FetchContext } from './APIContext';
+import { APIContext } from './APIContext';
 import { createHeaders } from './createHeaders';
 import { handleFetch, HandleFetchInput } from './handleFetch';
 import { FetchOptions, UseFetchReturn } from './types';
@@ -11,7 +11,7 @@ function usePost<TInput, TOutput>(
   options: FetchOptions = {}
 ): UseFetchReturn<TInput, TOutput> {
   const { requestOptions, token } = options;
-  const url = useContext(FetchContext);
+  const url = useContext(APIContext);
 
   const post = useCallback(
     async (input: TInput) => {

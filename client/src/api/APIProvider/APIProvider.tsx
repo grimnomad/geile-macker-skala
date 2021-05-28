@@ -1,6 +1,6 @@
 import { ReactElement, ReactNode } from 'react';
 
-import { FetchContext } from './APIContext';
+import { APIContext } from './APIContext';
 
 interface APIProviderProps {
   url: string;
@@ -10,7 +10,7 @@ interface APIProviderProps {
 function APIProvider(props: APIProviderProps): ReactElement {
   const { children, url } = props;
 
-  return <FetchContext.Provider value={url}>{children}</FetchContext.Provider>;
+  return <APIContext.Provider value={url}>{children}</APIContext.Provider>;
 }
 
 export type { APIProviderProps };
