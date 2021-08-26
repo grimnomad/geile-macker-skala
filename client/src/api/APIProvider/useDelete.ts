@@ -1,39 +1,41 @@
 import { createObject } from '@gms/shared';
-import { useCallback, useContext } from 'react';
+import { useCallback } from 'react';
 
-import { APIContext } from './APIContext';
-import { createHeaders } from './createHeaders';
-import { handleFetch, HandleFetchInput } from './handleFetch';
-import { FetchOptions, UseFetchReturn } from './types';
+import { FetchOptions } from './types';
+import { useAPI } from './useAPI';
+import { createHeaders, handleFetch, HandleFetchInput } from './utils';
 
-function useDelete<TOutput>(
-  path: string,
-  options: FetchOptions = {}
-): UseFetchReturn<unknown, TOutput> {
+type UseDeleteReturn<T> = (path: string) => Promise<Readonly<T>>;
+
+function useDelete<T>(options: FetchOptions = {}): UseDeleteReturn<T> {
   const { requestOptions, token } = options;
-  const url = useContext(APIContext);
+  const url = useAPI();
 
-  const remove = useCallback(async () => {
-    const headers = createHeaders(token);
+  const remove = useCallback(
+    async (path: string) => {
+      const headers = createHeaders(token);
 
-    const requestInit = createObject<RequestInit>({
-      headers,
-      method: 'DELETE',
-      ...requestOptions
-    });
+      const requestInit = createObject<RequestInit>({
+        headers,
+        method: 'DELETE',
+        ...requestOptions
+      });
 
-    const fetchInput = createObject<HandleFetchInput>({
-      path,
-      requestInit,
-      url
-    });
+      const fetchInput = createObject<HandleFetchInput>({
+        path,
+        requestInit,
+        url
+      });
 
-    const data = await handleFetch<TOutput>(fetchInput);
+      const data = await handleFetch<T>(fetchInput);
 
-    return data;
-  }, [path, requestOptions, token, url]);
+      return data;
+    },
+    [requestOptions, token, url]
+  );
 
   return remove;
 }
 
+export type { UseDeleteReturn };
 export { useDelete };

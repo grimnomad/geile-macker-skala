@@ -1,7 +1,7 @@
 import { createObject } from '@gms/shared';
 import produce from 'immer';
 
-import { Headers } from './types';
+import { Headers } from '../types';
 
 function createHeaders(token?: string | null): HeadersInit {
   let headers = createObject<Headers>({

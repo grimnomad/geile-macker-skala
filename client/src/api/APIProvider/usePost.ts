@@ -1,20 +1,23 @@
 import { createObject } from '@gms/shared';
-import { useCallback, useContext } from 'react';
+import { useCallback } from 'react';
 
-import { APIContext } from './APIContext';
-import { createHeaders } from './createHeaders';
-import { handleFetch, HandleFetchInput } from './handleFetch';
-import { FetchOptions, UseFetchReturn } from './types';
+import { FetchOptions } from './types';
+import { useAPI } from './useAPI';
+import { createHeaders, handleFetch, HandleFetchInput } from './utils';
+
+type UsePostReturn<TInput, TOutput> = (
+  path: string,
+  input: TInput
+) => Promise<Readonly<TOutput>>;
 
 function usePost<TInput, TOutput>(
-  path: string,
   options: FetchOptions = {}
-): UseFetchReturn<TInput, TOutput> {
+): UsePostReturn<TInput, TOutput> {
   const { requestOptions, token } = options;
-  const url = useContext(APIContext);
+  const url = useAPI();
 
   const post = useCallback(
-    async (input: TInput) => {
+    async (path: string, input: TInput) => {
       const headers = createHeaders(token);
 
       const body = JSON.stringify(input);
@@ -36,10 +39,11 @@ function usePost<TInput, TOutput>(
 
       return data;
     },
-    [path, requestOptions, token, url]
+    [requestOptions, token, url]
   );
 
   return post;
 }
 
+export type { UsePostReturn };
 export { usePost };

@@ -1,12 +1,12 @@
 import { createObject, CreateScaleDTO, ScaleDTO, UserDTO } from '@gms/shared';
-import { Body, Controller } from '@nestjs/common';
+import { Body, Controller, Param } from '@nestjs/common';
 
-import { Create, GetUser, Read } from '../utils';
+import { Create, Delete, GetUser, Read } from '../utils';
 import { ScaleService } from './scale.service';
 import { ScaleEntity } from './types';
 import { CreateScaleSchema } from './validation';
 
-@Controller('scale')
+@Controller('scales')
 class ScaleController {
   constructor(private readonly scaleService: ScaleService) {}
 
@@ -36,6 +36,11 @@ class ScaleController {
     const scales = await this.scaleService.getAll(user);
 
     return scales;
+  }
+
+  @Delete({ message: 'Scale was successfully deleted.', path: ':name' })
+  async delete(@Param('name') name: string): Promise<void> {
+    await this.scaleService.delete(name);
   }
 }
 

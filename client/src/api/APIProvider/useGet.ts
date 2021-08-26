@@ -1,35 +1,37 @@
 import { createObject } from '@gms/shared';
-import { useCallback, useContext } from 'react';
+import { useCallback } from 'react';
 
-import { APIContext } from './APIContext';
-import { createHeaders } from './createHeaders';
-import { handleFetch, HandleFetchInput } from './handleFetch';
-import { FetchOptions, UseFetchReturn } from './types';
+import { FetchOptions } from './types';
+import { useAPI } from './useAPI';
+import { createHeaders, handleFetch, HandleFetchInput } from './utils';
 
-function useGet<TOutput>(
-  path: string,
-  options: FetchOptions = {}
-): UseFetchReturn<unknown, TOutput> {
+type UseGetReturn<T> = (path: string) => Promise<Readonly<T>>;
+
+function useGet<T>(options: FetchOptions = {}): UseGetReturn<T> {
   const { requestOptions, token } = options;
-  const url = useContext(APIContext);
+  const url = useAPI();
 
-  const get = useCallback(async () => {
-    let headers = createHeaders(token);
+  const get = useCallback(
+    async (path: string) => {
+      let headers = createHeaders(token);
 
-    let requestInit = createObject<RequestInit>({
-      method: 'GET',
-      headers,
-      ...requestOptions
-    });
+      let requestInit = createObject<RequestInit>({
+        method: 'GET',
+        headers,
+        ...requestOptions
+      });
 
-    const input = createObject<HandleFetchInput>({ path, requestInit, url });
+      const input = createObject<HandleFetchInput>({ path, requestInit, url });
 
-    const data = await handleFetch<TOutput>(input);
+      const data = await handleFetch<T>(input);
 
-    return data;
-  }, [path, requestOptions, token, url]);
+      return data;
+    },
+    [requestOptions, token, url]
+  );
 
   return get;
 }
 
+export type { UseGetReturn };
 export { useGet };

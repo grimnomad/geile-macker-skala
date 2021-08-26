@@ -8,8 +8,4 @@ interface FetchOptions {
   requestOptions?: Omit<RequestInit, 'body' | 'headers' | 'method'>;
 }
 
-type UseFetchReturn<TInput, TOutput> = (
-  input: TInput
-) => Promise<Readonly<TOutput>>;
-
-export type { FetchOptions, Headers, UseFetchReturn };
+export type { FetchOptions, Headers };

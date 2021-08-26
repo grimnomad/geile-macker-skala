@@ -1,8 +1,8 @@
 import { createObject, CreateScaleDTO, ScaleDTO } from '@gms/shared';
 import { useMutation, UseMutationResult } from 'react-query';
 
-import { useAuth } from '../components';
-import { FetchOptions, usePost } from './APIProvider';
+import { useAuth } from '../../components';
+import { FetchOptions, usePost } from '../APIProvider';
 
 function useCreateScale(): UseMutationResult<
   Readonly<ScaleDTO>,
@@ -15,9 +15,11 @@ function useCreateScale(): UseMutationResult<
   const options = createObject<FetchOptions>({
     token
   });
-  const createScale = usePost<CreateScaleDTO, ScaleDTO>('/scale', options);
+  const createScale = usePost<CreateScaleDTO, ScaleDTO>(options);
 
-  const mutation = useMutation(createScale);
+  const mutation = useMutation((data: CreateScaleDTO) =>
+    createScale('/scales', data)
+  );
 
   return mutation;
 }

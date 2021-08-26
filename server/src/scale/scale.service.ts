@@ -40,6 +40,10 @@ class ScaleService {
 
     return scales;
   }
+
+  async delete(name: string): Promise<void> {
+    await this.scaleModel.deleteOne({ name });
+  }
 }
 
 export { ScaleService };
