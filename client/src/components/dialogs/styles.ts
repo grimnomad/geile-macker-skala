@@ -20,7 +20,7 @@ const DialogContainer = styled.div`
   min-width: 50px;
   max-height: 80%;
   max-width: 80%;
-  background-color: ${(props) => props.theme.primary};
+  background-color: var(--primary-color);
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   border-radius: 2px;
 `;

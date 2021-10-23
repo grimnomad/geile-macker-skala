@@ -23,7 +23,7 @@ const EntryContainer = styled.div<EntryContainerProps>`
   width: 100%;
 
   ${(props) =>
-    props.showBackground ? `background-color: ${props.theme.tertiary}` : null};
+    props.showBackground ? `background-color: var(--tertiary-color)` : null};
 `;
 
 const EntryName = styled.div`
@@ -50,7 +50,7 @@ const Button = styled.button`
   padding: 1em 0;
 
   &:hover {
-    background-color: ${(props) => props.theme.tertiary};
+    background-color: var(--tertiary-color);
   }
 
   &:active {
