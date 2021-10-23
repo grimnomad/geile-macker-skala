@@ -1,6 +1,6 @@
 import { HTMLAttributes, useMemo } from 'react';
 
-import { useToggle } from './useToggle';
+import { useBoolean } from './useBoolean';
 
 type UseHoverReturn = [
   boolean,
@@ -8,14 +8,14 @@ type UseHoverReturn = [
 ];
 
 function useHover(): UseHoverReturn {
-  const [show, toggle] = useToggle();
+  const { value: show, setTrue, setFalse } = useBoolean();
 
   const props = useMemo(
     () => ({
-      onMouseEnter: () => toggle(),
-      onMouseLeave: () => toggle()
+      onMouseEnter: () => setTrue(),
+      onMouseLeave: () => setFalse()
     }),
-    [toggle]
+    [setFalse, setTrue]
   );
 
   return [show, props];

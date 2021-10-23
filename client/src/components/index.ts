@@ -6,4 +6,5 @@ export * from './header';
 export * from './input';
 export * from './label';
 export * from './layout';
+export * from './menu';
 export * from './sidebar';

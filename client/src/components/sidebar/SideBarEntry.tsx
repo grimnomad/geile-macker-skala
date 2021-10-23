@@ -4,23 +4,37 @@ import { ReactElement } from 'react';
 import { useTheme } from 'styled-components';
 
 import { useHover } from '../../hooks';
+import { useMenu } from '../menu';
 import { EntryContainer, EntryName } from './styles';
 
 interface SideBarEntryProps {
   readonly name: string;
+  readonly onDelete: (id: string) => void;
 }
 
 function SideBarEntry(props: SideBarEntryProps): ReactElement {
-  const { name } = props;
+  const { name, onDelete } = props;
+
   const theme = useTheme();
-  const [show, handlers] = useHover();
+  const [isHovered, handlers] = useHover();
+  const { renderMenu, bind, isDisplaying } = useMenu({
+    entries: [{ name: 'Löschen', action: onDelete }]
+  });
+
+  const show = isHovered || isDisplaying;
 
   return (
-    <EntryContainer {...handlers}>
+    <EntryContainer showBackground={show} {...handlers}>
       <EntryName>{name}</EntryName>
       {show ? (
-        <FontAwesomeIcon icon={faEllipsisV} color={theme.secondary} />
+        <FontAwesomeIcon
+          icon={faEllipsisV}
+          color={theme.secondary}
+          forwardedRef={bind.ref}
+          onClick={bind.onClick}
+        />
       ) : null}
+      {renderMenu()}
     </EntryContainer>
   );
 }

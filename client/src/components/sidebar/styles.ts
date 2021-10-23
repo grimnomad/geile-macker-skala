@@ -2,6 +2,10 @@ import styled from 'styled-components';
 
 import { ColorMixin } from '../../theme';
 
+interface EntryContainerProps {
+  readonly showBackground: boolean;
+}
+
 const Container = styled.div`
   width: 12rem;
   height: 100%;
@@ -11,16 +15,15 @@ const Container = styled.div`
   justify-content: space-between;
 `;
 
-const EntryContainer = styled.div`
+const EntryContainer = styled.div<EntryContainerProps>`
   display: flex;
   justify-content: space-between;
   padding: 0.5rem;
   height: 100%;
   width: 100%;
 
-  &:hover {
-    background-color: ${(props) => props.theme.tertiary};
-  }
+  ${(props) =>
+    props.showBackground ? `background-color: ${props.theme.tertiary}` : null};
 `;
 
 const EntryName = styled.div`

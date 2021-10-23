@@ -3,7 +3,7 @@ import { ReactElement } from 'react';
 import { useForm } from 'react-hook-form';
 import { useQueryClient } from 'react-query';
 
-import { useCreateScale } from '../../../api';
+import { ScaleQueryFactory, useCreateScale } from '../../../api';
 import { Button, Form, FormButtonGroup, FormEntry } from '../../../components';
 
 interface CreateScaleFormProps {
@@ -30,7 +30,7 @@ function CreateScaleForm(props: CreateScaleFormProps): ReactElement {
     createScale(scaleDTO, {
       onSuccess: () => {
         onOK();
-        queryClient.invalidateQueries('scales');
+        queryClient.invalidateQueries(ScaleQueryFactory.all);
       }
     });
   }

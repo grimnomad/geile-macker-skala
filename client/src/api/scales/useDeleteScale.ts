@@ -4,6 +4,7 @@ import { useMutation, UseMutationResult, useQueryClient } from 'react-query';
 import { useAuth } from '../../components';
 import { FetchOptions } from '../APIProvider';
 import { useDelete } from '../APIProvider/useDelete';
+import { ScaleQueryFactory } from './ScalesQueryFactory';
 
 function useDeleteScale(): UseMutationResult<
   Readonly<unknown>,
@@ -21,7 +22,7 @@ function useDeleteScale(): UseMutationResult<
 
   const mutation = useMutation((id: string) => remove(`/scales/${id}`), {
     onSuccess: () => {
-      queryClient.invalidateQueries('scales', { exact: true });
+      queryClient.invalidateQueries(ScaleQueryFactory.all, { exact: true });
     }
   });
 

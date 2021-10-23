@@ -1,11 +1,12 @@
 import { Fragment, ReactElement } from 'react';
 
-import { useReadScales } from '../../../api';
+import { useDeleteScale, useReadScales } from '../../../api';
 import { SideBar, useDialog } from '../../../components';
 import { CreateScaleForm } from './CreateScaleForm';
 
 function Home(): ReactElement {
-  const { data: scales, status } = useReadScales();
+  const { data: scales, isLoading } = useReadScales();
+  const { mutate: remove } = useDeleteScale();
 
   const [renderDialog, toggleDialog] = useDialog({
     component: CreateScaleForm,
@@ -15,7 +16,7 @@ function Home(): ReactElement {
     })
   });
 
-  if (status === 'loading') {
+  if (isLoading) {
     return <Fragment>Loading</Fragment>;
   }
 
@@ -23,7 +24,11 @@ function Home(): ReactElement {
     <Fragment>
       <SideBar action={{ label: 'Skala erstellen', onClick: toggleDialog }}>
         {scales?.map((scale, index) => (
-          <SideBar.Entry key={index} name={scale.name} />
+          <SideBar.Entry
+            key={index}
+            name={scale.name}
+            onDelete={() => remove(scale.name)}
+          />
         ))}
       </SideBar>
       {renderDialog()}

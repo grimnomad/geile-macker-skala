@@ -3,6 +3,7 @@ import { useQuery, UseQueryResult } from 'react-query';
 
 import { useAuth } from '../../components';
 import { FetchOptions, useGet } from '../APIProvider';
+import { ScaleQueryFactory } from './ScalesQueryFactory';
 
 function mapData(responseDTO: ResponseDTO<ScaleDTO[]>): Readonly<Scale>[] {
   const scales = responseDTO.data.map((scaleDTO) => {
@@ -28,7 +29,7 @@ function useReadScales(): UseQueryResult<Readonly<Scale>[], unknown> {
   });
   const get = useGet<ResponseDTO<ScaleDTO[]>>(options);
 
-  return useQuery('scales', () => get('/scales'), {
+  return useQuery(ScaleQueryFactory.all, () => get('/scales'), {
     select: mapData
   });
 }

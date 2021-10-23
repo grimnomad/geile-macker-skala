@@ -1,9 +1,9 @@
 import { ComponentType, ReactElement, useCallback } from 'react';
 
-import { useToggle } from '../../hooks';
+import { useBoolean } from '../../hooks';
 import { Dialog } from './Dialog';
 
-type Toggle = ReturnType<typeof useToggle>[1];
+type Toggle = ReturnType<typeof useBoolean>['toggle'];
 
 interface UseDialogInput<P> {
   component: ComponentType<P>;
@@ -15,7 +15,7 @@ type UseDialogReturn = [() => ReactElement | null, Toggle];
 function useDialog<P>(input: UseDialogInput<P>): UseDialogReturn {
   const { component: Component, props = () => ({} as P) } = input;
 
-  const [isOpen, toggleIsOpen] = useToggle();
+  const { value: isOpen, toggle: toggleIsOpen } = useBoolean();
 
   const renderDialog = useCallback(() => {
     return isOpen ? (
