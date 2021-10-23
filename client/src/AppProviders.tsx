@@ -1,5 +1,6 @@
 import { ReactElement, ReactNode } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
@@ -31,6 +32,7 @@ function AppProviders(props: AppProvidersProps): ReactElement {
             <ThemeProvider theme={theme}>
               {children}
               <GlobalStyle />
+              <ReactQueryDevtools position="bottom-right" />
             </ThemeProvider>
           </AuthProvider>
         </QueryClientProvider>
