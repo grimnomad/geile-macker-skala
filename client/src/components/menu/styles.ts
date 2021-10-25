@@ -10,7 +10,7 @@ const Container = styled.div<ContainerProps>`
   padding: 5px;
   display: flex;
   flex-direction: column;
-  background-color: var(--primary-color);
+  background-color: var(--secondary-color);
   color: var(--primary-color);
   top: ${(props) => props.x}px;
   left: ${(props) => props.y}px;
