@@ -7,7 +7,7 @@ import {
   useMemo
 } from 'react';
 
-import { useBoolean, useDimensions } from '../../hooks';
+import { useBoolean, useDimensions, useOnClickOutside } from '../../hooks';
 import { Menu } from './Menu';
 
 interface MenuEntry {
@@ -40,9 +40,11 @@ function useMenu(input: UseMenuInput): UseMenuReturn {
 
   const [ref, rect] = useDimensions();
 
+  const menuRef = useOnClickOutside<HTMLDivElement>(setFalse);
+
   const renderMenu = useCallback(() => {
     return isDisplaying ? (
-      <Menu x={rect.top + rect.height} y={rect.left}>
+      <Menu ref={menuRef} x={rect.top + rect.height} y={rect.left}>
         {entries.map((entry, index) => {
           function onClick(): void {
             entry.action();
@@ -58,12 +60,13 @@ function useMenu(input: UseMenuInput): UseMenuReturn {
       </Menu>
     ) : null;
   }, [
-    Component,
-    entries,
+    isDisplaying,
+    menuRef,
+    rect.top,
     rect.height,
     rect.left,
-    rect.top,
-    isDisplaying,
+    entries,
+    Component,
     toggle
   ]);
 
