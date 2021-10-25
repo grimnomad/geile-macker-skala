@@ -9,9 +9,9 @@ const GlobalStyle = createGlobalStyle`
   }
 
   html {
-    --primary-color: #232c3f;
-    --secondary-color: #f0f6fc;
-    --tertiary-color: #1c2332;
+    --primary-color: ${(props) => props.theme.primary};
+    --secondary-color: ${(props) => props.theme.secondary};
+    --tertiary-color: ${(props) => props.theme.tertiary};
 
     box-sizing: border-box;
   }
