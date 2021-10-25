@@ -6,6 +6,7 @@ const FieldLabel = styled(Label)`
   display: flex;
   flex-direction: column;
   gap: 0.5em;
+  cursor: pointer;
 `;
 
 const Container = styled.div`

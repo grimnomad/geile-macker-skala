@@ -1,5 +1,6 @@
-import { ForwardedRef, forwardRef, ReactElement } from 'react';
+import { ForwardedRef, forwardRef, ReactElement, Ref, useRef } from 'react';
 
+import { useCombinedRefs } from '../../../hooks';
 import { Input, InputProps } from '../../atoms';
 import { Container, FieldLabel, Hint, Name } from './styles';
 
@@ -15,13 +16,23 @@ interface FormEntryProps
 
 function FormFieldComponent(
   props: FormEntryProps,
-  ref: ForwardedRef<HTMLInputElement>
+  forwardedRef: ForwardedRef<HTMLInputElement>
 ): ReactElement {
   const { name, label, hint } = props;
 
+  const inputRef = useRef<HTMLInputElement>();
+
+  const ref = useCombinedRefs(inputRef, forwardedRef) as
+    | Ref<HTMLInputElement>
+    | undefined;
+
+  function onClick(): void {
+    inputRef.current?.focus();
+  }
+
   return (
     <Container>
-      <FieldLabel htmlFor={name}>
+      <FieldLabel htmlFor={name} onClick={onClick}>
         <Name>{label}</Name>
         {hint ? <Hint>{hint}</Hint> : null}
       </FieldLabel>
