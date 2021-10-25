@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { useQueryClient } from 'react-query';
 
 import { ScaleQueryFactory, useCreateScale } from '../../../api';
-import { Button, Form, FormButtonGroup, FormEntry } from '../../../components';
+import { Button, Form, FormButtonGroup, FormField } from '../../../components';
 
 interface CreateScaleFormProps {
   onClose: () => void;
@@ -18,7 +18,8 @@ interface FormValues {
 function CreateScaleForm(props: CreateScaleFormProps): ReactElement {
   const { onClose, onOK } = props;
 
-  const { register, handleSubmit } = useForm<FormValues>();
+  const { register, handleSubmit, formState } = useForm<FormValues>();
+  const { errors } = formState;
 
   const { mutate: createScale } = useCreateScale();
   const queryClient = useQueryClient();
@@ -37,8 +38,10 @@ function CreateScaleForm(props: CreateScaleFormProps): ReactElement {
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
-      <FormEntry
+      <FormField
         label="Name"
+        hint={errors.name?.message}
+        hasError={!!errors.name}
         {...register('name', {
           required: 'Der Name muss angegeben werden!'
         })}

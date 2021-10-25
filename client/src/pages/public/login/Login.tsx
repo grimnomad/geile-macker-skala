@@ -6,7 +6,7 @@ import {
   Button,
   Form,
   FormButtonGroup,
-  FormEntry,
+  FormField,
   useAuth
 } from '../../../components';
 import { LogInContainer } from './styles';
@@ -35,13 +35,13 @@ function Login(): ReactElement {
   return (
     <LogInContainer>
       <Form onSubmit={handleSubmit(onSubmit)}>
-        <FormEntry
+        <FormField
           label="Handle"
           {...register('handle', {
             required: 'Der Handle muss angegeben werden!'
           })}
         />
-        <FormEntry
+        <FormField
           label="Password"
           type="password"
           {...register('password', {

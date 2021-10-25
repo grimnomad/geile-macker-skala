@@ -6,7 +6,7 @@ import {
   Button,
   Form,
   FormButtonGroup,
-  FormEntry,
+  FormField,
   useAuth
 } from '../../../components';
 import { SignUpContainer } from './styles';
@@ -55,8 +55,10 @@ function SignUp(): ReactElement {
   return (
     <SignUpContainer>
       <Form onSubmit={handleSubmit(onSubmit)}>
-        <FormEntry
+        <FormField
           label="Handle"
+          hint="Das Handle muss zwischen 3 und 20 Zeichen haben."
+          hasError={!!errors.handle}
           {...register('handle', {
             required: 'Der Handle muss angegeben werden!',
             minLength: {
@@ -70,10 +72,11 @@ function SignUp(): ReactElement {
                 'Der Handle darf maximal eine Länge von 20 Zeichen haben!'
             }
           })}
-          hasError={!!errors.handle}
         />
-        <FormEntry
+        <FormField
           label="Vorname"
+          hint="Der Vorname muss eine Länge zwischen 2 und 50 Zeichen haben."
+          hasError={!!errors.firstName}
           {...register('firstName', {
             required: 'Der Vorname muss angegeben werden!',
             minLength:
@@ -81,10 +84,11 @@ function SignUp(): ReactElement {
             maxLength:
               'Der Vorname darf maximal eine Länge von 50 Zeichen haben!'
           })}
-          hasError={!!errors.firstName}
         />
-        <FormEntry
+        <FormField
           label="Nachname"
+          hint="Der Nachname muss eine Länge zwischen 2 und 50 Zeichen haben."
+          hasError={!!errors.lastName}
           {...register('lastName', {
             required: 'Der Nachname muss angegeben werden!',
             minLength:
@@ -92,23 +96,23 @@ function SignUp(): ReactElement {
             maxLength:
               'Der Nachname darf maximal eine Länge von 50 Zeichen haben!'
           })}
-          hasError={!!errors.lastName}
         />
-        <FormEntry
+        <FormField
           label="Passwort"
           type="password"
+          hasError={!!errors.password}
           {...register('password', {
             required: 'Das Password muss angegeben werden!'
           })}
-          hasError={!!errors.password}
         />
-        <FormEntry
+        <FormField
           label="Passwort wiederholen"
+          hint={errors.repeatedPassword?.message}
           type="password"
+          hasError={!!errors.repeatedPassword}
           {...register('repeatedPassword', {
             validate: (value) => matchesPassword(value)
           })}
-          hasError={!!errors.repeatedPassword}
         />
         <FormButtonGroup>
           <Button type="submit">Sign up</Button>

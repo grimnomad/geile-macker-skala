@@ -1,2 +1,2 @@
-export * from './FormEntry';
-export { Form, FormButtonGroup } from './styles';
+export { Form, FormButtonGroup } from './Form';
+export * from './FormField';
