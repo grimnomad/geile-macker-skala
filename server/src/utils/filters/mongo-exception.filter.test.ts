@@ -33,7 +33,9 @@ describe('MongoExceptionFilter', () => {
       errorLabels: [],
       hasErrorLabel: () => false,
       message: '',
-      name: ''
+      name: '',
+      errmsg: '',
+      addErrorLabel: () => undefined
     };
 
     filter.catch(error, argumentsHostMock);

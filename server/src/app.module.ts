@@ -22,8 +22,7 @@ import { MorganMiddleware } from './utils';
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (configService: ConfigService<EnvironmentVariables>) => ({
-        uri: configService.get<string>('MONGODB_URI'),
-        useCreateIndex: true
+        uri: configService.get<string>('MONGODB_URI')
       })
     }),
     AuthModule,
