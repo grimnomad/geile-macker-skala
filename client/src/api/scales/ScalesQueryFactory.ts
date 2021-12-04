@@ -1,11 +1,13 @@
-class ScaleQueryFactory {
-  static get all(): string[] {
-    return ['scale'];
+import { QueryKey } from 'react-query';
+
+class ScalesQueryFactory {
+  static get all(): [QueryKey] {
+    return ['scales'];
   }
 
-  static detail(id: string): string[] {
+  static detail(id: string): QueryKey {
     return [...this.all, id];
   }
 }
 
-export { ScaleQueryFactory };
+export { ScalesQueryFactory };

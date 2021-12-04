@@ -1,5 +1,5 @@
 import { AuthSignInDTO, AuthSignUpDTO, createObject } from '@gms/shared';
-import { ReactElement, ReactNode, useCallback, useState } from 'react';
+import { ReactElement, ReactNode, useCallback } from 'react';
 import { useQueryClient } from 'react-query';
 import { useHistory } from 'react-router';
 
@@ -7,6 +7,7 @@ import { useLogIn, useSignUp } from '../../api';
 import { useLocalStorage } from '../../hooks';
 import { parseJwt } from '../../utils';
 import { AuthContext } from './AuthContext';
+import { useSetAuth } from './useSetAuth';
 
 interface AuthProviderProps {
   children: ReactNode;
@@ -15,18 +16,22 @@ interface AuthProviderProps {
 function AuthProvider(props: AuthProviderProps): ReactElement {
   const { children } = props;
 
-  const { set, remove, get } = useLocalStorage('token');
-
-  const token = parseJwt(get() ?? '');
-
-  const [handle, setHandle] = useState<string | null>(token?.handle ?? null);
-
   const history = useHistory();
-
   const queryClient = useQueryClient();
 
   const { mutate: logIn } = useLogIn();
   const { mutate: signUp } = useSignUp();
+
+  const { set, remove, get } = useLocalStorage('token');
+
+  const token = get();
+
+  const parsedToken = parseJwt(token ?? '');
+
+  const { state, authorize, unauthorize } = useSetAuth({
+    handle: parsedToken?.handle ?? null,
+    token
+  });
 
   const login = useCallback(
     (signInDTO: AuthSignInDTO) => {
@@ -35,14 +40,14 @@ function AuthProvider(props: AuthProviderProps): ReactElement {
           const token = parseJwt(response.data);
 
           if (token) {
-            setHandle(token.handle);
+            authorize(token.handle, response.data);
             set(response.data);
             history.push('/');
           }
         }
       });
     },
-    [history, logIn, set]
+    [authorize, history, logIn, set]
   );
 
   const signup = useCallback(
@@ -62,16 +67,14 @@ function AuthProvider(props: AuthProviderProps): ReactElement {
   );
 
   const logout = useCallback(() => {
-    setHandle(null);
+    unauthorize();
     remove();
     queryClient.removeQueries();
     history.push('/');
-  }, [history, queryClient, remove]);
+  }, [history, queryClient, remove, unauthorize]);
 
   return (
-    <AuthContext.Provider
-      value={{ handle, login, signup, logout, token: get() }}
-    >
+    <AuthContext.Provider value={{ login, signup, logout, ...state }}>
       {children}
     </AuthContext.Provider>
   );

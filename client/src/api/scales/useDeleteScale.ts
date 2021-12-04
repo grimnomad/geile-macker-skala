@@ -1,30 +1,30 @@
-import { createObject } from '@gms/shared';
 import { useMutation, UseMutationResult, useQueryClient } from 'react-query';
 
 import { useAuth } from '../../components';
-import { FetchOptions } from '../APIProvider';
-import { useDelete } from '../APIProvider/useDelete';
-import { ScaleQueryFactory } from './ScalesQueryFactory';
+import { useAxios } from '../AxiosProvider';
+import { createHeaders } from '../utils';
+import { ScalesQueryFactory } from './ScalesQueryFactory';
 
 function useDeleteScale(): UseMutationResult<
-  Readonly<unknown>,
+  unknown,
   unknown,
   string,
   unknown
 > {
   const { token } = useAuth();
   const queryClient = useQueryClient();
+  const Axios = useAxios();
 
-  const options = createObject<FetchOptions>({
-    token
-  });
-  const remove = useDelete(options);
+  const headers = createHeaders({ token });
 
-  const mutation = useMutation((id: string) => remove(`/scales/${id}`), {
-    onSuccess: () => {
-      queryClient.invalidateQueries(ScaleQueryFactory.all, { exact: true });
+  const mutation = useMutation(
+    (id: string) => Axios.delete(`/scales/${id}`, { headers }),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(ScalesQueryFactory.all, { exact: true });
+      }
     }
-  });
+  );
 
   return mutation;
 }

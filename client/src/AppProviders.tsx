@@ -4,7 +4,7 @@ import { ReactQueryDevtools } from 'react-query/devtools';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
-import { APIProvider } from './api';
+import { AxiosProvider } from './api';
 import { AuthProvider } from './components';
 import { SERVER_URL } from './config';
 import { GlobalStyle, theme } from './theme';
@@ -26,7 +26,7 @@ function AppProviders(props: AppProvidersProps): ReactElement {
 
   return (
     <BrowserRouter>
-      <APIProvider url={SERVER_URL}>
+      <AxiosProvider baseURL={SERVER_URL}>
         <QueryClientProvider client={queryClient}>
           <AuthProvider>
             <ThemeProvider theme={theme}>
@@ -36,7 +36,7 @@ function AppProviders(props: AppProvidersProps): ReactElement {
             </ThemeProvider>
           </AuthProvider>
         </QueryClientProvider>
-      </APIProvider>
+      </AxiosProvider>
     </BrowserRouter>
   );
 }

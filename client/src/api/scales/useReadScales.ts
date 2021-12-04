@@ -1,19 +1,20 @@
-import { createObject, ResponseDTO, Scale, ScaleDTO } from '@gms/shared';
+import { ResponseDTO, Scale, ScaleDTO } from '@gms/shared';
 import { useQuery, UseQueryResult } from 'react-query';
 
 import { useAuth } from '../../components';
-import { FetchOptions, useGet } from '../APIProvider';
-import { ScaleQueryFactory } from './ScalesQueryFactory';
+import { useAxios } from '../AxiosProvider';
+import { createHeaders } from '../utils';
+import { ScalesQueryFactory } from './ScalesQueryFactory';
 
-function mapData(responseDTO: ResponseDTO<ScaleDTO[]>): Readonly<Scale>[] {
+function mapData(responseDTO: ResponseDTO<ScaleDTO[]>): Scale[] {
   const scales = responseDTO.data.map((scaleDTO) => {
-    const scale = createObject<Scale>({
+    const scale: Scale = {
       admins: scaleDTO.admins,
       createdAt: scaleDTO.created_at,
       creator: scaleDTO.creator,
       name: scaleDTO.name,
       updatedAt: scaleDTO.updated_at
-    });
+    };
 
     return scale;
   });
@@ -21,17 +22,24 @@ function mapData(responseDTO: ResponseDTO<ScaleDTO[]>): Readonly<Scale>[] {
   return scales;
 }
 
-function useReadScales(): UseQueryResult<Readonly<Scale>[], unknown> {
+function useReadScales(): UseQueryResult<Scale[], unknown> {
   const { token } = useAuth();
+  const Axios = useAxios();
 
-  const options = createObject<FetchOptions>({
-    token
-  });
-  const get = useGet<ResponseDTO<ScaleDTO[]>>(options);
+  const headers = createHeaders({ token });
 
-  return useQuery(ScaleQueryFactory.all, () => get('/scales'), {
-    select: mapData
-  });
+  const query = useQuery(
+    ScalesQueryFactory.all,
+    () =>
+      Axios.get<ResponseDTO<ScaleDTO[]>, ResponseDTO<ScaleDTO[]>>('/scales', {
+        headers
+      }),
+    {
+      select: mapData
+    }
+  );
+
+  return query;
 }
 
 export { useReadScales };

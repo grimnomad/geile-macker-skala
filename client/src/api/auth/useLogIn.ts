@@ -1,17 +1,18 @@
 import { AuthSignInDTO, SignInResponse } from '@gms/shared';
 import { useMutation, UseMutationResult } from 'react-query';
 
-import { usePost } from '../APIProvider';
+import { useAxios } from '../AxiosProvider';
 
 function useLogIn(): UseMutationResult<
-  Readonly<SignInResponse>,
+  SignInResponse,
   unknown,
   AuthSignInDTO,
   unknown
 > {
-  const logIn = usePost<AuthSignInDTO, SignInResponse>();
-  const mutation = useMutation((dto: AuthSignInDTO) =>
-    logIn('/auth/signin', dto)
+  const Axios = useAxios();
+
+  const mutation = useMutation((data: AuthSignInDTO) =>
+    Axios.post<SignInResponse, SignInResponse>('/auth/signin', data)
   );
 
   return mutation;
