@@ -1,5 +1,6 @@
 import { AuthSignInDTO, AuthSignUpDTO, createObject } from '@gms/shared';
 import { ReactElement, ReactNode, useCallback, useState } from 'react';
+import { useQueryClient } from 'react-query';
 import { useHistory } from 'react-router';
 
 import { useLogIn, useSignUp } from '../../api';
@@ -21,6 +22,8 @@ function AuthProvider(props: AuthProviderProps): ReactElement {
   const [handle, setHandle] = useState<string | null>(token?.handle ?? null);
 
   const history = useHistory();
+
+  const queryClient = useQueryClient();
 
   const { mutate: logIn } = useLogIn();
   const { mutate: signUp } = useSignUp();
@@ -61,8 +64,9 @@ function AuthProvider(props: AuthProviderProps): ReactElement {
   const logout = useCallback(() => {
     setHandle(null);
     remove();
+    queryClient.removeQueries();
     history.push('/');
-  }, [history, remove]);
+  }, [history, queryClient, remove]);
 
   return (
     <AuthContext.Provider
