@@ -1,3 +1,4 @@
+export * from './common';
 export * from './decorators';
 export * from './filters';
 export * from './interceptors';
