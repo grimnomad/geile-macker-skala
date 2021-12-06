@@ -8,7 +8,7 @@ class MorganMiddleware implements NestMiddleware {
 
   use(req: Request, res: Response, next: NextFunction): void {
     morgan('dev', {
-      stream: { write: (message) => this.logger.debug(message.trimEnd()) }
+      stream: { write: (message) => this.logger.log(message.trimEnd()) }
     })(req, res, next);
   }
 }
