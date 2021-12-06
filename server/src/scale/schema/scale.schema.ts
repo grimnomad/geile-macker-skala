@@ -2,7 +2,7 @@ import { ScaleDTO } from '@gms/shared';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
-import { ScaleEntity } from '../types';
+import { ScaleEntity } from '../ScaleEntity';
 
 type ScaleDocument = ScaleEntity & Document<ScaleEntity>;
 

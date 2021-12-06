@@ -3,7 +3,7 @@ import { Body, Controller, Param } from '@nestjs/common';
 
 import { Create, Delete, GetUser, Read } from '../utils';
 import { ScaleService } from './scale.service';
-import { ScaleEntity } from './types';
+import { ScaleEntity } from './ScaleEntity';
 import { CreateScaleSchema } from './validation';
 
 @Controller('scales')
@@ -17,7 +17,7 @@ class ScaleController {
   async create(
     @Body() createScaleDTO: CreateScaleDTO,
     @GetUser() user: UserDTO
-  ): Promise<Readonly<ScaleDTO>> {
+  ): Promise<ScaleDTO> {
     const scaleEntity: ScaleEntity = {
       admins: [user.handle],
       creator: user.handle,
@@ -32,10 +32,23 @@ class ScaleController {
   @Read({
     message: 'All scales were successfully retrieved.'
   })
-  async getAll(@GetUser() user: UserDTO): Promise<ReadonlyArray<ScaleDTO>> {
+  async getAll(@GetUser() user: UserDTO): Promise<ScaleDTO[]> {
     const scales = await this.scaleService.getAll(user);
 
     return scales;
+  }
+
+  @Read({
+    message: 'The scale was succesfully retrieved.',
+    path: ':name'
+  })
+  async getOne(
+    @Param('name') name: string,
+    @GetUser() user: UserDTO
+  ): Promise<ScaleDTO> {
+    const scale = await this.scaleService.getOne(name, user);
+
+    return scale;
   }
 
   @Delete({ message: 'Scale was successfully deleted.', path: ':name' })
