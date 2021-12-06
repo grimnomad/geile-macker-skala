@@ -1,4 +1,4 @@
-import { createObject, CreateScaleDTO, ScaleDTO, UserDTO } from '@gms/shared';
+import { CreateScaleDTO, ScaleDTO, UserDTO } from '@gms/shared';
 import { Body, Controller, Param } from '@nestjs/common';
 
 import { Create, Delete, GetUser, Read } from '../utils';
@@ -18,11 +18,11 @@ class ScaleController {
     @Body() createScaleDTO: CreateScaleDTO,
     @GetUser() user: UserDTO
   ): Promise<Readonly<ScaleDTO>> {
-    const scaleEntity = createObject<ScaleEntity>({
+    const scaleEntity: ScaleEntity = {
       admins: [user.handle],
       creator: user.handle,
       ...createScaleDTO
-    });
+    };
 
     const scaleDTO = await this.scaleService.create(scaleEntity);
 

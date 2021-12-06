@@ -1,9 +1,4 @@
-import {
-  AuthSignInDTO,
-  AuthSignUpDTO,
-  createObject,
-  UserDTO
-} from '@gms/shared';
+import { AuthSignInDTO, AuthSignUpDTO, UserDTO } from '@gms/shared';
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectModel } from '@nestjs/mongoose';
@@ -27,23 +22,23 @@ class AuthService {
     const salt = await bcrypt.genSalt();
     const hash = await bcrypt.hash(password, salt);
 
-    const user = createObject<User>({
+    const user: User = {
       handle,
       password: hash,
       first_name,
       last_name,
       salt
-    });
+    };
 
     const userDocument = new this.userModel(user);
 
     await userDocument.save();
 
-    const userDTO = createObject<UserDTO>({
+    const userDTO: UserDTO = {
       first_name,
       handle,
       last_name
-    });
+    };
 
     return userDTO;
   }
@@ -57,9 +52,9 @@ class AuthService {
       const isValid = await bcrypt.compare(password, user.password);
 
       if (isValid) {
-        const payload = createObject<JWTPayload>({
+        const payload: JWTPayload = {
           handle: user.handle
-        });
+        };
         const token = await this.jwtService.signAsync(payload);
 
         return token;

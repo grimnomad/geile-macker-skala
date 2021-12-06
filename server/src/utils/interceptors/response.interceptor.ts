@@ -1,4 +1,4 @@
-import { createObject, ResponseDTO } from '@gms/shared';
+import { ResponseDTO } from '@gms/shared';
 import {
   CallHandler,
   ExecutionContext,
@@ -21,12 +21,12 @@ class ResponseInterceptor<T> implements NestInterceptor<T, ResponseDTO<T>> {
       const argumentsHost = context.switchToHttp();
       const response = argumentsHost.getResponse<Response>();
 
-      const message = createObject<ResponseDTO<T>>({
+      const message: ResponseDTO<T> = {
         data: data ?? null,
         message: this.message,
         send_at: new Date().toISOString(),
         status_code: response.statusCode
-      });
+      };
 
       return message;
     });

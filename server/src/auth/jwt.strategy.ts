@@ -1,4 +1,4 @@
-import { createObject, UserDTO } from '@gms/shared';
+import { UserDTO } from '@gms/shared';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { InjectModel } from '@nestjs/mongoose';
@@ -33,11 +33,11 @@ class JWTStrategy extends PassportStrategy(Strategy) {
 
     const { first_name, last_name } = user;
 
-    const userDTO = createObject<UserDTO>({
+    const userDTO: UserDTO = {
       first_name,
       last_name,
       handle
-    });
+    };
 
     return userDTO;
   }

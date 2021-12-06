@@ -1,4 +1,4 @@
-import { createObject, ErrorItem, ValidationErrorResponse } from '@gms/shared';
+import { ErrorItem, ValidationErrorResponse } from '@gms/shared';
 import {
   ArgumentMetadata,
   BadRequestException,
@@ -19,20 +19,20 @@ class JoiValidationPipe implements PipeTransform {
         const errorItems = error.details.map((detail) => {
           const { message, context } = detail;
 
-          const error = createObject<ErrorItem>({
+          const error: ErrorItem = {
             message: message,
             property: context.label
-          });
+          };
 
           return error;
         });
 
-        const message = createObject<ValidationErrorResponse>({
+        const message: ValidationErrorResponse = {
           data: errorItems,
           message: 'Validation failed',
           status_code: 400,
           send_at: new Date().toISOString()
-        });
+        };
 
         throw new BadRequestException(message);
       }

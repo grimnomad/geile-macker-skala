@@ -1,4 +1,4 @@
-import { createObject, ResponseDTO } from '@gms/shared';
+import { ResponseDTO } from '@gms/shared';
 import {
   CallHandler,
   ExecutionContext,
@@ -14,17 +14,17 @@ class UnauthorizedExceptionInterceptor implements NestInterceptor {
   intercept(context: ExecutionContext, next: CallHandler): Observable<unknown> {
     const createError = catchError((err: unknown) => {
       if (err instanceof UnauthorizedException) {
-        const message = createObject<ResponseDTO<unknown>>({
+        const message: ResponseDTO<unknown> = {
           message: err.message,
           status_code: err.getStatus(),
           data: null,
           send_at: new Date().toISOString()
-        });
+        };
 
-        return throwError(new UnauthorizedException(message));
+        return throwError(() => new UnauthorizedException(message));
       }
 
-      return throwError(err);
+      return throwError(() => err);
     });
 
     return next.handle().pipe(createError);
