@@ -1,4 +1,4 @@
-import { AuthSignInDTO, createObject } from '@gms/shared';
+import { AuthSignInDTO } from '@gms/shared';
 import { ReactElement } from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -11,30 +11,14 @@ import {
 } from '../../../components';
 import { LogInContainer } from './styles';
 
-interface FormValues {
-  handle: string;
-  password: string;
-}
-
 function Login(): ReactElement {
   const { login } = useAuth();
 
-  const { register, handleSubmit } = useForm<FormValues>();
-
-  function onSubmit(data: FormValues): void {
-    const { handle, password } = data;
-
-    const signInDTO = createObject<AuthSignInDTO>({
-      handle,
-      password
-    });
-
-    login(signInDTO);
-  }
+  const { register, handleSubmit } = useForm<AuthSignInDTO>();
 
   return (
     <LogInContainer>
-      <Form onSubmit={handleSubmit(onSubmit)}>
+      <Form onSubmit={handleSubmit(login)}>
         <FormField
           label="Handle"
           {...register('handle', {

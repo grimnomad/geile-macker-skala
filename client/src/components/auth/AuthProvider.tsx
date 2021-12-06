@@ -1,4 +1,4 @@
-import { AuthSignInDTO, AuthSignUpDTO, createObject } from '@gms/shared';
+import { AuthSignInDTO, AuthSignUpDTO } from '@gms/shared';
 import { ReactElement, ReactNode, useCallback } from 'react';
 import { useQueryClient } from 'react-query';
 import { useHistory } from 'react-router';
@@ -55,11 +55,8 @@ function AuthProvider(props: AuthProviderProps): ReactElement {
       signUp(signUpDTO, {
         onSuccess: () => {
           const { handle, password } = signUpDTO;
-          const signInDTO = createObject<AuthSignInDTO>({
-            handle,
-            password
-          });
-          login(signInDTO);
+
+          login({ handle, password });
         }
       });
     },

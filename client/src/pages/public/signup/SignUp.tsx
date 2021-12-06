@@ -1,4 +1,4 @@
-import { AuthSignUpDTO, createObject } from '@gms/shared';
+import { AuthSignUpDTO } from '@gms/shared';
 import { ReactElement } from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -33,12 +33,12 @@ function SignUp(): ReactElement {
   function onSubmit(data: FormValues): void {
     const { firstName, handle, lastName, password } = data;
 
-    const signUpDTO = createObject<AuthSignUpDTO>({
+    const signUpDTO: AuthSignUpDTO = {
       first_name: firstName,
       handle,
       last_name: lastName,
       password
-    });
+    };
 
     signup(signUpDTO);
   }

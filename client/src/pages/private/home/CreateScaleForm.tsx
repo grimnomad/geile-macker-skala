@@ -1,4 +1,4 @@
-import { createObject, CreateScaleDTO } from '@gms/shared';
+import { CreateScaleDTO } from '@gms/shared';
 import { ReactElement } from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -10,23 +10,16 @@ interface CreateScaleFormProps {
   onOK: () => void;
 }
 
-interface FormValues {
-  name: string;
-}
-
 function CreateScaleForm(props: CreateScaleFormProps): ReactElement {
   const { onClose, onOK } = props;
 
-  const { register, handleSubmit, formState } = useForm<FormValues>();
+  const { register, handleSubmit, formState } = useForm<CreateScaleDTO>();
   const { errors } = formState;
 
   const { mutate: createScale } = useCreateScale();
 
-  function onSubmit(data: FormValues): void {
-    const { name } = data;
-    const scaleDTO = createObject<CreateScaleDTO>({ name });
-
-    createScale(scaleDTO, {
+  function onSubmit(data: CreateScaleDTO): void {
+    createScale(data, {
       onSuccess: () => {
         onOK();
       }
