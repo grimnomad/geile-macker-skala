@@ -1,26 +1,13 @@
-import { ScaleDTO } from '@gms/shared';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
-import { createSchemaOptions } from '../../utils';
-import { ScaleEntity } from '../ScaleEntity';
+import { createSchemaOptions, Entity } from '../../utils';
+import { Scale } from './Scale';
 
-type ScaleDocument = ScaleEntity & Document<ScaleEntity>;
+type ScaleDocument = Scale & Document<Scale>;
 
-@Schema(
-  createSchemaOptions({
-    toObject: {
-      transform: (document: ScaleDocument): ScaleDTO => ({
-        admins: document.admins,
-        created_at: document.get('created_at'),
-        creator: document.creator,
-        name: document.name,
-        updated_at: document.get('updated_at')
-      })
-    }
-  })
-)
-class Scale implements ScaleEntity {
+@Schema(createSchemaOptions())
+class ScaleEntity implements Entity<Scale> {
   @Prop({ required: true, index: true })
   name: string;
 
@@ -31,7 +18,7 @@ class Scale implements ScaleEntity {
   admins: string[];
 }
 
-const ScaleSchema = SchemaFactory.createForClass(Scale);
+const ScaleSchema = SchemaFactory.createForClass(ScaleEntity);
 
 export type { ScaleDocument };
-export { Scale, ScaleSchema };
+export { ScaleEntity, ScaleSchema };

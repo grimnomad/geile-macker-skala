@@ -1,13 +1,14 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 
+import { MODEL_NAME } from './scale.config';
 import { ScaleController } from './scale.controller';
 import { ScaleService } from './scale.service';
-import { Scale, ScaleSchema } from './schema';
+import { ScaleSchema } from './schema';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([{ name: Scale.name, schema: ScaleSchema }])
+    MongooseModule.forFeature([{ name: MODEL_NAME, schema: ScaleSchema }])
   ],
   controllers: [ScaleController],
   providers: [ScaleService]

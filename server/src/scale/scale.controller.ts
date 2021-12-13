@@ -3,7 +3,7 @@ import { Body, Controller, Param } from '@nestjs/common';
 
 import { Create, Delete, GetUser, Read } from '../utils';
 import { ScaleService } from './scale.service';
-import { ScaleEntity } from './ScaleEntity';
+import { ScaleEntity } from './schema';
 import { CreateScaleSchema } from './validation';
 
 @Controller('scales')
@@ -18,13 +18,13 @@ class ScaleController {
     @Body() createScaleDTO: CreateScaleDTO,
     @GetUser() user: UserDTO
   ): Promise<ScaleDTO> {
-    const scaleEntity: ScaleEntity = {
+    const scale: ScaleEntity = {
       admins: [user.handle],
       creator: user.handle,
       ...createScaleDTO
     };
 
-    const scaleDTO = await this.scaleService.create(scaleEntity);
+    const scaleDTO = await this.scaleService.create(scale);
 
     return scaleDTO;
   }
@@ -33,7 +33,7 @@ class ScaleController {
     message: 'All scales were successfully retrieved.'
   })
   async getAll(@GetUser() user: UserDTO): Promise<ScaleDTO[]> {
-    const scales = await this.scaleService.getAll(user);
+    const scales = await this.scaleService.getAll(user.handle);
 
     return scales;
   }
