@@ -1,11 +1,11 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Document, ObjectId } from 'mongoose';
 
-import { createSchemaOptions } from '../../utils';
+import { createSchemaOptions, Entity } from '../../utils';
 import { User } from './User';
 
 @Schema(createSchemaOptions())
-class UserEntity implements User {
+class UserEntity implements Entity<User> {
   @Prop({ required: true, unique: true, index: true })
   handle: string;
 
@@ -24,7 +24,7 @@ class UserEntity implements User {
 
 const UserSchema = SchemaFactory.createForClass(UserEntity);
 
-type UserDocument = UserEntity & Document<UserEntity>;
+type UserDocument = User & Document<ObjectId>;
 
 export type { UserDocument };
 export { UserEntity, UserSchema };

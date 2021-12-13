@@ -1,4 +1,6 @@
-interface User {
+import { Timestamps } from '../../utils';
+
+interface User extends Timestamps {
   /** Unique identifier for the user */
   handle: string;
   /** An users forename/first name */

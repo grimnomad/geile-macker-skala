@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 
-import { User, UsersService } from '../users';
+import { UserEntity, UsersService } from '../users';
 import { JWTPayload } from './types';
 
 @Injectable()
@@ -19,7 +19,7 @@ class AuthService {
     const salt = await bcrypt.genSalt();
     const hash = await bcrypt.hash(password, salt);
 
-    const user: User = {
+    const user: UserEntity = {
       handle,
       password: hash,
       first_name,
