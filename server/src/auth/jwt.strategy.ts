@@ -1,20 +1,17 @@
 import { UserDTO } from '@gms/shared';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { InjectModel } from '@nestjs/mongoose';
 import { PassportStrategy } from '@nestjs/passport';
-import { Model } from 'mongoose';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 
 import { EnvironmentVariables } from '../types';
-import { User, UserDocument } from './schema';
+import { UsersService } from '../users';
 import { JWTPayload } from './types';
 
 @Injectable()
 class JWTStrategy extends PassportStrategy(Strategy) {
   constructor(
-    @InjectModel(User.name)
-    private readonly userModel: Model<UserDocument>,
+    private readonly usersService: UsersService,
     private readonly configService: ConfigService<EnvironmentVariables>
   ) {
     super({
@@ -25,7 +22,7 @@ class JWTStrategy extends PassportStrategy(Strategy) {
 
   async validate(payload: JWTPayload): Promise<UserDTO | null> {
     const { handle } = payload;
-    const user = await this.userModel.findOne({ handle }).lean();
+    const user = await this.usersService.findOne(handle);
 
     if (!user) {
       return null;

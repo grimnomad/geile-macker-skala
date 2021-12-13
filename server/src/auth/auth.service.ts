@@ -1,18 +1,15 @@
 import { AuthSignInDTO, AuthSignUpDTO, UserDTO } from '@gms/shared';
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { InjectModel } from '@nestjs/mongoose';
 import * as bcrypt from 'bcrypt';
-import { Model } from 'mongoose';
 
-import { User, UserDocument } from './schema';
+import { User, UsersService } from '../users';
 import { JWTPayload } from './types';
 
 @Injectable()
 class AuthService {
   constructor(
-    @InjectModel(User.name)
-    private readonly userModel: Model<UserDocument>,
+    private readonly usersService: UsersService,
     private readonly jwtService: JwtService
   ) {}
 
@@ -30,9 +27,7 @@ class AuthService {
       salt
     };
 
-    const userDocument = new this.userModel(user);
-
-    await userDocument.save();
+    await this.usersService.create(user);
 
     const userDTO: UserDTO = {
       first_name,
@@ -46,7 +41,7 @@ class AuthService {
   async signIn(signInDTO: AuthSignInDTO): Promise<string | null> {
     const { handle, password } = signInDTO;
 
-    const user = await this.userModel.findOne({ handle }).lean();
+    const user = await this.usersService.findOne(handle);
 
     if (user) {
       const isValid = await bcrypt.compare(password, user.password);

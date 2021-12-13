@@ -1,11 +1,11 @@
-import { UserDTO } from '@gms/shared';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document, ObjectId } from 'mongoose';
+import { Document } from 'mongoose';
 
 import { createSchemaOptions } from '../../utils';
+import { User } from './User';
 
 @Schema(createSchemaOptions())
-class User implements UserDTO {
+class UserEntity implements User {
   @Prop({ required: true, unique: true, index: true })
   handle: string;
 
@@ -22,9 +22,9 @@ class User implements UserDTO {
   salt: string;
 }
 
-const UserSchema = SchemaFactory.createForClass(User);
+const UserSchema = SchemaFactory.createForClass(UserEntity);
 
-type UserDocument = User & Document<ObjectId>;
+type UserDocument = UserEntity & Document<UserEntity>;
 
 export type { UserDocument };
-export { User, UserSchema };
+export { UserEntity, UserSchema };
