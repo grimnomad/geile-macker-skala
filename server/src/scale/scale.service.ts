@@ -1,4 +1,3 @@
-import { UserDTO } from '@gms/shared';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
@@ -26,13 +25,8 @@ class ScaleService {
     return scales;
   }
 
-  async getOne(name: string, user: UserDTO): Promise<Scale> {
-    const scale = await this.scaleModel
-      .findOne({
-        creator: user.handle,
-        name
-      })
-      .lean();
+  async getOne(name: string, creator: string): Promise<Scale | null> {
+    const scale = await this.scaleModel.findOne({ creator, name }).lean();
 
     return scale;
   }

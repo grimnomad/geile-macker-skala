@@ -1,5 +1,5 @@
 import { CreateScaleDTO, ScaleDTO, UserDTO } from '@gms/shared';
-import { Body, Controller, Param } from '@nestjs/common';
+import { Body, Controller, NotFoundException, Param } from '@nestjs/common';
 
 import { Create, Delete, GetUser, Read } from '../utils';
 import { ScaleService } from './scale.service';
@@ -46,7 +46,11 @@ class ScaleController {
     @Param('name') name: string,
     @GetUser() user: UserDTO
   ): Promise<ScaleDTO> {
-    const scale = await this.scaleService.getOne(name, user);
+    const scale = await this.scaleService.getOne(name, user.handle);
+
+    if (!scale) {
+      throw new NotFoundException(`No scale with name ${name} could be found.`);
+    }
 
     return scale;
   }

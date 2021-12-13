@@ -1,10 +1,10 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Document, ObjectId } from 'mongoose';
 
 import { createSchemaOptions, Entity } from '../../utils';
 import { Scale } from './Scale';
 
-type ScaleDocument = Scale & Document<Scale>;
+type ScaleDocument = Scale & Document<ObjectId>;
 
 @Schema(createSchemaOptions())
 class ScaleEntity implements Entity<Scale> {
