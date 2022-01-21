@@ -1,6 +1,7 @@
 import { AuthSignInDTO } from '@gms/shared';
 import { ReactElement } from 'react';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 
 import {
   Button,
@@ -13,12 +14,17 @@ import { LogInContainer } from './styles';
 
 function Login(): ReactElement {
   const { login } = useAuth();
+  const navigate = useNavigate();
 
   const { register, handleSubmit } = useForm<AuthSignInDTO>();
 
+  function logIn(signInDTO: AuthSignInDTO): void {
+    login(signInDTO, () => navigate('/dashboard'));
+  }
+
   return (
     <LogInContainer>
-      <Form onSubmit={handleSubmit(login)}>
+      <Form onSubmit={handleSubmit(logIn)}>
         <FormField
           label="Handle"
           {...register('handle', {

@@ -1,6 +1,7 @@
 import { AuthSignUpDTO } from '@gms/shared';
 import { ReactElement } from 'react';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 
 import {
   Button,
@@ -21,6 +22,7 @@ interface FormValues {
 
 function SignUp(): ReactElement {
   const { signup } = useAuth();
+  const navigate = useNavigate();
 
   const {
     register,
@@ -40,7 +42,7 @@ function SignUp(): ReactElement {
       password
     };
 
-    signup(signUpDTO);
+    signup(signUpDTO, () => navigate('/dashboard'));
   }
 
   function matchesPassword(value: string): boolean | string {

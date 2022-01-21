@@ -1,5 +1,5 @@
 import { Fragment, ReactElement } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 
 import {
   Header,
@@ -11,13 +11,18 @@ import {
 
 function Private(): ReactElement {
   const { logout, handle } = useAuth();
+  const navigate = useNavigate();
+
+  function logOut(): void {
+    logout(() => navigate('/'));
+  }
 
   return (
     <Fragment>
       <Header>
         <HeaderBar>
           <HeaderUsername>{handle}</HeaderUsername>
-          <HeaderButton onClick={() => logout()}>Logout</HeaderButton>
+          <HeaderButton onClick={logOut}>Logout</HeaderButton>
         </HeaderBar>
       </Header>
       <Outlet />

@@ -5,9 +5,9 @@ interface AuthState {
   handle: string | null;
 }
 interface Auth extends AuthState {
-  login(signInDTO: AuthSignInDTO): void;
-  signup(signUpDTO: AuthSignUpDTO): void;
-  logout(): void;
+  login(signInDTO: AuthSignInDTO, onLogin?: () => void): void;
+  signup(signUpDTO: AuthSignUpDTO, onSignup?: () => void): void;
+  logout(onLogout?: () => void): void;
 }
 
 export type { Auth, AuthState };

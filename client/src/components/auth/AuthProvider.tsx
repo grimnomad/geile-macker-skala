@@ -1,7 +1,6 @@
 import { AuthSignInDTO, AuthSignUpDTO } from '@gms/shared';
 import { ReactElement, ReactNode, useCallback } from 'react';
 import { useQueryClient } from 'react-query';
-import { useNavigate } from 'react-router';
 
 import { useLogIn, useSignUp } from '../../api';
 import { useLocalStorage } from '../../hooks';
@@ -16,7 +15,6 @@ interface AuthProviderProps {
 function AuthProvider(props: AuthProviderProps): ReactElement {
   const { children } = props;
 
-  const navigate = useNavigate();
   const queryClient = useQueryClient();
 
   const { mutate: logIn } = useLogIn();
@@ -34,7 +32,7 @@ function AuthProvider(props: AuthProviderProps): ReactElement {
   });
 
   const login = useCallback(
-    (signInDTO: AuthSignInDTO) => {
+    (signInDTO: AuthSignInDTO, onLogin?: () => void) => {
       logIn(signInDTO, {
         onSuccess: (response) => {
           const token = parseJwt(response.data);
@@ -42,33 +40,36 @@ function AuthProvider(props: AuthProviderProps): ReactElement {
           if (token) {
             authorize(token.handle, response.data);
             set(response.data);
-            navigate('/dashboard');
+            onLogin?.();
           }
         }
       });
     },
-    [authorize, navigate, logIn, set]
+    [authorize, logIn, set]
   );
 
   const signup = useCallback(
-    (signUpDTO: AuthSignUpDTO) => {
+    (signUpDTO: AuthSignUpDTO, onSignup?: () => void) => {
       signUp(signUpDTO, {
         onSuccess: () => {
           const { handle, password } = signUpDTO;
 
-          login({ handle, password });
+          login({ handle, password }, onSignup);
         }
       });
     },
     [login, signUp]
   );
 
-  const logout = useCallback(() => {
-    unauthorize();
-    remove();
-    queryClient.removeQueries();
-    navigate('/');
-  }, [navigate, queryClient, remove, unauthorize]);
+  const logout = useCallback(
+    (onLogout?: () => void) => {
+      unauthorize();
+      remove();
+      queryClient.removeQueries();
+      onLogout?.();
+    },
+    [queryClient, remove, unauthorize]
+  );
 
   return (
     <AuthContext.Provider value={{ login, signup, logout, ...state }}>
