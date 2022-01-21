@@ -3,7 +3,6 @@ import { ReactElement, ReactNode, useCallback } from 'react';
 import { useQueryClient } from 'react-query';
 
 import { useLogIn, useSignUp } from '../../api';
-import { useLocalStorage } from '../../hooks';
 import { parseJwt } from '../../utils';
 import { AuthContext } from './AuthContext';
 import { useSetAuth } from './useSetAuth';
@@ -20,16 +19,7 @@ function AuthProvider(props: AuthProviderProps): ReactElement {
   const { mutate: logIn } = useLogIn();
   const { mutate: signUp } = useSignUp();
 
-  const { set, remove, get } = useLocalStorage('token');
-
-  const token = get();
-
-  const parsedToken = parseJwt(token ?? '');
-
-  const { state, authorize, unauthorize } = useSetAuth({
-    handle: parsedToken?.handle ?? null,
-    token
-  });
+  const { state, authenticate, unauthenticate } = useSetAuth();
 
   const login = useCallback(
     (signInDTO: AuthSignInDTO, onLogin?: () => void) => {
@@ -38,14 +28,13 @@ function AuthProvider(props: AuthProviderProps): ReactElement {
           const token = parseJwt(response.data);
 
           if (token) {
-            authorize(token.handle, response.data);
-            set(response.data);
+            authenticate(token.handle, response.data);
             onLogin?.();
           }
         }
       });
     },
-    [authorize, logIn, set]
+    [authenticate, logIn]
   );
 
   const signup = useCallback(
@@ -63,12 +52,11 @@ function AuthProvider(props: AuthProviderProps): ReactElement {
 
   const logout = useCallback(
     (onLogout?: () => void) => {
-      unauthorize();
-      remove();
+      unauthenticate();
       queryClient.removeQueries();
       onLogout?.();
     },
-    [queryClient, remove, unauthorize]
+    [queryClient, unauthenticate]
   );
 
   return (
