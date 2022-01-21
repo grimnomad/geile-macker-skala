@@ -4,7 +4,7 @@ import { useDeleteScale, useReadScales } from '../../../api';
 import { SideBar, useDialog } from '../../../components';
 import { CreateScaleForm } from './CreateScaleForm';
 
-function Home(): ReactElement {
+function Dashboard(): ReactElement {
   const { data: scales, isLoading } = useReadScales();
   const { mutate: remove } = useDeleteScale();
 
@@ -36,4 +36,4 @@ function Home(): ReactElement {
   );
 }
 
-export { Home };
+export { Dashboard };

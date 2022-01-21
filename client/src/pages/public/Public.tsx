@@ -1,18 +1,17 @@
-import { Fragment, ReactElement, Suspense } from 'react';
-import { Route, Switch, useHistory } from 'react-router';
+import { Fragment, ReactElement } from 'react';
+import { Outlet, useNavigate } from 'react-router';
 
 import { Header, HeaderBar, HeaderButton } from '../../components';
-import { routes } from './routes';
 
 function Public(): ReactElement {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   function signin(): void {
-    history.push('/signup');
+    navigate('/signup');
   }
 
   function login(): void {
-    history.push('/login');
+    navigate('/login');
   }
 
   return (
@@ -23,13 +22,7 @@ function Public(): ReactElement {
           <HeaderButton onClick={login}>Log in</HeaderButton>
         </HeaderBar>
       </Header>
-      <Switch>
-        <Suspense fallback={'Loading'}>
-          {routes.map((route, index) => (
-            <Route {...route} key={index} />
-          ))}
-        </Suspense>
-      </Switch>
+      <Outlet />
     </Fragment>
   );
 }

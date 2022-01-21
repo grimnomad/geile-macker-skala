@@ -1,17 +1,14 @@
 import { ReactElement, Suspense } from 'react';
 
 import { Layout } from './components';
-import { useAuth } from './components/auth';
-import { Private, Public } from './pages';
+import { useRouting } from './pages';
 
 function App(): ReactElement {
-  const { handle } = useAuth();
+  const element = useRouting();
 
   return (
     <Layout>
-      <Suspense fallback="Loading">
-        {handle ? <Private /> : <Public />}
-      </Suspense>
+      <Suspense fallback="Loading">{element}</Suspense>
     </Layout>
   );
 }

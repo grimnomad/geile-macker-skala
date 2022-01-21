@@ -1,14 +1,13 @@
-import { Fragment, ReactElement, Suspense } from 'react';
-import { Route, Switch } from 'react-router';
+import { Fragment, ReactElement } from 'react';
+import { Outlet } from 'react-router-dom';
 
 import {
   Header,
   HeaderBar,
   HeaderButton,
-  HeaderUsername
+  HeaderUsername,
+  useAuth
 } from '../../components';
-import { useAuth } from '../../components/auth';
-import { routes } from '../private/routes';
 
 function Private(): ReactElement {
   const { logout, handle } = useAuth();
@@ -18,16 +17,10 @@ function Private(): ReactElement {
       <Header>
         <HeaderBar>
           <HeaderUsername>{handle}</HeaderUsername>
-          <HeaderButton onClick={logout}>Logout</HeaderButton>
+          <HeaderButton onClick={() => logout()}>Logout</HeaderButton>
         </HeaderBar>
       </Header>
-      <Switch>
-        <Suspense fallback={'Loading'}>
-          {routes.map((route, index) => (
-            <Route {...route} key={index} />
-          ))}
-        </Suspense>
-      </Switch>
+      <Outlet />
     </Fragment>
   );
 }
