@@ -12,7 +12,7 @@ import { Menu } from './Menu';
 
 interface MenuEntry {
   readonly name: string;
-  action(...args: any[]): void;
+  readonly action: (...args: any[]) => void;
 }
 
 interface UseMenuInput {
@@ -25,22 +25,22 @@ interface Bind extends Pick<HTMLAttributes<unknown>, 'onClick'> {
 }
 
 interface UseMenuReturn {
-  renderMenu(): ReactElement | null;
+  readonly renderMenu: () => ReactElement | null;
   readonly bind: Bind;
   readonly isDisplaying: boolean;
-  toggleMenu(): void;
-  showMenu(): void;
-  hideMenu(): void;
+  readonly toggleMenu: () => void;
+  readonly showMenu: () => void;
+  readonly hideMenu: () => void;
 }
 
 function useMenu(input: UseMenuInput): UseMenuReturn {
   const { entries, component: Component = 'div' } = input;
 
-  const { value: isDisplaying, toggle, setFalse, setTrue } = useBoolean();
+  const [isDisplaying, { toggle, on, off }] = useBoolean();
 
   const [ref, rect] = useDimensions();
 
-  const menuRef = useOnClickOutside<HTMLDivElement>(setFalse);
+  const menuRef = useOnClickOutside<HTMLDivElement>(off);
 
   const renderMenu = useCallback(() => {
     return isDisplaying ? (
@@ -80,8 +80,8 @@ function useMenu(input: UseMenuInput): UseMenuReturn {
     bind,
     isDisplaying,
     toggleMenu: toggle,
-    hideMenu: setFalse,
-    showMenu: setTrue
+    hideMenu: off,
+    showMenu: on
   };
 }
 

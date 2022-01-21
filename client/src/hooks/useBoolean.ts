@@ -1,29 +1,26 @@
 import { useMemo, useState } from 'react';
 
-interface UseBooleanReturn {
-  readonly value: boolean;
-  toggle(): void;
-  setTrue(): void;
-  setFalse(): void;
+interface UseBooleanSetter {
+  readonly toggle: () => void;
+  readonly on: () => void;
+  readonly off: () => void;
 }
 
-function useBoolean(initialValue: boolean = false): UseBooleanReturn {
+function useBoolean(
+  initialValue: boolean = false
+): [boolean, UseBooleanSetter] {
   const [value, setValue] = useState(initialValue);
 
-  const result = useMemo<Omit<UseBooleanReturn, 'value'>>(
+  const setter = useMemo<UseBooleanSetter>(
     () => ({
-      setFalse: () => setValue(false),
-      setTrue: () => setValue(true),
+      off: () => setValue(false),
+      on: () => setValue(true),
       toggle: () => setValue((val) => !val)
     }),
     []
   );
 
-  return {
-    value,
-    ...result
-  };
+  return [value, setter];
 }
 
-export type { UseBooleanReturn };
 export { useBoolean };

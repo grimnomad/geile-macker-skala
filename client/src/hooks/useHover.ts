@@ -2,20 +2,22 @@ import { HTMLAttributes, useMemo } from 'react';
 
 import { useBoolean } from './useBoolean';
 
-type UseHoverReturn = [
-  boolean,
-  Pick<HTMLAttributes<unknown>, 'onMouseEnter' | 'onMouseLeave'>
-];
+type MouseProps = Pick<
+  HTMLAttributes<unknown>,
+  'onMouseEnter' | 'onMouseLeave'
+>;
+
+type UseHoverReturn = [boolean, MouseProps];
 
 function useHover(): UseHoverReturn {
-  const { value: show, setTrue, setFalse } = useBoolean();
+  const [show, { on, off }] = useBoolean();
 
-  const props = useMemo(
+  const props = useMemo<MouseProps>(
     () => ({
-      onMouseEnter: () => setTrue(),
-      onMouseLeave: () => setFalse()
+      onMouseEnter: on,
+      onMouseLeave: off
     }),
-    [setFalse, setTrue]
+    [on, off]
   );
 
   return [show, props];
