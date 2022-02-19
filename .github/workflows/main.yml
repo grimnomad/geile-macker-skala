@@ -15,6 +15,9 @@ jobs:
 
       - name: Install root package
         run: npm ci
-        
-      - name: Bootstrap packages
-        run: npm run bootstrap
+
+      - name: Lint all packages
+        run: npm run lint
+
+      - name: Build all packages
+        run: npm run build

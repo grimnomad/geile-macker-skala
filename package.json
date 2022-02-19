@@ -1,12 +1,22 @@
 {
   "name": "geile-macker-skala",
   "private": true,
-  "devDependencies": {
-    "lerna": "^4.0.0"
-  },
+  "packageManager": "npm@8.1.3",
   "scripts": {
-    "lerna": "lerna",
-    "clean": "lerna clean",
-    "bootstrap": "lerna bootstrap"
-  }
+    "start": "turbo run start",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "test": "turbo run test"
+  },
+  "devDependencies": {
+    "turbo": "^1.1.2",
+    "eslint": "^8.9.0",
+    "prettier": "^2.5.1"
+  },
+  "workspaces": [
+    "client",
+    "server",
+    "shared",
+    "eslint-config-gms"
+  ]
 }

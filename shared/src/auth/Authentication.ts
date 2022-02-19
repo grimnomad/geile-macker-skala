@@ -12,6 +12,6 @@ interface AuthSignUpDTO extends CommonAuthCredentials {
   last_name: string;
 }
 
-interface AuthSignInDTO extends CommonAuthCredentials {}
+type AuthSignInDTO = CommonAuthCredentials;
 
 export type { AuthSignInDTO, AuthSignUpDTO };

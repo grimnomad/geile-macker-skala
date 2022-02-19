@@ -6,9 +6,7 @@ interface UseBooleanSetter {
   readonly off: () => void;
 }
 
-function useBoolean(
-  initialValue: boolean = false
-): [boolean, UseBooleanSetter] {
+function useBoolean(initialValue = false): [boolean, UseBooleanSetter] {
   const [value, setValue] = useState(initialValue);
 
   const setter = useMemo<UseBooleanSetter>(

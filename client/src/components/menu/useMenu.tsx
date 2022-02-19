@@ -70,10 +70,10 @@ function useMenu(input: UseMenuInput): UseMenuReturn {
     toggle
   ]);
 
-  const bind = useMemo<Bind>(() => ({ ref, onClick: () => toggle() }), [
-    ref,
-    toggle
-  ]);
+  const bind = useMemo<Bind>(
+    () => ({ ref, onClick: () => toggle() }),
+    [ref, toggle]
+  );
 
   return {
     renderMenu,

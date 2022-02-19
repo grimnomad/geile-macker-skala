@@ -5,7 +5,7 @@ import { Ref, useCallback } from 'react';
  *
  * Taken from: https://github.com/facebook/react/issues/13029#issuecomment-497641073
  */
-function useCombinedRefs<T extends unknown>(...refs: Ref<T>[]): Ref<T> {
+function useCombinedRefs<T>(...refs: Ref<T>[]): Ref<T> {
   return useCallback(
     (element: T) =>
       refs.forEach((ref) => {

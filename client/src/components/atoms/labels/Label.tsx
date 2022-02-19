@@ -7,7 +7,7 @@ import {
 
 import { StyledLabel } from './styles';
 
-interface LabelProps extends LabelHTMLAttributes<HTMLLabelElement> {}
+type LabelProps = LabelHTMLAttributes<HTMLLabelElement>;
 
 function LabelComponent(
   props: LabelProps,

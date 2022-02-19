@@ -9,9 +9,8 @@ import { EnvironmentVariables } from './types';
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(AppModule);
 
-  const configService: ConfigService<EnvironmentVariables> = app.get(
-    ConfigService
-  );
+  const configService: ConfigService<EnvironmentVariables> =
+    app.get(ConfigService);
 
   const interceptors = setupInterceptors();
 

@@ -1,38 +1,23 @@
 {
   "extends": [
-    "react-app",
-    "react-app/jest",
-    "prettier"
+    "gms",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:react/jsx-runtime"
   ],
-  "plugins": ["prettier", "simple-import-sort", "@typescript-eslint"],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "project": "./tsconfig.json"
   },
-  "rules": {
-    "prettier/prettier": "warn",
-    "sort-imports": "off",
-    "import/order": "off",
-    "simple-import-sort/imports": "warn",
-    "simple-import-sort/exports": "warn",
-    "@typescript-eslint/no-unused-vars": [
-      "warn",
-      {
-        "vars": "all",
-        "args": "none"
-      }
-    ],
-    "@typescript-eslint/no-explicit-any": [
-      "error",
-      {
-        "ignoreRestArgs": true
-      }
-    ],
-    "@typescript-eslint/explicit-function-return-type": [
-      "error",
-      {
-        "allowExpressions": true
-      }
-    ]
-  }
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "overrides": [
+    {
+      "files": ["**/__tests__/**/*.[jt]s?(x)", "**/?(*.)+(spec|test).[jt]s?(x)"],
+      "extends": ["plugin:jest/recommended", "plugin:testing-library/react"]
+    }
+  ]
 }

@@ -24,12 +24,8 @@ function SignUp(): ReactElement {
   const { signup } = useAuth();
   const navigate = useNavigate();
 
-  const {
-    register,
-    handleSubmit,
-    getValues,
-    formState
-  } = useForm<FormValues>();
+  const { register, handleSubmit, getValues, formState } =
+    useForm<FormValues>();
   const { errors } = formState;
 
   function onSubmit(data: FormValues): void {
@@ -81,10 +77,16 @@ function SignUp(): ReactElement {
           hasError={!!errors.firstName}
           {...register('firstName', {
             required: 'Der Vorname muss angegeben werden!',
-            minLength:
-              'Der Vorname muss mindestens eine Länge von 2 Zeichen haben!',
-            maxLength:
-              'Der Vorname darf maximal eine Länge von 50 Zeichen haben!'
+            minLength: {
+              value: 2,
+              message:
+                'Der Vorname muss mindestens eine Länge von 2 Zeichen haben!'
+            },
+            maxLength: {
+              value: 50,
+              message:
+                'Der Vorname darf maximal eine Länge von 50 Zeichen haben!'
+            }
           })}
         />
         <FormField
@@ -93,10 +95,16 @@ function SignUp(): ReactElement {
           hasError={!!errors.lastName}
           {...register('lastName', {
             required: 'Der Nachname muss angegeben werden!',
-            minLength:
-              'Der Nachname muss mindestens eine Länge von 2 Zeichen haben!',
-            maxLength:
-              'Der Nachname darf maximal eine Länge von 50 Zeichen haben!'
+            minLength: {
+              value: 2,
+              message:
+                'Der Nachname muss mindestens eine Länge von 2 Zeichen haben!'
+            },
+            maxLength: {
+              value: 50,
+              message:
+                'Der Nachname darf maximal eine Länge von 50 Zeichen haben!'
+            }
           })}
         />
         <FormField

@@ -6,7 +6,8 @@ import {
 } from './utils';
 
 function setupInterceptors(): NestInterceptor[] {
-  const unauthorizedExceptionInterceptor = new UnauthorizedExceptionInterceptor();
+  const unauthorizedExceptionInterceptor =
+    new UnauthorizedExceptionInterceptor();
   const notFoundExceptionInterceptor = new NotFoundExceptionInterceptor();
 
   const interceptors: NestInterceptor[] = [];
