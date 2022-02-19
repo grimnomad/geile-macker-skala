@@ -6,7 +6,6 @@ Clone this repository. Then run the following commands, which will setup the rep
 
 ```
 npm install
-npm run bootstrap
 ```
 
 ## Development
@@ -17,7 +16,7 @@ Change the directory to the shared project and run `npm start`.
 
 ### Server
 
-Change the directory to the server project and run `npm run start:dev`.
+Change the directory to the server project and run `npm start`.
 
 #### Environment File
 The server needs an environment file. The `.env` file is in the root directory of the server located.
