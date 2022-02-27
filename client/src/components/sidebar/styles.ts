@@ -1,10 +1,6 @@
 import styled from 'styled-components';
 
-import { ColorMixin } from '../../theme';
-
-interface EntryContainerProps {
-  readonly showBackground: boolean;
-}
+import { ColorMixin, HighlightBackground } from '../../theme';
 
 const Container = styled.div`
   width: 12rem;
@@ -15,6 +11,10 @@ const Container = styled.div`
   justify-content: space-between;
 `;
 
+interface EntryContainerProps {
+  readonly showBackground: boolean;
+}
+
 const EntryContainer = styled.div<EntryContainerProps>`
   display: flex;
   justify-content: space-between;
@@ -22,8 +22,7 @@ const EntryContainer = styled.div<EntryContainerProps>`
   height: 100%;
   width: 100%;
 
-  ${(props) =>
-    props.showBackground ? `background-color: var(--tertiary-color)` : null};
+  ${(props) => (props.showBackground ? HighlightBackground : null)};
 `;
 
 const EntryName = styled.div`
@@ -50,7 +49,7 @@ const Button = styled.button`
   padding: 1em 0;
 
   &:hover {
-    background-color: var(--tertiary-color);
+    ${HighlightBackground}
   }
 
   &:active {
@@ -63,4 +62,5 @@ const Button = styled.button`
   }
 `;
 
+export type { EntryContainerProps };
 export { Bottom, Button, Container, EntryContainer, EntryName, Top };

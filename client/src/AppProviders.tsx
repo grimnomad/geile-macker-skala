@@ -7,7 +7,7 @@ import { ThemeProvider } from 'styled-components';
 import { AxiosProvider } from './api';
 import { AuthProvider } from './components';
 import { SERVER_URL } from './config';
-import { GlobalStyle, theme } from './theme';
+import { dark, GlobalStyle } from './theme';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -29,7 +29,7 @@ function AppProviders(props: AppProvidersProps): ReactElement {
       <AxiosProvider baseURL={SERVER_URL}>
         <QueryClientProvider client={queryClient}>
           <AuthProvider>
-            <ThemeProvider theme={theme}>
+            <ThemeProvider theme={dark}>
               {children}
               <GlobalStyle />
               <ReactQueryDevtools position="bottom-right" />

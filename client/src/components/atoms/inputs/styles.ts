@@ -4,11 +4,11 @@ import { ColorMixin } from '../../../theme';
 import { InputProps } from './Input';
 
 const StandardBorder = css`
-  border: 1px solid var(--tertiary-color);
+  border: 1px solid var(--color-elements-shadow);
 `;
 
 const ErrorBorder = css`
-  border: 1px solid red;
+  border: 1px solid var(--color-helpers-danger);
 `;
 
 const StyledInput = styled.input.attrs((props) => ({
@@ -22,11 +22,6 @@ const StyledInput = styled.input.attrs((props) => ({
   ${ColorMixin};
 
   ${(props) => (props.hasError ? ErrorBorder : StandardBorder)}
-
-  ::placeholder {
-    color: whitesmoke;
-    font-style: italic;
-  }
 `;
 
 export { StyledInput };

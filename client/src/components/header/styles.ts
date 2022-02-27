@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { CenterMixin, ColorMixin } from '../../theme';
+import { CenterMixin, ColorMixin, HighlightBackground } from '../../theme';
 
 const Wrapper = styled.nav`
   display: flex;
@@ -23,7 +23,7 @@ const HeaderButton = styled.button`
   width: 5em;
 
   &:hover {
-    background-color: ${(props) => props.theme.tertiary};
+    ${HighlightBackground};
   }
 
   &:active {

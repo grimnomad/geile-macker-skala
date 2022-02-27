@@ -9,9 +9,16 @@ const GlobalStyle = createGlobalStyle`
   }
 
   html {
-    --primary-color: ${(props) => props.theme.primary};
-    --secondary-color: ${(props) => props.theme.secondary};
-    --tertiary-color: ${(props) => props.theme.tertiary};
+    --color-text-main: ${(props) => props.theme.colors.text.main};
+    --color-text-dimmed: ${(props) => props.theme.colors.text.dimmed};
+
+    --color-elements-main: ${(props) => props.theme.colors.elements.main};
+    --color-elements-shadow: ${(props) => props.theme.colors.elements.shadow};
+    --color-elements-highlight: ${(props) =>
+      props.theme.colors.elements.highlight};
+
+    --color-helpers-danger: ${(props) => props.theme.colors.helpers.danger};
+    --color-helpers-success: ${(props) => props.theme.colors.helpers.success};
 
     box-sizing: border-box;
   }

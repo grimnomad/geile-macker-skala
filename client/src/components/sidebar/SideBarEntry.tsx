@@ -1,4 +1,3 @@
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ReactElement } from 'react';
@@ -29,8 +28,8 @@ function SideBarEntry(props: SideBarEntryProps): ReactElement {
       <EntryName>{name}</EntryName>
       {show ? (
         <FontAwesomeIcon
-          icon={faEllipsisV as IconProp}
-          color={theme.secondary}
+          icon={faEllipsisV}
+          color={theme.colors.text.dimmed}
           forwardedRef={bind.ref}
           onClick={bind.onClick}
         />
