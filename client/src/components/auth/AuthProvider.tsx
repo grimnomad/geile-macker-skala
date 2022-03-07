@@ -1,10 +1,10 @@
-import { AuthSignInDTO, AuthSignUpDTO } from '@gms/shared';
-import { ReactElement, ReactNode, useCallback } from 'react';
+import { ReactElement, ReactNode, useCallback, useMemo } from 'react';
 import { useQueryClient } from 'react-query';
 
 import { useLogIn, useSignUp } from '../../api';
 import { parseJwt } from '../../utils';
 import { AuthContext } from './AuthContext';
+import { Auth, LoginFunction, LogoutFunction, SignupFunction } from './types';
 import { useSetAuth } from './useSetAuth';
 
 interface AuthProviderProps {
@@ -21,8 +21,8 @@ function AuthProvider(props: AuthProviderProps): ReactElement {
 
   const { state, authenticate, unauthenticate } = useSetAuth();
 
-  const login = useCallback(
-    (signInDTO: AuthSignInDTO, onLogin?: () => void) => {
+  const login = useCallback<LoginFunction>(
+    (signInDTO, onLogin) => {
       logIn(signInDTO, {
         onSuccess: (response) => {
           const token = parseJwt(response.data);
@@ -37,8 +37,8 @@ function AuthProvider(props: AuthProviderProps): ReactElement {
     [authenticate, logIn]
   );
 
-  const signup = useCallback(
-    (signUpDTO: AuthSignUpDTO, onSignup?: () => void) => {
+  const signup = useCallback<SignupFunction>(
+    (signUpDTO, onSignup) => {
       signUp(signUpDTO, {
         onSuccess: () => {
           const { handle, password } = signUpDTO;
@@ -50,8 +50,8 @@ function AuthProvider(props: AuthProviderProps): ReactElement {
     [login, signUp]
   );
 
-  const logout = useCallback(
-    (onLogout?: () => void) => {
+  const logout = useCallback<LogoutFunction>(
+    (onLogout) => {
       unauthenticate();
       queryClient.removeQueries();
       onLogout?.();
@@ -59,11 +59,12 @@ function AuthProvider(props: AuthProviderProps): ReactElement {
     [queryClient, unauthenticate]
   );
 
-  return (
-    <AuthContext.Provider value={{ login, signup, logout, ...state }}>
-      {children}
-    </AuthContext.Provider>
+  const auth = useMemo<Auth>(
+    () => ({ login, logout, signup, ...state }),
+    [login, logout, signup, state]
   );
+
+  return <AuthContext.Provider value={auth}>{children}</AuthContext.Provider>;
 }
 
 export { AuthProvider };

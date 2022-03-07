@@ -9,6 +9,8 @@ type Actions =
   | { type: 'authenticate'; handle: string; token: string }
   | { type: 'unauthenticate' };
 
+type Authenticate = (handle: string, token: string) => void;
+
 function init(input: AuthState): AuthState {
   return input;
 }
@@ -28,7 +30,7 @@ function reducer(state: AuthState, action: Actions): AuthState {
 
 interface UseSetAuthReturn {
   state: AuthState;
-  authenticate: (handle: string, token: string) => void;
+  authenticate: Authenticate;
   unauthenticate: () => void;
 }
 
@@ -45,8 +47,8 @@ function useSetAuth(): UseSetAuthReturn {
     init
   );
 
-  const authenticate = useCallback(
-    (handle: string, token: string) => {
+  const authenticate = useCallback<Authenticate>(
+    (handle, token) => {
       set(token);
       dispatch({ type: 'authenticate', handle, token });
     },
