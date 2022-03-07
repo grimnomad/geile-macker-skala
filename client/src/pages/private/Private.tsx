@@ -6,15 +6,20 @@ import {
   HeaderBar,
   HeaderButton,
   HeaderUsername,
-  useAuth
+  useAuth,
+  useLogger
 } from '../../components';
 
 function Private(): ReactElement {
   const { logout, handle } = useAuth();
   const navigate = useNavigate();
+  const logger = useLogger(Private.name);
 
   function logOut(): void {
-    logout(() => navigate('/'));
+    logout(() => {
+      logger.info('User has successfully logged out.');
+      navigate('/');
+    });
   }
 
   return (

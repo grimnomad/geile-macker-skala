@@ -8,18 +8,23 @@ import {
   Form,
   FormButtonGroup,
   FormField,
-  useAuth
+  useAuth,
+  useLogger
 } from '../../../components';
 import { LogInContainer } from './styles';
 
 function Login(): ReactElement {
   const { login } = useAuth();
   const navigate = useNavigate();
+  const logger = useLogger(Login.name);
 
   const { register, handleSubmit } = useForm<AuthSignInDTO>();
 
   function logIn(signInDTO: AuthSignInDTO): void {
-    login(signInDTO, () => navigate('/dashboard'));
+    login(signInDTO, () => {
+      logger.info('User has successfully logged in.');
+      navigate('/dashboard');
+    });
   }
 
   return (

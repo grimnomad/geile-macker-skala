@@ -5,7 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
 import { AxiosProvider } from './api';
-import { AuthProvider } from './components';
+import { AuthProvider, ConsoleLogger, LoggerProvider } from './components';
 import { SERVER_URL } from './config';
 import { dark, GlobalStyle } from './theme';
 
@@ -28,13 +28,15 @@ function AppProviders(props: AppProvidersProps): ReactElement {
     <BrowserRouter>
       <AxiosProvider baseURL={SERVER_URL}>
         <QueryClientProvider client={queryClient}>
-          <AuthProvider>
-            <ThemeProvider theme={dark}>
-              {children}
-              <GlobalStyle />
-              <ReactQueryDevtools position="bottom-right" />
-            </ThemeProvider>
-          </AuthProvider>
+          <LoggerProvider logger={ConsoleLogger}>
+            <AuthProvider>
+              <ThemeProvider theme={dark}>
+                {children}
+                <GlobalStyle />
+                <ReactQueryDevtools position="bottom-right" />
+              </ThemeProvider>
+            </AuthProvider>
+          </LoggerProvider>
         </QueryClientProvider>
       </AxiosProvider>
     </BrowserRouter>
