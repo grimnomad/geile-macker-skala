@@ -1,4 +1,4 @@
-import { ReactElement, ReactNode, useCallback, useMemo } from 'react';
+import { ReactElement, ReactNode, useCallback, useMemo, useRef } from 'react';
 
 import { LoggerContext } from './LoggerContext';
 import { LoggingFactory } from './LoggingFactory';
@@ -10,23 +10,37 @@ interface LoggerProviderProps {
   readonly level?: LogLevel;
 }
 
-const factory = new LoggingFactory();
-
 function LoggerProvider(props: LoggerProviderProps): ReactElement {
   const { children, logger: LoggerClass, level = 'debug' } = props;
 
+  const factoryRef = useRef<LoggingFactory | null>(null);
+
+  const getFactory = useCallback(() => {
+    if (factoryRef.current === null) {
+      factoryRef.current = new LoggingFactory(LoggerClass, level);
+    }
+
+    return factoryRef.current;
+  }, [LoggerClass, level]);
+
   const createLogger = useCallback<CreateLogger>(
     (name) => {
-      const logger = factory.createLogger(name, level, LoggerClass);
+      const factory = getFactory();
+      const logger = factory.createLogger(name);
 
       return logger;
     },
-    [level, LoggerClass]
+    [getFactory]
   );
 
   const getLogger = useCallback<GetLogger>(
-    (name) => factory.getLogger(name),
-    []
+    (name) => {
+      const factory = getFactory();
+      const logger = factory.getLogger(name);
+
+      return logger;
+    },
+    [getFactory]
   );
 
   const logContext = useMemo<LogContext>(

@@ -5,15 +5,16 @@ import { Logger, LogLevel } from './types';
 class LoggingFactory {
   private loggerMap = new Map<string, Logger>();
 
-  createLogger(
-    name: string,
-    level: LogLevel,
-    LoggerFactory: new (name: string) => Logger
-  ): Logger {
-    const logger = new LoggerFactory(name);
+  constructor(
+    private readonly LoggerFactory: new (name: string) => Logger,
+    private readonly level: LogLevel
+  ) {}
+
+  createLogger(name: string): Logger {
+    const logger = new this.LoggerFactory(name);
 
     for (const [key, value] of Object.entries(LogLevels)) {
-      const logLevel = LogLevels[level];
+      const logLevel = LogLevels[this.level];
 
       if (logLevel > value) {
         Object.defineProperty(logger, key, { value: noOp });

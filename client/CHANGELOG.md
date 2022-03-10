@@ -1,5 +1,11 @@
 # @gms/client
 
+## 0.1.1
+
+### Patch Changes
+
+- Moved the class reference and loglevel to the `LoggingFactory` constructor
+
 ## 0.1.0
 
 ### Minor Changes
