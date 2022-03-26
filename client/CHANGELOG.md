@@ -1,5 +1,11 @@
 # @gms/client
 
+## 0.2.0
+
+### Minor Changes
+
+- Moved auth token to the axios instance
+
 ## 0.1.1
 
 ### Patch Changes

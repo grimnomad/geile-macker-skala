@@ -1,25 +1,21 @@
 import { ResponseDTO, ScaleDTO } from '@gms/shared';
 import { useQuery, UseQueryResult } from 'react-query';
 
-import { useAuth } from '../../components';
 import { Scale } from '../../models';
 import { useAxios } from '../AxiosProvider';
-import { createHeaders } from '../utils';
 import { createScale } from './createScale';
 import { ScalesQueryFactory } from './ScalesQueryFactory';
+import { ScalesResourceFactory } from './ScalesResourceFactory';
 
 function useReadScales(): UseQueryResult<Scale[], unknown> {
-  const { token } = useAuth();
   const Axios = useAxios();
-
-  const headers = createHeaders({ token });
 
   const query = useQuery(
     ScalesQueryFactory.all,
     () =>
-      Axios.get<ResponseDTO<ScaleDTO[]>, ResponseDTO<ScaleDTO[]>>('/scales', {
-        headers
-      }),
+      Axios.get<ResponseDTO<ScaleDTO[]>, ResponseDTO<ScaleDTO[]>>(
+        ScalesResourceFactory.root
+      ),
     {
       select: (response) => response.data.map(createScale)
     }

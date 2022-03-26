@@ -1,9 +1,8 @@
 import { useMutation, UseMutationResult, useQueryClient } from 'react-query';
 
-import { useAuth } from '../../components';
 import { useAxios } from '../AxiosProvider';
-import { createHeaders } from '../utils';
 import { ScalesQueryFactory } from './ScalesQueryFactory';
+import { ScalesResourceFactory } from './ScalesResourceFactory';
 
 function useDeleteScale(): UseMutationResult<
   unknown,
@@ -11,14 +10,11 @@ function useDeleteScale(): UseMutationResult<
   string,
   unknown
 > {
-  const { token } = useAuth();
   const queryClient = useQueryClient();
   const Axios = useAxios();
 
-  const headers = createHeaders({ token });
-
   const mutation = useMutation(
-    (id: string) => Axios.delete(`/scales/${id}`, { headers }),
+    (id: string) => Axios.delete(ScalesResourceFactory.byID(id)),
     {
       onSuccess: () => {
         queryClient.invalidateQueries(ScalesQueryFactory.all, { exact: true });

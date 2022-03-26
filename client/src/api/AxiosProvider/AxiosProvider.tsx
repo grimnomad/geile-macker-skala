@@ -1,7 +1,8 @@
-import Axios from 'axios';
-import { ReactElement, ReactNode, useRef } from 'react';
+import { AxiosInstance } from 'axios';
+import { ReactElement, ReactNode, useCallback, useMemo, useRef } from 'react';
 
-import { AxiosContext } from './AxiosContext';
+import { AxiosAPI, AxiosContext, SetToken } from './AxiosContext';
+import { createAxiosInstance } from './createAxiosInstance';
 
 interface AxiosProviderProps {
   readonly baseURL: string;
@@ -11,18 +12,38 @@ interface AxiosProviderProps {
 function AxiosProvider(props: AxiosProviderProps): ReactElement {
   const { baseURL, children } = props;
 
-  const axiosRef = useRef(
-    Axios.create({
-      baseURL
-    })
+  const axiosRef = useRef<AxiosInstance | null>(null);
+
+  const getInstance = useCallback(() => {
+    if (axiosRef.current === null) {
+      axiosRef.current = createAxiosInstance(baseURL);
+    }
+
+    return axiosRef.current;
+  }, [baseURL]);
+
+  const setToken = useCallback<SetToken>(
+    (token) => {
+      const instance = getInstance();
+
+      instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    },
+    [getInstance]
   );
 
-  axiosRef.current.interceptors.response.use((response) => response.data);
+  const resetToken = useCallback(() => {
+    const instance = getInstance();
+
+    delete instance.defaults.headers.common['Authorization'];
+  }, [getInstance]);
+
+  const context = useMemo<AxiosAPI>(
+    () => ({ instance: getInstance(), resetToken, setToken }),
+    [getInstance, resetToken, setToken]
+  );
 
   return (
-    <AxiosContext.Provider value={axiosRef.current}>
-      {children}
-    </AxiosContext.Provider>
+    <AxiosContext.Provider value={context}>{children}</AxiosContext.Provider>
   );
 }
 
