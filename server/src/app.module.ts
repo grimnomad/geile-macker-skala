@@ -4,25 +4,21 @@ import {
   NestModule,
   RequestMethod
 } from '@nestjs/common';
-import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 
 import { AuthModule } from './auth';
+import { AppConfigModule, MongoDBConfigService } from './config';
 import { ScaleModule } from './scale';
-import { EnvironmentVariables } from './types';
 import { MorganMiddleware } from './utils';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({
-      isGlobal: true,
-      expandVariables: true
-    }),
+    AppConfigModule,
     MongooseModule.forRootAsync({
-      imports: [ConfigModule],
-      inject: [ConfigService],
-      useFactory: (configService: ConfigService<EnvironmentVariables>) => ({
-        uri: configService.get<string>('MONGODB_URI')
+      imports: [AppConfigModule],
+      inject: [MongoDBConfigService],
+      useFactory: (configService: MongoDBConfigService) => ({
+        uri: configService.URI
       })
     }),
     AuthModule,

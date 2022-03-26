@@ -1,24 +1,20 @@
 import { Logger } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 
 import { AppModule } from './app.module';
+import { AppConfigService, MongoDBConfigService } from './config';
 import { setupInterceptors } from './setup';
-import { EnvironmentVariables } from './types';
 
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(AppModule);
 
-  const configService: ConfigService<EnvironmentVariables> =
-    app.get(ConfigService);
+  const { PORT } = app.get(AppConfigService);
+  const { URI: MONGODB_URI } = app.get(MongoDBConfigService);
 
   const interceptors = setupInterceptors();
 
   app.useGlobalInterceptors(...interceptors);
   app.enableCors();
-
-  const PORT = configService.get<number>('PORT');
-  const MONGODB_URI = configService.get<string>('MONGODB_URI');
 
   Logger.log(`Server started on PORT: ${PORT}`, bootstrap.name);
   Logger.log(

@@ -1,10 +1,9 @@
 import { UserDTO } from '@gms/shared';
 import { Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 
-import { EnvironmentVariables } from '../types';
+import { JWTConfigService } from '../config';
 import { UsersService } from '../users';
 import { JWTPayload } from './types';
 
@@ -12,11 +11,11 @@ import { JWTPayload } from './types';
 class JWTStrategy extends PassportStrategy(Strategy) {
   constructor(
     private readonly usersService: UsersService,
-    private readonly configService: ConfigService<EnvironmentVariables>
+    private readonly configService: JWTConfigService
   ) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      secretOrKey: configService.get<string>('JWT_SECRET')
+      secretOrKey: configService.SECRET
     });
   }
 
