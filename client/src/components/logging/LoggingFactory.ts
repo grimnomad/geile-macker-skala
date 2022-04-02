@@ -1,4 +1,5 @@
-import { noOp } from '../../utils';
+import { noop } from '@gms/utils';
+
 import { LogLevels } from './LogLevels';
 import { Logger, LogLevel } from './types';
 
@@ -17,7 +18,7 @@ class LoggingFactory {
       const logLevel = LogLevels[this.level];
 
       if (logLevel > value) {
-        Object.defineProperty(logger, key, { value: noOp });
+        Object.defineProperty(logger, key, { value: noop });
       }
     }
 
