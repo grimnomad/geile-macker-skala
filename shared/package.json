@@ -2,7 +2,7 @@
   "name": "@gms/shared",
   "version": "0.0.1",
   "main": "dist/index.js",
-  "typings": "dist/index.d.ts",
+  "types": "dist/index.d.ts",
   "files": [
     "dist",
     "src"
@@ -17,7 +17,6 @@
     "lint": "eslint ./src",
     "lint:fix": "eslint ./src --fix"
   },
-  "module": "dist/shared.esm.js",
   "devDependencies": {
     "@types/jest": "^27.4.0",
     "@typescript-eslint/parser": "^5.12.0",
