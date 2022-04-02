@@ -1,0 +1,28 @@
+{
+  "name": "@gms/utils",
+  "version": "0.1.0",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "keywords": [
+    "utils"
+  ],
+  "scripts": {
+    "types": "tsc",
+    "esbuild": "node ./esbuild.js",
+    "clean": "rimraf dist",
+    "build": "npm run clean && npm run types && npm run esbuild",
+    "lint": "eslint ./src",
+    "lint:fix": "eslint --fix ./src",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "@types/jest": "^27.4.1",
+    "@typescript-eslint/parser": "^5.17.0",
+    "esbuild": "^0.14.29",
+    "eslint-config-gms": "^1.0.0",
+    "jest": "^27.5.1",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.6.3"
+  }
+}

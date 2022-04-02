@@ -19,6 +19,7 @@
     "client",
     "server",
     "shared",
+    "utils",
     "eslint-config-gms"
   ]
 }
