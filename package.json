@@ -20,6 +20,7 @@
     "server",
     "shared",
     "utils",
-    "eslint-config-gms"
+    "eslint-config-gms",
+    "prettier-config"
   ]
 }

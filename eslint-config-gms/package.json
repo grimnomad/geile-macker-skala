@@ -1,12 +1,18 @@
 {
   "name": "eslint-config-gms",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "ESLint shared config",
   "main": "index.js",
+  "exports": {
+    ".": "./index.js",
+    "./prettier.config": "./prettier.config.js"
+  },
   "keywords": [
-    "ESLint"
+    "ESLint",
+    "Prettier"
   ],
-  "devDependencies": {
+  "dependencies": {
+    "@gms/prettier-config": "^1.0.0",
     "@typescript-eslint/eslint-plugin": "^5.12.0",
     "eslint-config-prettier": "^6.15.0",
     "eslint-plugin-jest": "^26.1.1",
