@@ -19,9 +19,9 @@ importers:
       '@fortawesome/fontawesome-svg-core': ^6.1.1
       '@fortawesome/free-solid-svg-icons': ^6.1.1
       '@fortawesome/react-fontawesome': ^0.1.18
-      '@gms/components': ^0.0.0
+      '@gms/components': ^0.1.0
       '@gms/shared': ^0.0.1
-      '@gms/utils': ^0.1.0
+      '@gms/utils': ^0.2.0
       '@testing-library/jest-dom': ^5.16.2
       '@testing-library/react': ^12.1.3
       '@testing-library/user-event': ^13.5.0
@@ -145,7 +145,7 @@ importers:
   server:
     specifiers:
       '@gms/shared': ^0.0.1
-      '@gms/utils': workspace:^0.1.0
+      '@gms/utils': ^0.2.0
       '@nestjs/cli': ^8.1.4
       '@nestjs/common': ^8.1.2
       '@nestjs/config': ^1.1.0
@@ -7533,7 +7533,7 @@ packages:
       '@types/jest': 27.4.1
       bs-logger: 0.2.6
       fast-json-stable-stringify: 2.1.0
-      jest: 27.5.1_ts-node@9.0.0
+      jest: 27.5.1
       jest-util: 27.5.1
       json5: 2.2.1
       lodash.memoize: 4.1.2
