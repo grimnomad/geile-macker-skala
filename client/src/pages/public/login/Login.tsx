@@ -1,17 +1,11 @@
+import { Button, Form, FormButtonGroup, FormField } from '@gms/components';
 import { AuthSignInDTO } from '@gms/shared';
 import { ReactElement } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
-import {
-  Button,
-  Form,
-  FormButtonGroup,
-  FormField,
-  useAuth,
-  useLogger
-} from '../../../components';
-import { LogInContainer } from './styles';
+import { useAuth, useLogger } from '../../../components';
+import { LogInContainer } from './Login.styles';
 
 function Login(): ReactElement {
   const { login } = useAuth();

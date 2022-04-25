@@ -1,7 +1,8 @@
+import { useDialog } from '@gms/components';
 import { Fragment, ReactElement } from 'react';
 
 import { useDeleteScale, useReadScales } from '../../../api';
-import { SideBar, useDialog } from '../../../components';
+import { SideBar } from '../../../components';
 import { CreateScaleForm } from './CreateScaleForm';
 
 function Dashboard(): ReactElement {

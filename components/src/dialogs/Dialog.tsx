@@ -1,7 +1,7 @@
 import { ReactElement, ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 
-import { Backdrop, DialogContainer } from './styles';
+import { Backdrop, DialogContainer } from './Dialog.styles';
 
 interface DialogProps {
   children: ReactNode;

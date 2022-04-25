@@ -1,6 +1,6 @@
 import { ReactElement, ReactNode } from 'react';
 
-import { AppLayout } from './styles';
+import { AppLayout } from './Layout.styles';
 
 interface LayoutProps {
   readonly children: ReactNode;

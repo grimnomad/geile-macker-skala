@@ -1,6 +1,5 @@
+import { CenterMixin, ColorMixin, HighlightBackground } from '@gms/components';
 import styled from 'styled-components';
-
-import { CenterMixin, ColorMixin, HighlightBackground } from '../../theme';
 
 const Wrapper = styled.nav`
   display: flex;

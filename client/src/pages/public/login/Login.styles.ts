@@ -1,6 +1,5 @@
+import { CenterMixin } from '@gms/components';
 import styled from 'styled-components';
-
-import { CenterMixin } from '../../../theme';
 
 const LogInContainer = styled.div`
   ${CenterMixin}

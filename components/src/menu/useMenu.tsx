@@ -7,7 +7,7 @@ import {
   useMemo
 } from 'react';
 
-import { useBoolean, useDimensions, useOnClickOutside } from '../../hooks';
+import { useBoolean, useDimensions, useOnClickOutside } from '../hooks';
 import { Menu } from './Menu';
 
 interface MenuEntry {

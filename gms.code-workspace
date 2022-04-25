@@ -17,6 +17,10 @@
       "name": "@gms/utils"
     },
     {
+      "path": "components",
+      "name": "@gms/components"
+    },
+    {
       "path": ".",
       "name": "@gms/root"
     }
@@ -31,7 +35,6 @@
     "eslint.alwaysShowStatus": true,
     "editor.codeActionsOnSave": {
       "source.fixAll": true
-    },
-    "typescript.tsdk": "@gms/root/node_modules/typescript/lib"
+    }
   }
 }

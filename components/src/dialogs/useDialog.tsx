@@ -1,6 +1,6 @@
 import { ComponentType, ReactElement, useCallback } from 'react';
 
-import { useBoolean } from '../../hooks';
+import { useBoolean } from '../hooks';
 import { Dialog } from './Dialog';
 
 type Toggle = ReturnType<typeof useBoolean>[1]['toggle'];

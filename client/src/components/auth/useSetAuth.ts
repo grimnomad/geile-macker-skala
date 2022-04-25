@@ -1,8 +1,8 @@
+import { useLocalStorage } from '@gms/components';
 import produce from 'immer';
 import { useCallback, useReducer } from 'react';
 
 import { useAxiosToken } from '../../api';
-import { useLocalStorage } from '../../hooks';
 import { parseJwt } from '../../utils';
 import { AuthState } from './types';
 

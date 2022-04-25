@@ -1,7 +1,7 @@
 import { ForwardedRef, forwardRef, ReactElement, ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 
-import { Container } from './styles';
+import { Container } from './Menu.styles';
 
 interface MenuProps {
   readonly children: ReactNode;

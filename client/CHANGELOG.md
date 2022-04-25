@@ -1,5 +1,14 @@
 # @gms/client
 
+## 0.2.1
+
+### Patch Changes
+
+- Updated dependencies
+- Updated dependencies
+  - @gms/components@0.1.0
+  - @gms/utils@0.2.0
+
 ## 0.2.0
 
 ### Minor Changes

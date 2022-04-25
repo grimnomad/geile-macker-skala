@@ -1,12 +1,13 @@
 {
   "name": "@gms/server",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "private": true,
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "start": "nest start --watch",
+    "start": "nest start",
+    "dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\"",
@@ -19,6 +20,7 @@
   },
   "dependencies": {
     "@gms/shared": "^0.0.1",
+    "@gms/utils": "^0.2.0",
     "@nestjs/common": "^8.1.2",
     "@nestjs/config": "^1.1.0",
     "@nestjs/core": "^8.1.2",

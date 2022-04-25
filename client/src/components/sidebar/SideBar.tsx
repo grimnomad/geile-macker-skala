@@ -1,7 +1,7 @@
 import { ReactElement, ReactNode } from 'react';
 
+import { Bottom, Button, Container, Top } from './SideBar.styles';
 import { SideBarEntry } from './SideBarEntry';
-import { Bottom, Button, Container, Top } from './styles';
 
 interface Action {
   readonly label: string;

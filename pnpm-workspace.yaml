@@ -5,3 +5,4 @@ packages:
   - 'utils'
   - 'eslint-config-gms'
   - 'prettier-config'
+  - 'components'

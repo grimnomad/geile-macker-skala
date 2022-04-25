@@ -1,6 +1,6 @@
 import { ReactElement, ReactNode } from 'react';
 
-import { Logo, Wrapper } from './styles';
+import { Logo, Wrapper } from './Header.styles';
 
 interface HeaderProps {
   readonly children?: ReactNode;

@@ -1,9 +1,9 @@
+import { Button, Form, FormButtonGroup, FormField } from '@gms/components';
 import { CreateScaleDTO } from '@gms/shared';
 import { ReactElement } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { useCreateScale } from '../../../api';
-import { Button, Form, FormButtonGroup, FormField } from '../../../components';
 
 interface CreateScaleFormProps {
   onClose: () => void;

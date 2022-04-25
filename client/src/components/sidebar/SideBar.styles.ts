@@ -1,6 +1,5 @@
+import { ColorMixin, HighlightBackground } from '@gms/components';
 import styled from 'styled-components';
-
-import { ColorMixin, HighlightBackground } from '../../theme';
 
 const Container = styled.div`
   width: 12rem;
@@ -9,25 +8,6 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-`;
-
-interface EntryContainerProps {
-  readonly showBackground: boolean;
-}
-
-const EntryContainer = styled.div<EntryContainerProps>`
-  display: flex;
-  justify-content: space-between;
-  padding: 0.5rem;
-  height: 100%;
-  width: 100%;
-
-  ${(props) => (props.showBackground ? HighlightBackground : null)};
-`;
-
-const EntryName = styled.div`
-  overflow: hidden;
-  text-overflow: ellipsis;
 `;
 
 const Top = styled.div`
@@ -62,5 +42,4 @@ const Button = styled.button`
   }
 `;
 
-export type { EntryContainerProps };
-export { Bottom, Button, Container, EntryContainer, EntryName, Top };
+export { Bottom, Button, Container, Top };

@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-import { ColorMixin } from '../../../theme';
+import { ColorMixin } from '../../mixins';
 import { InputProps } from './Input';
 
 const StandardBorder = css`

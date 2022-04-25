@@ -1,8 +1,8 @@
-import { ForwardedRef, forwardRef, ReactElement, Ref, useRef } from 'react';
+import React, { ForwardedRef, ReactElement, Ref, useRef } from 'react';
 
-import { useCombinedRefs } from '../../../hooks';
 import { Input, InputProps } from '../../atoms';
-import { Container, FieldLabel, Hint, Name } from './styles';
+import { useCombinedRefs } from '../../hooks';
+import { Container, FieldLabel, Hint, Name } from './FormField.styles';
 
 interface FormEntryProps
   extends Pick<
@@ -41,6 +41,6 @@ function FormFieldComponent(
   );
 }
 
-const FormField = forwardRef(FormFieldComponent);
+const FormField = React.forwardRef(FormFieldComponent);
 
 export { FormField };

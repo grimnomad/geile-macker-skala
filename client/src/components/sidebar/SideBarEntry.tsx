@@ -1,11 +1,10 @@
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useHover, useMenu } from '@gms/components';
 import { ReactElement } from 'react';
 import { useTheme } from 'styled-components';
 
-import { useHover } from '../../hooks';
-import { useMenu } from '../menu';
-import { EntryContainer, EntryName } from './styles';
+import { EntryContainer, EntryName } from './SideBarEntry.styles';
 
 interface SideBarEntryProps {
   readonly name: string;

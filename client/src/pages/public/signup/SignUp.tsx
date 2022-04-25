@@ -1,15 +1,10 @@
+import { Button, Form, FormButtonGroup, FormField } from '@gms/components';
 import { AuthSignUpDTO } from '@gms/shared';
 import { ReactElement } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
-import {
-  Button,
-  Form,
-  FormButtonGroup,
-  FormField,
-  useAuth
-} from '../../../components';
+import { useAuth } from '../../../components';
 import { SignUpContainer } from './styles';
 
 interface FormValues {
