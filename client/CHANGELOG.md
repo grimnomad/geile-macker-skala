@@ -1,5 +1,11 @@
 # @gms/client
 
+## 0.2.2
+
+### Patch Changes
+
+- Updated react-query
+
 ## 0.2.1
 
 ### Patch Changes

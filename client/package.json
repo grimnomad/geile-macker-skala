@@ -1,6 +1,6 @@
 {
   "name": "@gms/client",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.1.1",
@@ -15,7 +15,7 @@
     "react-dom": "^18.0.0",
     "react-hook-form": "^7.27.1",
     "react-is": "^18.0.0",
-    "react-query": "^3.34.15",
+    "react-query": "^3.38.0",
     "react-router-dom": "^6.2.1",
     "styled-components": "^5.2.1"
   },
