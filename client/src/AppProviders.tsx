@@ -1,4 +1,9 @@
-import { dark, GlobalStyle } from '@gms/components';
+import {
+  ConsoleLogger,
+  dark,
+  GlobalStyle,
+  LoggerProvider
+} from '@gms/components';
 import { ReactElement, ReactNode } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
@@ -6,7 +11,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
 import { AxiosProvider } from './api';
-import { AuthProvider, ConsoleLogger, LoggerProvider } from './components';
+import { AuthProvider } from './components';
 import { SERVER_URL } from './config';
 
 const queryClient = new QueryClient({

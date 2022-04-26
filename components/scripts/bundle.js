@@ -13,7 +13,8 @@ function bundle(config = {}) {
     splitting: true,
     format: 'esm',
     target: ['esnext'],
-    external: ['react', 'react-dom', 'react-is', 'styled-components'],
+    inject: [resolve('scripts/react-shim.js')],
+    external: ['react', 'react-dom', 'react-is', 'styled-components', '@gms/utils'],
     ...config
   });
 }

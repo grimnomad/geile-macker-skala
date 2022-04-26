@@ -1,4 +1,4 @@
-import React, { ForwardedRef, ReactElement, Ref, useRef } from 'react';
+import { ForwardedRef, forwardRef, ReactElement, Ref, useRef } from 'react';
 
 import { Input, InputProps } from '../../atoms';
 import { useCombinedRefs } from '../../hooks';
@@ -41,6 +41,6 @@ function FormFieldComponent(
   );
 }
 
-const FormField = React.forwardRef(FormFieldComponent);
+const FormField = forwardRef(FormFieldComponent);
 
 export { FormField };

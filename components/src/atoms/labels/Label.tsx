@@ -1,6 +1,11 @@
-import React, { ForwardedRef, LabelHTMLAttributes, ReactElement } from 'react';
+import {
+  ForwardedRef,
+  forwardRef,
+  LabelHTMLAttributes,
+  ReactElement
+} from 'react';
 
-import { StyledLabel } from './styles';
+import { StyledLabel } from './Label.styles';
 
 type LabelProps = LabelHTMLAttributes<HTMLLabelElement>;
 
@@ -11,7 +16,7 @@ function LabelComponent(
   return <StyledLabel ref={ref} {...props} />;
 }
 
-const Label = React.forwardRef(LabelComponent);
+const Label = forwardRef(LabelComponent);
 
 export type { LabelProps };
 export { Label };

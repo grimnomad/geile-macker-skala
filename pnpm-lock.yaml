@@ -19,7 +19,7 @@ importers:
       '@fortawesome/fontawesome-svg-core': ^6.1.1
       '@fortawesome/free-solid-svg-icons': ^6.1.1
       '@fortawesome/react-fontawesome': ^0.1.18
-      '@gms/components': ^0.1.0
+      '@gms/components': ^0.2.0
       '@gms/shared': ^0.0.1
       '@gms/utils': ^0.2.0
       '@testing-library/jest-dom': ^5.16.2
@@ -89,6 +89,7 @@ importers:
 
   components:
     specifiers:
+      '@gms/utils': ^0.2.0
       '@testing-library/react': ^12.1.3
       '@types/jest': ^27.4.1
       '@types/react': ^18.0.0
@@ -106,6 +107,7 @@ importers:
       styled-components: ^5.2.1
       typescript: ^4.6.3
     devDependencies:
+      '@gms/utils': link:../utils
       '@testing-library/react': 12.1.4_react-dom@18.0.0+react@18.0.0
       '@types/jest': 27.4.1
       '@types/react': 18.0.0
@@ -7533,7 +7535,7 @@ packages:
       '@types/jest': 27.4.1
       bs-logger: 0.2.6
       fast-json-stable-stringify: 2.1.0
-      jest: 27.5.1
+      jest: 27.5.1_ts-node@9.0.0
       jest-util: 27.5.1
       json5: 2.2.1
       lodash.memoize: 4.1.2

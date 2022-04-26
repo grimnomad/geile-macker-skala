@@ -1,3 +1,4 @@
+import { useLogger } from '@gms/components';
 import { Fragment, ReactElement } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
@@ -6,8 +7,7 @@ import {
   HeaderBar,
   HeaderButton,
   HeaderUsername,
-  useAuth,
-  useLogger
+  useAuth
 } from '../../components';
 
 function Private(): ReactElement {
