@@ -2,10 +2,10 @@ import { Button, Form, FormButtonGroup, FormField } from '@gms/components';
 import { AuthSignUpDTO } from '@gms/shared';
 import { ReactElement } from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
 
-import { useAuth } from '../../../components';
-import { SignUpContainer } from './styles';
+import { useSignUp } from '../../../api';
+import { useLogin } from '../../common';
+import { SignUpContainer } from './SignUp.styles';
 
 interface FormValues {
   handle: string;
@@ -16,8 +16,9 @@ interface FormValues {
 }
 
 function SignUp(): ReactElement {
-  const { signup } = useAuth();
-  const navigate = useNavigate();
+  const login = useLogin();
+
+  const { mutate: signUp } = useSignUp();
 
   const { register, handleSubmit, getValues, formState } =
     useForm<FormValues>();
@@ -33,7 +34,11 @@ function SignUp(): ReactElement {
       password
     };
 
-    signup(signUpDTO, () => navigate('/dashboard'));
+    signUp(signUpDTO, {
+      onSuccess: () => {
+        login({ handle, password });
+      }
+    });
   }
 
   function matchesPassword(value: string): boolean | string {

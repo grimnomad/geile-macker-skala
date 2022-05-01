@@ -1,6 +1,5 @@
-import { useLogger } from '@gms/components';
 import { Fragment, ReactElement } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 
 import {
   Header,
@@ -9,25 +8,18 @@ import {
   HeaderUsername,
   useAuth
 } from '../../components';
+import { useLogout } from '../common';
 
 function Private(): ReactElement {
-  const { logout, handle } = useAuth();
-  const navigate = useNavigate();
-  const logger = useLogger(Private.name);
-
-  function logOut(): void {
-    logout(() => {
-      logger.info('User has successfully logged out.');
-      navigate('/');
-    });
-  }
+  const { handle } = useAuth();
+  const logout = useLogout();
 
   return (
     <Fragment>
       <Header>
         <HeaderBar>
           <HeaderUsername>{handle}</HeaderUsername>
-          <HeaderButton onClick={logOut}>Logout</HeaderButton>
+          <HeaderButton onClick={logout}>Logout</HeaderButton>
         </HeaderBar>
       </Header>
       <Outlet />

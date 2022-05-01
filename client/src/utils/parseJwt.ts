@@ -25,4 +25,5 @@ function parseJwt(token: string): ParsedToken | null {
   return parsed;
 }
 
+export type { ParsedToken };
 export { parseJwt };

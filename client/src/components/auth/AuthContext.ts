@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 
-import { Auth } from './types';
+import { Auth } from './Auth.types';
 
 const AuthContext = createContext<Auth | null>(null);
 

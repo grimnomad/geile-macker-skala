@@ -1,5 +1,11 @@
 # @gms/client
 
+## 0.3.0
+
+### Minor Changes
+
+- Separated AuthProvider from API calls
+
 ## 0.2.3
 
 ### Patch Changes

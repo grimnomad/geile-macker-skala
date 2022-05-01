@@ -1,10 +1,7 @@
 import { ReactElement, ReactNode, useCallback, useMemo } from 'react';
-import { useQueryClient } from 'react-query';
 
-import { useLogIn, useSignUp } from '../../api';
-import { parseJwt } from '../../utils';
+import { Auth, LoginFunction, LogoutFunction } from './Auth.types';
 import { AuthContext } from './AuthContext';
-import { Auth, LoginFunction, LogoutFunction, SignupFunction } from './types';
 import { useSetAuth } from './useSetAuth';
 
 interface AuthProviderProps {
@@ -14,54 +11,29 @@ interface AuthProviderProps {
 function AuthProvider(props: AuthProviderProps): ReactElement {
   const { children } = props;
 
-  const queryClient = useQueryClient();
-
-  const { mutate: logIn } = useLogIn();
-  const { mutate: signUp } = useSignUp();
-
   const { state, authenticate, unauthenticate } = useSetAuth();
 
   const login = useCallback<LoginFunction>(
-    (signInDTO, onLogin) => {
-      logIn(signInDTO, {
-        onSuccess: (response) => {
-          const token = parseJwt(response.data);
+    (input) => {
+      const { handle, token, onLogin } = input;
 
-          if (token) {
-            authenticate(token.handle, response.data);
-            onLogin?.();
-          }
-        }
-      });
+      authenticate(handle, token);
+      onLogin?.();
     },
-    [authenticate, logIn]
-  );
-
-  const signup = useCallback<SignupFunction>(
-    (signUpDTO, onSignup) => {
-      signUp(signUpDTO, {
-        onSuccess: () => {
-          const { handle, password } = signUpDTO;
-
-          login({ handle, password }, onSignup);
-        }
-      });
-    },
-    [login, signUp]
+    [authenticate]
   );
 
   const logout = useCallback<LogoutFunction>(
     (onLogout) => {
       unauthenticate();
-      queryClient.removeQueries();
       onLogout?.();
     },
-    [queryClient, unauthenticate]
+    [unauthenticate]
   );
 
   const auth = useMemo<Auth>(
-    () => ({ login, logout, signup, ...state }),
-    [login, logout, signup, state]
+    () => ({ login, logout, ...state }),
+    [login, logout, state]
   );
 
   return <AuthContext.Provider value={auth}>{children}</AuthContext.Provider>;

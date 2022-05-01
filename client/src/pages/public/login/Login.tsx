@@ -1,35 +1,19 @@
-import {
-  Button,
-  Form,
-  FormButtonGroup,
-  FormField,
-  useLogger
-} from '@gms/components';
+import { Button, Form, FormButtonGroup, FormField } from '@gms/components';
 import { AuthSignInDTO } from '@gms/shared';
 import { ReactElement } from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
 
-import { useAuth } from '../../../components';
+import { useLogin } from '../../common';
 import { LogInContainer } from './Login.styles';
 
 function Login(): ReactElement {
-  const { login } = useAuth();
-  const navigate = useNavigate();
-  const logger = useLogger(Login.name);
+  const login = useLogin();
 
   const { register, handleSubmit } = useForm<AuthSignInDTO>();
 
-  function logIn(signInDTO: AuthSignInDTO): void {
-    login(signInDTO, () => {
-      logger.info('User has successfully logged in.');
-      navigate('/dashboard');
-    });
-  }
-
   return (
     <LogInContainer>
-      <Form onSubmit={handleSubmit(logIn)}>
+      <Form onSubmit={handleSubmit(login)}>
         <FormField
           label="Handle"
           {...register('handle', {

@@ -2,9 +2,8 @@ import { useLocalStorage } from '@gms/components';
 import produce from 'immer';
 import { useCallback, useReducer } from 'react';
 
-import { useAxiosToken } from '../../api';
 import { parseJwt } from '../../utils';
-import { AuthState } from './types';
+import { AuthState } from './Auth.types';
 
 type Actions =
   | { type: 'authenticate'; handle: string; token: string }
@@ -37,7 +36,6 @@ interface UseSetAuthReturn {
 
 function useSetAuth(): UseSetAuthReturn {
   const { set, remove, get } = useLocalStorage('token');
-  const { setToken, resetToken } = useAxiosToken();
 
   const token = get();
 
@@ -53,16 +51,14 @@ function useSetAuth(): UseSetAuthReturn {
     (handle, token) => {
       set(token);
       dispatch({ type: 'authenticate', handle, token });
-      setToken(token);
     },
-    [set, setToken]
+    [set]
   );
 
   const unauthenticate = useCallback(() => {
     remove();
     dispatch({ type: 'unauthenticate' });
-    resetToken();
-  }, [remove, resetToken]);
+  }, [remove]);
 
   return {
     state,
