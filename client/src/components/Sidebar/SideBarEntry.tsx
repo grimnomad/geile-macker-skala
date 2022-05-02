@@ -8,7 +8,7 @@ import { EntryContainer, EntryName } from './SideBarEntry.styles';
 
 interface SideBarEntryProps {
   readonly name: string;
-  readonly onDelete: (id: string) => void;
+  readonly onDelete: () => void;
 }
 
 function SideBarEntry(props: SideBarEntryProps): ReactElement {

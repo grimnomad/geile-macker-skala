@@ -16,13 +16,13 @@ interface SideBarProps {
 function SideBar(props: SideBarProps): ReactElement {
   const { children, action } = props;
 
+  const { label, onClick } = action;
+
   return (
     <Container>
       <Top>{children}</Top>
       <Bottom>
-        {action ? (
-          <Button onClick={action.onClick}>{action.label}</Button>
-        ) : null}
+        {action ? <Button onClick={onClick}>{label}</Button> : null}
       </Bottom>
     </Container>
   );

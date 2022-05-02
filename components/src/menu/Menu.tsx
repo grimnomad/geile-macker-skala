@@ -1,7 +1,7 @@
 import { ForwardedRef, forwardRef, ReactElement, ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 
-import { Container } from './Menu.styles';
+import { Container, ContainerCSSProperties } from './Menu.styles';
 
 interface MenuProps {
   readonly children: ReactNode;
@@ -15,8 +15,13 @@ function MenuComponent(
 ): ReactElement {
   const { children, x, y } = props;
 
+  const style: ContainerCSSProperties = {
+    '--left': `${y}px`,
+    '--top': `${x}px`
+  };
+
   return createPortal(
-    <Container ref={ref} x={x} y={y}>
+    <Container ref={ref} style={style}>
       {children}
     </Container>,
     document.body

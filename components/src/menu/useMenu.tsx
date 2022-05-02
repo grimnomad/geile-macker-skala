@@ -12,7 +12,7 @@ import { Menu } from './Menu';
 
 interface MenuEntry {
   readonly name: string;
-  readonly action: (...args: any[]) => void;
+  readonly action: () => void;
 }
 
 interface UseMenuInput {
@@ -43,32 +43,27 @@ function useMenu(input: UseMenuInput): UseMenuReturn {
   const menuRef = useOnClickOutside<HTMLDivElement>(off);
 
   const renderMenu = useCallback(() => {
+    const { top, height, left } = rect;
+
     return isDisplaying ? (
-      <Menu ref={menuRef} x={rect.top + rect.height} y={rect.left}>
+      <Menu ref={menuRef} x={top + height} y={left}>
         {entries.map((entry, index) => {
+          const { action, name } = entry;
+
           function onClick(): void {
-            entry.action();
+            action();
             toggle();
           }
 
           return (
             <Component key={index} onClick={onClick}>
-              {entry.name}
+              {name}
             </Component>
           );
         })}
       </Menu>
     ) : null;
-  }, [
-    isDisplaying,
-    menuRef,
-    rect.top,
-    rect.height,
-    rect.left,
-    entries,
-    Component,
-    toggle
-  ]);
+  }, [rect, isDisplaying, menuRef, entries, Component, toggle]);
 
   const bind = useMemo<Bind>(
     () => ({ ref, onClick: () => toggle() }),
