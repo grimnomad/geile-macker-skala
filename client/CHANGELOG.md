@@ -1,5 +1,12 @@
 # @gms/client
 
+## 0.3.1
+
+### Patch Changes
+
+- 815ff3f: Rename several directories
+- 083c712: Moved directory
+
 ## 0.3.0
 
 ### Minor Changes
