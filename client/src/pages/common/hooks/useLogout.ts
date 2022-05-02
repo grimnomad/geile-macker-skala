@@ -4,6 +4,7 @@ import { useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 
 import { useAuth, useAxiosToken } from '../../../components';
+import { RouteFactory } from '../../routes';
 
 function useLogout(): () => void {
   const { logout: authLogout } = useAuth();
@@ -16,7 +17,7 @@ function useLogout(): () => void {
     authLogout(() => {
       logger.info('User has successfully logged out.');
       queryClient.removeQueries();
-      navigate('/');
+      navigate(RouteFactory.HOME);
       resetToken();
     });
   }, [authLogout, logger, navigate, queryClient, resetToken]);

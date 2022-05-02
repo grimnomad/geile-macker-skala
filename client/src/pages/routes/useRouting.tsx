@@ -1,6 +1,8 @@
 import { lazy } from 'react';
 import { useRoutes } from 'react-router-dom';
 
+import { RouteFactory } from './RouteFactory';
+
 const PublicLayout = lazy(async () => {
   const module = await import('../public/Public');
 
@@ -41,25 +43,25 @@ function useRouting(): ReturnType<typeof useRoutes> {
   const element = useRoutes([
     {
       element: <PublicLayout />,
-      path: '/',
+      path: RouteFactory.HOME,
       children: [
         {
           index: true,
           element: <Home />
         },
         {
-          path: 'signup',
+          path: RouteFactory.SIGN_UP,
           element: <SignUp />
         },
         {
-          path: 'login',
+          path: RouteFactory.LOG_IN,
           element: <Login />
         }
       ]
     },
     {
       element: <PrivateLayout />,
-      path: '/dashboard',
+      path: RouteFactory.DASHBOARD,
       children: [
         {
           index: true,

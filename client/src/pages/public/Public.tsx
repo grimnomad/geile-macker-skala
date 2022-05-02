@@ -2,16 +2,17 @@ import { Fragment, ReactElement } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
 import { Header, HeaderBar, HeaderButton } from '../../components';
+import { RouteFactory } from '../routes';
 
 function Public(): ReactElement {
   const navigate = useNavigate();
 
   function signin(): void {
-    navigate('/signup');
+    navigate(RouteFactory.SIGN_UP);
   }
 
   function login(): void {
-    navigate('/login');
+    navigate(RouteFactory.LOG_IN);
   }
 
   return (

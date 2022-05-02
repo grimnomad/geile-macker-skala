@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useLogIn } from '../../../api';
 import { useAuth, useAxiosToken } from '../../../components';
 import { parseJwt } from '../../../utils';
+import { RouteFactory } from '../../routes';
 
 type UseLoginReturn = (
   input: Parameters<ReturnType<typeof useLogIn>['mutate']>[0]
@@ -31,7 +32,7 @@ function useLogin(): UseLoginReturn {
               token: response.data,
               onLogin: () => {
                 logger.info('User has successfully logged in.');
-                navigate('/dashboard');
+                navigate(RouteFactory.DASHBOARD);
                 setToken(response.data);
               }
             });
