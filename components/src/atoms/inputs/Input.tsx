@@ -4,8 +4,9 @@ import {
   InputHTMLAttributes,
   ReactElement
 } from 'react';
+import { useTheme } from 'styled-components';
 
-import { StyledInput } from './Input.styles';
+import { InputCSSProperties, StyledInput } from './Input.styles';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   hasError?: boolean;
@@ -15,7 +16,14 @@ function InputComponent(
   props: InputProps,
   ref: ForwardedRef<HTMLInputElement>
 ): ReactElement {
-  return <StyledInput ref={ref} {...props} />;
+  const { hasError } = props;
+  const theme = useTheme();
+
+  const style: InputCSSProperties = {
+    '--border-color': hasError ? theme.colors.helpers.danger : null
+  };
+
+  return <StyledInput ref={ref} style={style} {...props} />;
 }
 
 const Input = forwardRef(InputComponent);

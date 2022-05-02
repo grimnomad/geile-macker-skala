@@ -1,19 +1,21 @@
 import { CSSProperties } from 'react';
 
+type CSSColor = Exclude<CSSProperties['color'], undefined>;
+
 interface Theme {
   colors: {
     text: {
-      main: CSSProperties['color'];
-      dimmed: CSSProperties['color'];
+      main: CSSColor;
+      dimmed: CSSColor;
     };
     elements: {
-      main: CSSProperties['color'];
-      shadow: CSSProperties['color'];
-      highlight: CSSProperties['color'];
+      main: CSSColor;
+      shadow: CSSColor;
+      highlight: CSSColor;
     };
     helpers: {
-      danger: CSSProperties['color'];
-      success: CSSProperties['color'];
+      danger: CSSColor;
+      success: CSSColor;
     };
   };
 }
