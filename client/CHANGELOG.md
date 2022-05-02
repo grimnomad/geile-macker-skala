@@ -1,5 +1,11 @@
 # @gms/client
 
+## 0.4.0
+
+### Minor Changes
+
+- Add navigation to Logo
+
 ## 0.3.1
 
 ### Patch Changes

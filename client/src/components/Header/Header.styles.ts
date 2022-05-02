@@ -7,11 +7,12 @@ const Wrapper = styled.nav`
   justify-content: space-between;
 `;
 
-const Logo = styled.h1`
+const Logo = styled.a`
   ${CenterMixin};
   padding: 0;
   margin: 0;
   font-size: 2em;
+  cursor: pointer;
 `;
 
 const HeaderButton = styled.button`
