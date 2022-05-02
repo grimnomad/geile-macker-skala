@@ -1,6 +1,6 @@
 import { useMutation, UseMutationResult, useQueryClient } from 'react-query';
 
-import { useAxios } from '../AxiosProvider';
+import { useAxios } from '../../components';
 import { ScalesQueryFactory } from './ScalesQueryFactory';
 import { ScalesResourceFactory } from './ScalesResourceFactory';
 

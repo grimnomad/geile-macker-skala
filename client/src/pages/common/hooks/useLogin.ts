@@ -2,8 +2,8 @@ import { useLogger } from '@gms/components';
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { useAxiosToken, useLogIn } from '../../../api';
-import { useAuth } from '../../../components';
+import { useLogIn } from '../../../api';
+import { useAuth, useAxiosToken } from '../../../components';
 import { parseJwt } from '../../../utils';
 
 type UseLoginReturn = (

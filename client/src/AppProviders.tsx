@@ -10,8 +10,7 @@ import { ReactQueryDevtools } from 'react-query/devtools';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
-import { AxiosProvider } from './api';
-import { AuthProvider } from './components';
+import { AuthProvider, AxiosProvider } from './components';
 import { SERVER_URL } from './config';
 
 const queryClient = new QueryClient({

@@ -3,8 +3,7 @@ import { useCallback } from 'react';
 import { useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 
-import { useAxiosToken } from '../../../api';
-import { useAuth } from '../../../components';
+import { useAuth, useAxiosToken } from '../../../components';
 
 function useLogout(): () => void {
   const { logout: authLogout } = useAuth();

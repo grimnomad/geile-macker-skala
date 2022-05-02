@@ -1,7 +1,7 @@
 import { AuthSignInDTO, SignInResponse } from '@gms/shared';
 import { useMutation, UseMutationResult } from 'react-query';
 
-import { useAxios } from '../AxiosProvider';
+import { useAxios } from '../../components';
 
 function useLogIn(): UseMutationResult<
   SignInResponse,
