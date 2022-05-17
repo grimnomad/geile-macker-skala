@@ -12,11 +12,11 @@ interface HeaderProps {
 function Header(props: HeaderProps): ReactElement {
   const { children } = props;
 
-  const { handle } = useAuth();
+  const { status } = useAuth();
   const navigate = useNavigate();
 
   function onClick(): void {
-    if (handle) {
+    if (status === 'signedIn') {
       navigate(RouteFactory.DASHBOARD);
     } else {
       navigate(RouteFactory.HOME);

@@ -1,5 +1,11 @@
 # @gms/client
 
+## 0.5.0
+
+### Minor Changes
+
+- Add [XState](https://xstate.js.org/docs/) to the client project. AuthProvider now uses a state machine (provided by XState) internally.
+
 ## 0.4.0
 
 ### Minor Changes

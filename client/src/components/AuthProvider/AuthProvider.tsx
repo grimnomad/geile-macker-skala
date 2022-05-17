@@ -1,42 +1,65 @@
+import { useActor, useInterpret } from '@xstate/react';
 import { ReactElement, ReactNode, useCallback, useMemo } from 'react';
 
-import { Auth, LoginFunction, LogoutFunction } from './Auth.types';
+import { Auth, SignInFunction, SignOutFunction } from './Auth.types';
 import { AuthContext } from './AuthContext';
-import { useSetAuth } from './useSetAuth';
+import { authMachine } from './authMachine';
 
-interface AuthProviderProps {
-  children: ReactNode;
+type CheckLoginFunction<T> = () => Promise<T | null>;
+
+interface AuthProviderProps<T> {
+  readonly children: ReactNode;
+  readonly checkLogin: CheckLoginFunction<T>;
 }
 
-function AuthProvider(props: AuthProviderProps): ReactElement {
-  const { children } = props;
+function AuthProvider<T>(props: AuthProviderProps<T>): ReactElement {
+  const { children, checkLogin } = props;
 
-  const { state, authenticate, unauthenticate } = useSetAuth();
+  const authService = useInterpret(authMachine, {
+    services: {
+      checkIfLoggedIn: () => async (send) => {
+        const user = await checkLogin();
 
-  const login = useCallback<LoginFunction>(
-    (input) => {
-      const { handle, token, onLogin } = input;
+        if (user) {
+          send({
+            type: 'REPORT_IS_LOGGED_IN',
+            user
+          });
+        } else {
+          send('REPORT_IS_LOGGED_OUT');
+        }
+      }
+    }
+  });
 
-      authenticate(handle, token);
-      onLogin?.();
+  const signIn = useCallback<SignInFunction<unknown>>(
+    (user, onSignIn) => {
+      authService.send({ type: 'LOG_IN', user });
+      onSignIn?.();
     },
-    [authenticate]
+    [authService]
   );
 
-  const logout = useCallback<LogoutFunction>(
-    (onLogout) => {
-      unauthenticate();
-      onLogout?.();
+  const signOut = useCallback<SignOutFunction>(
+    (onSignOut) => {
+      authService.send('LOG_OUT');
+      onSignOut?.();
     },
-    [unauthenticate]
+    [authService]
   );
 
-  const auth = useMemo<Auth>(
-    () => ({ login, logout, ...state }),
-    [login, logout, state]
-  );
+  const [state] = useActor(authService);
+
+  const auth = useMemo<Auth<unknown>>(() => {
+    const { context, meta } = state;
+    const { user } = context;
+    const status = meta[`${authMachine.config.id}.${state.value}`];
+
+    return { signIn, signOut, user, status };
+  }, [signIn, signOut, state]);
 
   return <AuthContext.Provider value={auth}>{children}</AuthContext.Provider>;
 }
 
+export type { AuthProviderProps, CheckLoginFunction };
 export { AuthProvider };

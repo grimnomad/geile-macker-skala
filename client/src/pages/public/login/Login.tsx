@@ -2,12 +2,21 @@ import { Button, Form, FormButtonGroup, FormField } from '@gms/components';
 import { AuthSignInDTO } from '@gms/shared';
 import { ReactElement } from 'react';
 import { useForm } from 'react-hook-form';
+import { Location, useLocation } from 'react-router-dom';
 
-import { useLogin } from '../../common';
+import { useLogin } from '../../../components';
 import { LogInContainer } from './Login.styles';
 
+interface LocationState {
+  readonly from: Location;
+}
+
 function Login(): ReactElement {
-  const login = useLogin();
+  const location = useLocation();
+
+  const from = (location.state as LocationState | null)?.from.pathname;
+
+  const login = useLogin(from);
 
   const { register, handleSubmit } = useForm<AuthSignInDTO>();
 

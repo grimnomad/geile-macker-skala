@@ -6,19 +6,19 @@ import {
   HeaderBar,
   HeaderButton,
   HeaderUsername,
-  useAuth
+  useAuth,
+  useLogout
 } from '../../components';
-import { useLogout } from '../common';
 
 function Private(): ReactElement {
-  const { handle } = useAuth();
+  const { user } = useAuth<string>();
   const logout = useLogout();
 
   return (
     <Fragment>
       <Header>
         <HeaderBar>
-          <HeaderUsername>{handle}</HeaderUsername>
+          <HeaderUsername>{user}</HeaderUsername>
           <HeaderButton onClick={logout}>Logout</HeaderButton>
         </HeaderBar>
       </Header>

@@ -1,20 +1,13 @@
-interface AuthState {
-  token: string | null;
-  handle: string | null;
+type SignInFunction<T> = (user: T, onSignIn?: () => void) => void;
+type SignOutFunction = (onSignOut?: () => void) => void;
+
+type AuthStatus = 'pending' | 'signedIn' | 'signedOut';
+
+interface Auth<T> {
+  readonly user: T;
+  readonly signIn: SignInFunction<T>;
+  readonly signOut: SignOutFunction;
+  readonly status: AuthStatus;
 }
 
-interface LoginInput {
-  readonly token: string;
-  readonly handle: string;
-  readonly onLogin?: () => void;
-}
-
-type LoginFunction = (input: LoginInput) => void;
-type LogoutFunction = (onLogout?: () => void) => void;
-
-interface Auth extends AuthState {
-  login: LoginFunction;
-  logout: LogoutFunction;
-}
-
-export type { Auth, AuthState, LoginFunction, LogoutFunction };
+export type { Auth, AuthStatus, SignInFunction, SignOutFunction };

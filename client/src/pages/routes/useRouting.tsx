@@ -1,6 +1,7 @@
 import { lazy } from 'react';
 import { useRoutes } from 'react-router-dom';
 
+import { RequireAuth } from '../../components';
 import { RouteFactory } from './RouteFactory';
 
 const PublicLayout = lazy(async () => {
@@ -60,7 +61,11 @@ function useRouting(): ReturnType<typeof useRoutes> {
       ]
     },
     {
-      element: <PrivateLayout />,
+      element: (
+        <RequireAuth>
+          <PrivateLayout />
+        </RequireAuth>
+      ),
       path: RouteFactory.DASHBOARD,
       children: [
         {

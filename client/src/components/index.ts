@@ -1,3 +1,4 @@
+export * from './Auth';
 export * from './AuthProvider';
 export * from './AxiosProvider';
 export * from './Header';

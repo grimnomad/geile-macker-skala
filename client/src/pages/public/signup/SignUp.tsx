@@ -4,7 +4,7 @@ import { ReactElement } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { useSignUp } from '../../../api';
-import { useLogin } from '../../common';
+import { useLogin } from '../../../components';
 import { SignUpContainer } from './SignUp.styles';
 
 interface FormValues {
