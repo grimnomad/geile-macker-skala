@@ -4,3 +4,4 @@ export * from './useDimensions';
 export * from './useHover';
 export * from './useLocalStorage';
 export * from './useOnClickOutside';
+export * from './useTitle';

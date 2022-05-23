@@ -1,10 +1,17 @@
-import { Button, Form, FormButtonGroup, FormField } from '@gms/components';
+import {
+  Button,
+  Form,
+  FormButtonGroup,
+  FormField,
+  useTitle
+} from '@gms/components';
 import { AuthSignUpDTO } from '@gms/shared';
 import { ReactElement } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { useSignUp } from '../../../api';
 import { useLogin } from '../../../components';
+import { TitleFactory } from '../../../utils';
 import { SignUpContainer } from './SignUp.styles';
 
 interface FormValues {
@@ -16,6 +23,8 @@ interface FormValues {
 }
 
 function SignUp(): ReactElement {
+  useTitle(TitleFactory.createTitle('Registrierung'));
+
   const login = useLogin();
 
   const { mutate: signUp } = useSignUp();

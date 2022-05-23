@@ -1,5 +1,11 @@
 # @gms/components
 
+## 0.3.0
+
+### Minor Changes
+
+- Add useTitle hook
+
 ## 0.2.0
 
 ### Minor Changes

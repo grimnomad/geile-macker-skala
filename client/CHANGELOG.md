@@ -1,5 +1,16 @@
 # @gms/client
 
+## 0.6.0
+
+### Minor Changes
+
+- Take advantage of the useTitle hook to set the title on various pages.
+
+### Patch Changes
+
+- Updated dependencies
+  - @gms/components@0.3.0
+
 ## 0.5.0
 
 ### Minor Changes

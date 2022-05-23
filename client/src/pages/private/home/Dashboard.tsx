@@ -1,11 +1,14 @@
-import { useDialog } from '@gms/components';
+import { useDialog, useTitle } from '@gms/components';
 import { Fragment, ReactElement } from 'react';
 
 import { useDeleteScale, useReadScales } from '../../../api';
 import { SideBar } from '../../../components';
+import { TitleFactory } from '../../../utils';
 import { CreateScaleForm } from './CreateScaleForm';
 
 function Dashboard(): ReactElement {
+  useTitle(TitleFactory.createTitle('Dashboard'));
+
   const { data: scales, isLoading } = useReadScales();
   const { mutate: remove } = useDeleteScale();
 
