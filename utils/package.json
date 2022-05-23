@@ -19,7 +19,6 @@
   },
   "devDependencies": {
     "@types/jest": "^27.4.1",
-    "@typescript-eslint/parser": "^5.17.0",
     "concurrently": "^7.1.0",
     "esbuild": "^0.14.29",
     "eslint-config-gms": "^1.0.0",

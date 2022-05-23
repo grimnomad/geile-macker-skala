@@ -5,6 +5,7 @@ module.exports = {
     "plugin:prettier/recommended",
     "prettier"
   ],
+  parser: "@typescript-eslint/parser",
   plugins: ["prettier", "simple-import-sort"],
   rules: {
     "prettier/prettier": "warn",

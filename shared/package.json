@@ -17,7 +17,6 @@
     "lint:fix": "eslint ./src --fix"
   },
   "devDependencies": {
-    "@typescript-eslint/parser": "^5.12.0",
     "eslint-config-gms": "^1.0.0",
     "typescript": "^4.5.5"
   }

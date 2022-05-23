@@ -19,7 +19,6 @@
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
     "@types/styled-components": "^5.1.23",
-    "@typescript-eslint/parser": "^5.18.0",
     "concurrently": "^7.1.0",
     "esbuild": "^0.14.29",
     "eslint-config-gms": "^1.0.0",
