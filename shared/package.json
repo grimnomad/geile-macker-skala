@@ -11,7 +11,7 @@
     "node": ">=10"
   },
   "scripts": {
-    "start": "tsc -w",
+    "dev": "tsc -w",
     "build": "tsc",
     "lint": "eslint ./src",
     "lint:fix": "eslint ./src --fix"
