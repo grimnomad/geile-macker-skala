@@ -1,3 +1,3 @@
-export { UserEntity } from './schema';
+export { User } from './schema';
 export * from './users.module';
 export * from './users.service';

@@ -1,3 +1,2 @@
-export * from './createSchemaOptions';
-export * from './Entity';
-export * from './Timestamps';
+export * from './CreateDocumentType';
+export * from './MetaData';

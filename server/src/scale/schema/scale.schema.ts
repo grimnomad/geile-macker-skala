@@ -1,13 +1,9 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document, ObjectId } from 'mongoose';
+import { Prop, SchemaFactory } from '@nestjs/mongoose';
 
-import { createSchemaOptions, Entity } from '../../utils';
-import { Scale } from './Scale';
+import { CreateDocumentType, Schema } from '../../utils';
 
-type ScaleDocument = Scale & Document<ObjectId>;
-
-@Schema(createSchemaOptions())
-class ScaleEntity implements Entity<Scale> {
+@Schema()
+class Scale {
   @Prop({ required: true, index: true })
   name: string;
 
@@ -18,7 +14,9 @@ class ScaleEntity implements Entity<Scale> {
   admins: string[];
 }
 
-const ScaleSchema = SchemaFactory.createForClass(ScaleEntity);
+type ScaleDocument = CreateDocumentType<Scale>;
+
+const ScaleSchema = SchemaFactory.createForClass(Scale);
 
 export type { ScaleDocument };
-export { ScaleEntity, ScaleSchema };
+export { Scale, ScaleSchema };

@@ -3,7 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
 import { MODEL_NAME } from './scale.config';
-import { Scale, ScaleDocument, ScaleEntity } from './schema';
+import { Scale, ScaleDocument } from './schema';
 
 @Injectable()
 class ScaleService {
@@ -12,11 +12,11 @@ class ScaleService {
     private readonly scaleModel: Model<ScaleDocument>
   ) {}
 
-  async create(scaleEntity: ScaleEntity): Promise<Scale> {
-    const document = new this.scaleModel(scaleEntity);
-    const scale = await document.save();
+  async create(scale: Scale): Promise<Scale> {
+    const newScale = new this.scaleModel(scale);
+    const document = await newScale.save();
 
-    return scale;
+    return document.toObject();
   }
 
   async getAll(creator: string): Promise<Scale[]> {

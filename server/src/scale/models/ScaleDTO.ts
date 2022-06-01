@@ -1,6 +1,4 @@
-import { Timestamps } from '../../utils';
-
-interface Scale extends Timestamps {
+interface ScaleDTO {
   /** Name of the scale */
   name: string;
   /** Handle of the user, which created the scale */
@@ -9,4 +7,4 @@ interface Scale extends Timestamps {
   admins: string[];
 }
 
-export type { Scale };
+export type { ScaleDTO };

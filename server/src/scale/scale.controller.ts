@@ -1,9 +1,10 @@
-import { CreateScaleDTO, ScaleDTO, UserDTO } from '@gms/shared';
+import { UserDTO } from '@gms/shared';
 import { Body, Controller, NotFoundException, Param } from '@nestjs/common';
 
 import { Create, Delete, GetUser, Read } from '../utils';
+import { CreateScaleDTO, ScaleDTO } from './models';
 import { ScaleService } from './scale.service';
-import { ScaleEntity } from './schema';
+import { Scale } from './schema';
 import { CreateScaleSchema } from './validation';
 
 @Controller('scales')
@@ -18,7 +19,7 @@ class ScaleController {
     @Body() createScaleDTO: CreateScaleDTO,
     @GetUser() user: UserDTO
   ): Promise<ScaleDTO> {
-    const scale: ScaleEntity = {
+    const scale: Scale = {
       admins: [user.handle],
       creator: user.handle,
       ...createScaleDTO

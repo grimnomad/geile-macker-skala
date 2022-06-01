@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
-import { User, UserDocument, UserEntity } from './schema';
+import { User, UserDocument } from './schema';
 import { MODEL_NAME } from './users.config';
 
 @Injectable()
@@ -12,12 +12,12 @@ class UsersService {
     private readonly userModel: Model<UserDocument>
   ) {}
 
-  async create(userEntity: UserEntity): Promise<User> {
-    const document = new this.userModel(userEntity);
+  async create(user: User): Promise<User> {
+    const newUser = new this.userModel(user);
 
-    const user = await document.save();
+    const document = await newUser.save();
 
-    return user;
+    return document.toObject();
   }
 
   async findOne(handle: string): Promise<User> {

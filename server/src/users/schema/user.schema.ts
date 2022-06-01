@@ -1,11 +1,9 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document, ObjectId } from 'mongoose';
+import { Prop, SchemaFactory } from '@nestjs/mongoose';
 
-import { createSchemaOptions, Entity } from '../../utils';
-import { User } from './User';
+import { CreateDocumentType, Schema } from '../../utils';
 
-@Schema(createSchemaOptions())
-class UserEntity implements Entity<User> {
+@Schema()
+class User {
   @Prop({ required: true, unique: true, index: true })
   handle: string;
 
@@ -22,9 +20,9 @@ class UserEntity implements Entity<User> {
   salt: string;
 }
 
-const UserSchema = SchemaFactory.createForClass(UserEntity);
+const UserSchema = SchemaFactory.createForClass(User);
 
-type UserDocument = User & Document<ObjectId>;
+type UserDocument = CreateDocumentType<User>;
 
 export type { UserDocument };
-export { UserEntity, UserSchema };
+export { User, UserSchema };
