@@ -20,7 +20,7 @@
     "react-query": "^3.39.1",
     "react-router-dom": "^6.3.0",
     "styled-components": "^5.2.1",
-    "xstate": "^4.31.0"
+    "xstate": "^4.32.1"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.2",
