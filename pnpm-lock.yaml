@@ -39,7 +39,7 @@ importers:
       eslint-plugin-react: ^7.28.0
       eslint-plugin-react-hooks: ^4.3.0
       eslint-plugin-testing-library: ^5.0.5
-      immer: ^9.0.12
+      immer: ^9.0.15
       jest: ^27.5.1
       react: ^18.0.0
       react-dom: ^18.0.0
@@ -59,10 +59,10 @@ importers:
       '@gms/components': link:../components
       '@gms/shared': link:../shared
       '@gms/utils': link:../utils
-      '@xstate/immer': 0.3.1_immer@9.0.12+xstate@4.31.0
+      '@xstate/immer': 0.3.1_immer@9.0.15+xstate@4.31.0
       '@xstate/react': 3.0.0_jmtyrmjs2v5xclxnkqkrvtbjjq
       axios: 0.27.2
-      immer: 9.0.12
+      immer: 9.0.15
       react: 18.0.0
       react-dom: 18.0.0_react@18.0.0
       react-hook-form: 7.29.0_react@18.0.0
@@ -2535,13 +2535,13 @@ packages:
       '@xtuc/long': 4.2.2
     dev: true
 
-  /@xstate/immer/0.3.1_immer@9.0.12+xstate@4.31.0:
+  /@xstate/immer/0.3.1_immer@9.0.15+xstate@4.31.0:
     resolution: {integrity: sha512-YE+KY08IjEEmXo6XKKpeSGW4j9LfcXw+5JVixLLUO3fWQ3M95joWJ40VtGzx0w0zQSzoCNk8NgfvwWBGSbIaTA==}
     peerDependencies:
       immer: ^9.0.6
       xstate: ^4.29.0
     dependencies:
-      immer: 9.0.12
+      immer: 9.0.15
       xstate: 4.31.0
     dev: false
 
@@ -4879,8 +4879,8 @@ packages:
     resolution: {integrity: sha512-CmxgYGiEPCLhfLnpPp1MoRmifwEIOgjcHXxOBjv7mY96c+eWScsOP9c112ZyLdWHi0FxHjI+4uVhKYp/gcdRmQ==}
     engines: {node: '>= 4'}
 
-  /immer/9.0.12:
-    resolution: {integrity: sha512-lk7UNmSbAukB5B6dh9fnh5D0bJTOFKxVg2cyJWTYrWRfhLrLMBquONcUs3aFq507hNoIZEDDh8lb8UtOizSMhA==}
+  /immer/9.0.15:
+    resolution: {integrity: sha512-2eB/sswms9AEUSkOm4SbV5Y7Vmt/bKRwByd52jfLkW4OLYeaTP3EEiJ9agqU0O/tq6Dk62Zfj+TJSqfm1rLVGQ==}
     dev: false
 
   /import-fresh/3.3.0:
