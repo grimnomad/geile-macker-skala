@@ -21,6 +21,7 @@
     "@types/jest": "^27.4.1",
     "concurrently": "^7.1.0",
     "esbuild": "^0.14.29",
+    "eslint": "^8.17.0",
     "eslint-config-gms": "^1.0.0",
     "jest": "^27.5.1",
     "rimraf": "^3.0.2",

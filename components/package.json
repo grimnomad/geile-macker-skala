@@ -21,6 +21,7 @@
     "@types/styled-components": "^5.1.23",
     "concurrently": "^7.1.0",
     "esbuild": "^0.14.29",
+    "eslint": "^8.17.0",
     "eslint-config-gms": "^1.0.0",
     "jest": "^27.5.1",
     "react": "^18.0.0",
