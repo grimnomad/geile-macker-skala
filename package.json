@@ -10,7 +10,7 @@
     "changeset": "changeset"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.21.0",
+    "@changesets/cli": "^2.23.0",
     "prettier": "^2.5.1",
     "turbo": "^1.1.2"
   },
