@@ -11,7 +11,7 @@
     "@gms/utils": "^0.2.0",
     "@xstate/immer": "^0.3.1",
     "@xstate/react": "^3.0.0",
-    "axios": "^0.26.0",
+    "axios": "^0.27.2",
     "immer": "^9.0.12",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
