@@ -1,10 +1,9 @@
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useHover, useMenu } from '@gms/components';
 import { ReactElement } from 'react';
 import { useTheme } from 'styled-components';
 
-import { EntryContainer, EntryName } from './SideBarEntry.styles';
+import { Icon, Name, Wrapper } from './SideBarEntry.styles';
 
 interface SideBarEntryProps {
   readonly name: string;
@@ -23,10 +22,10 @@ function SideBarEntry(props: SideBarEntryProps): ReactElement {
   const show = isHovered || isDisplaying;
 
   return (
-    <EntryContainer showBackground={show} {...handlers}>
-      <EntryName>{name}</EntryName>
+    <Wrapper showBackground={show} {...handlers}>
+      <Name>{name}</Name>
       {show ? (
-        <FontAwesomeIcon
+        <Icon
           icon={faEllipsisV}
           color={theme.colors.text.dimmed}
           forwardedRef={bind.ref}
@@ -34,7 +33,7 @@ function SideBarEntry(props: SideBarEntryProps): ReactElement {
         />
       ) : null}
       {renderMenu()}
-    </EntryContainer>
+    </Wrapper>
   );
 }
 
