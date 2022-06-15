@@ -3,7 +3,7 @@ import { useHover, useMenu } from '@gms/components';
 import { ReactElement } from 'react';
 import { useTheme } from 'styled-components';
 
-import { Icon, Name, Wrapper } from './SideBarEntry.styles';
+import { Icon, MenuEntry, Name, Wrapper } from './SideBarEntry.styles';
 
 interface SideBarEntryProps {
   readonly name: string;
@@ -16,7 +16,8 @@ function SideBarEntry(props: SideBarEntryProps): ReactElement {
   const theme = useTheme();
   const [isHovered, handlers] = useHover();
   const { renderMenu, bind, isDisplaying } = useMenu({
-    entries: [{ name: 'Löschen', action: onDelete }]
+    entries: [{ name: 'Löschen', action: onDelete }],
+    component: MenuEntry
   });
 
   const show = isHovered || isDisplaying;

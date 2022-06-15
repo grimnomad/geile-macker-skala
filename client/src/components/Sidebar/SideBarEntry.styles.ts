@@ -29,5 +29,10 @@ const Icon = styled(FontAwesomeIcon)`
   height: 1.5em;
 `;
 
+const MenuEntry = styled.div`
+  padding: 0.5em 0.75em;
+  cursor: pointer;
+`;
+
 export type { EntryContainerProps };
-export { Icon, Name, Wrapper };
+export { Icon, MenuEntry, Name, Wrapper };
