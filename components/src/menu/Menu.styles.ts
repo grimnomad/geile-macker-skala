@@ -7,7 +7,6 @@ interface ContainerCSSProperties extends CSSProperties {
 
 const Container = styled.div`
   position: absolute;
-  padding: 5px;
   display: flex;
   flex-direction: column;
   background-color: var(--color-elements-highlight);
