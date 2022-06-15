@@ -109,7 +109,7 @@ importers:
       react-is: ^18.0.0
       rimraf: ^3.0.2
       styled-components: ^5.2.1
-      typescript: ^4.6.3
+      typescript: ^4.7.3
     devDependencies:
       '@gms/utils': link:../utils
       '@testing-library/react': 12.1.5_ef5jwxihqo6n7gxfmzogljlgcm
