@@ -17,7 +17,6 @@ import {
   CheckLoginFunction,
   useAxiosToken
 } from './components';
-import { SERVER_URL } from './config';
 import { parseJwt } from './utils';
 
 const queryClient = new QueryClient({
@@ -77,7 +76,7 @@ function AppProviders(props: AppProvidersProps): ReactElement {
 
   return (
     <BrowserRouter>
-      <AxiosProvider baseURL={SERVER_URL}>
+      <AxiosProvider baseURL={import.meta.env.VITE_SERVER_URL}>
         <QueryClientProvider client={queryClient}>
           <LoggerProvider logger={ConsoleLogger}>
             <ThemeProvider theme={dark}>
