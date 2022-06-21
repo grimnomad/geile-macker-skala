@@ -25,6 +25,6 @@
     "eslint-config-gms": "^1.0.0",
     "jest": "^27.5.1",
     "rimraf": "^3.0.2",
-    "typescript": "^4.6.3"
+    "typescript": "*"
   }
 }
