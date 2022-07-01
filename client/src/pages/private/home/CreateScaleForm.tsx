@@ -1,9 +1,9 @@
 import { Button, Form, FormButtonGroup, FormField } from '@gms/components';
-import { CreateScaleDTO } from '@gms/shared';
 import { ReactElement } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { useCreateScale } from '../../../api';
+import { CreateScale } from '../../../models';
 
 interface CreateScaleFormProps {
   onClose: () => void;
@@ -13,12 +13,12 @@ interface CreateScaleFormProps {
 function CreateScaleForm(props: CreateScaleFormProps): ReactElement {
   const { onClose, onOK } = props;
 
-  const { register, handleSubmit, formState } = useForm<CreateScaleDTO>();
+  const { register, handleSubmit, formState } = useForm<CreateScale>();
   const { errors } = formState;
 
   const { mutate: createScale } = useCreateScale();
 
-  function onSubmit(data: CreateScaleDTO): void {
+  function onSubmit(data: CreateScale): void {
     createScale(data, {
       onSuccess: () => {
         onOK();

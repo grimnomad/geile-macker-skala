@@ -5,7 +5,6 @@ import {
   FormField,
   useTitle
 } from '@gms/components';
-import { AuthSignUpDTO } from '@gms/shared';
 import { ReactElement } from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -34,16 +33,9 @@ function SignUp(): ReactElement {
   const { errors } = formState;
 
   function onSubmit(data: FormValues): void {
-    const { firstName, handle, lastName, password } = data;
+    const { handle, password } = data;
 
-    const signUpDTO: AuthSignUpDTO = {
-      first_name: firstName,
-      handle,
-      last_name: lastName,
-      password
-    };
-
-    signUp(signUpDTO, {
+    signUp(data, {
       onSuccess: () => {
         login({ handle, password });
       }

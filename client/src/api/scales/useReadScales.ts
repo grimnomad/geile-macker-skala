@@ -1,9 +1,10 @@
-import { ResponseDTO, ScaleDTO } from '@gms/shared';
 import { useQuery, UseQueryResult } from 'react-query';
 
 import { useAxios } from '../../components';
 import { Scale } from '../../models';
+import { ResponseDTO } from '../common';
 import { createScale } from './createScale';
+import { ScaleDTO } from './ScaleDTO';
 import { ScalesQueryFactory } from './ScalesQueryFactory';
 import { ScalesResourceFactory } from './ScalesResourceFactory';
 

@@ -5,12 +5,12 @@ import {
   FormField,
   useTitle
 } from '@gms/components';
-import { AuthSignInDTO } from '@gms/shared';
 import { ReactElement } from 'react';
 import { useForm } from 'react-hook-form';
 import { Location, useLocation } from 'react-router-dom';
 
 import { useLogin } from '../../../components';
+import { AuthSignIn } from '../../../models';
 import { TitleFactory } from '../../../utils';
 import { LogInContainer } from './Login.styles';
 
@@ -27,7 +27,7 @@ function Login(): ReactElement {
 
   const login = useLogin(from);
 
-  const { register, handleSubmit } = useForm<AuthSignInDTO>();
+  const { register, handleSubmit } = useForm<AuthSignIn>();
 
   return (
     <LogInContainer>

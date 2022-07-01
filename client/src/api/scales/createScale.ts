@@ -1,6 +1,5 @@
-import { ScaleDTO } from '@gms/shared';
-
 import { Scale } from '../../models';
+import { ScaleDTO } from './ScaleDTO';
 
 function createScale(scaleDTO: ScaleDTO): Scale {
   const scale: Scale = {

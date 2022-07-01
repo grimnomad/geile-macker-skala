@@ -1,22 +1,27 @@
-import { CreateScaleDTO, ScaleDTO } from '@gms/shared';
 import { useMutation, UseMutationResult, useQueryClient } from 'react-query';
 
 import { useAxios } from '../../components';
+import { CreateScale } from '../../models';
+import { CreateScaleDTO } from './CreateScaleDTO';
+import { ScaleDTO } from './ScaleDTO';
 import { ScalesQueryFactory } from './ScalesQueryFactory';
 import { ScalesResourceFactory } from './ScalesResourceFactory';
 
 function useCreateScale(): UseMutationResult<
   ScaleDTO,
   unknown,
-  CreateScaleDTO,
+  CreateScale,
   unknown
 > {
   const Axios = useAxios();
   const queryClient = useQueryClient();
 
   const mutation = useMutation(
-    (data: CreateScaleDTO) =>
-      Axios.post<ScaleDTO, ScaleDTO>(ScalesResourceFactory.root, data),
+    (data: CreateScale) =>
+      Axios.post<ScaleDTO, ScaleDTO, CreateScaleDTO>(
+        ScalesResourceFactory.root,
+        data
+      ),
     {
       onSuccess: () => {
         queryClient.invalidateQueries(ScalesQueryFactory.all);
