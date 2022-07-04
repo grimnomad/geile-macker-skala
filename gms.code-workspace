@@ -9,10 +9,6 @@
       "name": "@gms/server"
     },
     {
-      "path": "shared",
-      "name": "@gms/shared"
-    },
-    {
       "path": "utils",
       "name": "@gms/utils"
     },

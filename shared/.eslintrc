@@ -1,8 +1,0 @@
-{
-  "extends": [
-    "gms"
-  ],
-  "parserOptions": {
-    "project": "./tsconfig.json"
-  }
-}
