@@ -1,6 +1,6 @@
-import { UserDTO } from '@gms/shared';
 import { Body, Controller, NotFoundException, Param } from '@nestjs/common';
 
+import { UserDTO } from '../users';
 import { Create, Delete, GetUser, Read } from '../utils';
 import { CreateScaleDTO, ScaleDTO } from './models';
 import { ScaleService } from './scale.service';

@@ -1,10 +1,9 @@
-import { UserDTO } from '@gms/shared';
 import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 
 import { JWTConfigService } from '../config';
-import { UsersService } from '../users';
+import { UserDTO, UsersService } from '../users';
 import { JWTPayload } from './types';
 
 @Injectable()

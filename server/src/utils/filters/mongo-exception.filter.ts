@@ -1,4 +1,3 @@
-import { ResponseDTO } from '@gms/shared';
 import {
   ArgumentsHost,
   Catch,
@@ -7,6 +6,8 @@ import {
 } from '@nestjs/common';
 import { Response } from 'express';
 import { MongoError } from 'mongodb';
+
+import { ResponseDTO } from '../common';
 
 type ErrorCodes = 11000;
 

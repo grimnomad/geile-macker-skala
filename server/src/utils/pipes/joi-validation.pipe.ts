@@ -1,4 +1,3 @@
-import { ErrorItem, ValidationErrorResponse } from '@gms/shared';
 import {
   ArgumentMetadata,
   BadRequestException,
@@ -6,6 +5,11 @@ import {
   PipeTransform
 } from '@nestjs/common';
 import { ObjectSchema } from 'joi';
+
+import { ResponseDTO } from '../common';
+import { ErrorItem } from './ErrorItem';
+
+type ValidationErrorResponse = ResponseDTO<ErrorItem[]>;
 
 @Injectable()
 class JoiValidationPipe implements PipeTransform {

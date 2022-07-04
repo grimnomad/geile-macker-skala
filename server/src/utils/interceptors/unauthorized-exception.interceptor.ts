@@ -1,4 +1,3 @@
-import { ResponseDTO } from '@gms/shared';
 import {
   CallHandler,
   ExecutionContext,
@@ -8,6 +7,8 @@ import {
 } from '@nestjs/common';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+
+import { ResponseDTO } from '../common';
 
 @Injectable()
 class UnauthorizedExceptionInterceptor implements NestInterceptor {

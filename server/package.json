@@ -19,7 +19,6 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
-    "@gms/shared": "^0.0.1",
     "@gms/utils": "^0.2.0",
     "@nestjs/common": "^8.1.2",
     "@nestjs/config": "^1.1.0",

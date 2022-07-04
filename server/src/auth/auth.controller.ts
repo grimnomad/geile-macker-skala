@@ -1,10 +1,4 @@
 import {
-  AuthSignInDTO,
-  AuthSignUpDTO,
-  SignInResponse,
-  UserDTO
-} from '@gms/shared';
-import {
   Body,
   Controller,
   HttpCode,
@@ -16,13 +10,18 @@ import {
   UsePipes
 } from '@nestjs/common';
 
+import { UserDTO } from '../users';
 import {
   JoiValidationPipe,
   MongoExceptionFilter,
+  ResponseDTO,
   ResponseInterceptor
 } from '../utils';
 import { AuthService } from './auth.service';
+import { AuthSignInDTO, AuthSignUpDTO } from './models';
 import { SignInSchema, SignUpSchema } from './validation';
+
+type SignInResponse = ResponseDTO<string>;
 
 @Controller('auth')
 class AuthController {

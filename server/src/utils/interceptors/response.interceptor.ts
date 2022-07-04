@@ -1,4 +1,3 @@
-import { ResponseDTO } from '@gms/shared';
 import {
   CallHandler,
   ExecutionContext,
@@ -8,6 +7,8 @@ import {
 import { Response } from 'express';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+
+import { ResponseDTO } from '../common';
 
 @Injectable()
 class ResponseInterceptor<T> implements NestInterceptor<T, ResponseDTO<T>> {

@@ -1,9 +1,9 @@
-import { AuthSignInDTO, AuthSignUpDTO, UserDTO } from '@gms/shared';
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 
-import { User, UsersService } from '../users';
+import { User, UserDTO, UsersService } from '../users';
+import { AuthSignInDTO, AuthSignUpDTO } from './models';
 import { JWTPayload } from './types';
 
 @Injectable()
