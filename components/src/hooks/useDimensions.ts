@@ -1,11 +1,17 @@
 import { useCallback, useState } from 'react';
 
-type UseDimensionsReturn = [(node: Element | null) => void, DOMRect];
+type UseDimensionsRef<E extends Element = Element> = (element: E) => void;
+type UseDimensionsReturn<E extends Element = Element> = [
+  UseDimensionsRef<E>,
+  DOMRect
+];
 
-function useDimensions(): UseDimensionsReturn {
-  const [rect, setRect] = useState<DOMRect>(new DOMRect());
+const defaultRect = new DOMRect();
 
-  const ref = useCallback((node: Element | null) => {
+function useDimensions<E extends Element = Element>(): UseDimensionsReturn<E> {
+  const [rect, setRect] = useState(defaultRect);
+
+  const ref = useCallback<UseDimensionsRef<E>>((node) => {
     if (node) {
       const rect = node.getBoundingClientRect();
 
@@ -16,5 +22,5 @@ function useDimensions(): UseDimensionsReturn {
   return [ref, rect];
 }
 
-export type { UseDimensionsReturn };
+export type { UseDimensionsRef, UseDimensionsReturn };
 export { useDimensions };

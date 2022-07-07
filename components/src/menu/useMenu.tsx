@@ -1,8 +1,8 @@
 import {
   ElementType,
-  ForwardedRef,
   HTMLAttributes,
   ReactElement,
+  Ref,
   useCallback,
   useMemo
 } from 'react';
@@ -20,25 +20,28 @@ interface UseMenuInput {
   readonly component?: ElementType;
 }
 
-interface Bind extends Pick<HTMLAttributes<unknown>, 'onClick'> {
-  ref: ForwardedRef<Element>;
+interface Bind<E extends Element = Element>
+  extends Pick<HTMLAttributes<E>, 'onClick'> {
+  readonly ref: Ref<E>;
 }
 
-interface UseMenuReturn {
+interface UseMenuReturn<E extends Element = Element> {
   readonly renderMenu: () => ReactElement | null;
-  readonly bind: Bind;
+  readonly bind: Bind<E>;
   readonly isDisplaying: boolean;
   readonly toggleMenu: () => void;
   readonly showMenu: () => void;
   readonly hideMenu: () => void;
 }
 
-function useMenu(input: UseMenuInput): UseMenuReturn {
+function useMenu<E extends Element = Element>(
+  input: UseMenuInput
+): UseMenuReturn<E> {
   const { entries, component: Component = 'div' } = input;
 
   const [isDisplaying, { toggle, on, off }] = useBoolean();
 
-  const [ref, rect] = useDimensions();
+  const [ref, rect] = useDimensions<E>();
 
   const menuRef = useOnClickOutside<HTMLDivElement>(off);
 
@@ -65,7 +68,7 @@ function useMenu(input: UseMenuInput): UseMenuReturn {
     ) : null;
   }, [rect, isDisplaying, menuRef, entries, Component, toggle]);
 
-  const bind = useMemo<Bind>(
+  const bind = useMemo<Bind<E>>(
     () => ({ ref, onClick: () => toggle() }),
     [ref, toggle]
   );
