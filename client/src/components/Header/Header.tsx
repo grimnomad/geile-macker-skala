@@ -24,7 +24,7 @@ function Header(props: HeaderProps): ReactElement {
   }
 
   return (
-    <Wrapper>
+    <Wrapper as="nav">
       <Logo onClick={onClick}>Geile Macker Skala</Logo>
       {children}
     </Wrapper>

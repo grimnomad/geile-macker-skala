@@ -35,9 +35,15 @@ const PrivateLayout = lazy(async () => {
 });
 
 const Dashboard = lazy(async () => {
-  const module = await import('../private/home');
+  const module = await import('../private/dashboard');
 
   return { default: module.Dashboard };
+});
+
+const Scale = lazy(async () => {
+  const module = await import('../private/scale');
+
+  return { default: module.Scale };
 });
 
 function useRouting(): ReturnType<typeof useRoutes> {
@@ -66,11 +72,16 @@ function useRouting(): ReturnType<typeof useRoutes> {
           <PrivateLayout />
         </RequireAuth>
       ),
-      path: RouteFactory.DASHBOARD,
       children: [
         {
-          index: true,
-          element: <Dashboard />
+          element: <Dashboard />,
+          path: RouteFactory.DASHBOARD,
+          children: [
+            {
+              element: <Scale />,
+              path: RouteFactory.SCALE
+            }
+          ]
         }
       ]
     }

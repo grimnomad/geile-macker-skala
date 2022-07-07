@@ -1,17 +1,17 @@
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons';
 import { useHover, useMenu } from '@gms/components';
-import { ReactElement } from 'react';
+import { ReactElement, ReactNode } from 'react';
 import { useTheme } from 'styled-components';
 
-import { Icon, MenuEntry, Name, Wrapper } from './SideBarEntry.styles';
+import { Icon, MenuEntry, Wrapper } from './SideBarEntry.styles';
 
 interface SideBarEntryProps {
-  readonly name: string;
   readonly onDelete: () => void;
+  readonly children: ReactNode;
 }
 
 function SideBarEntry(props: SideBarEntryProps): ReactElement {
-  const { name, onDelete } = props;
+  const { children, onDelete } = props;
 
   const theme = useTheme();
   const [isHovered, handlers] = useHover();
@@ -24,7 +24,7 @@ function SideBarEntry(props: SideBarEntryProps): ReactElement {
 
   return (
     <Wrapper showBackground={show} {...handlers}>
-      <Name>{name}</Name>
+      {children}
       {show ? (
         <Icon
           icon={faEllipsisV}

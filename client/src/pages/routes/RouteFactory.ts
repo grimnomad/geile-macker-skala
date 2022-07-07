@@ -14,6 +14,10 @@ class RouteFactory {
   static get DASHBOARD(): string {
     return '/dashboard';
   }
+
+  static get SCALE(): string {
+    return ':scaleID';
+  }
 }
 
 export { RouteFactory };

@@ -18,12 +18,6 @@ const Wrapper = styled.div<EntryContainerProps>`
   ${(props) => (props.showBackground ? HighlightBackground : null)};
 `;
 
-const Name = styled.div`
-  overflow: hidden;
-  text-overflow: ellipsis;
-  padding-left: 0.25rem;
-`;
-
 const Icon = styled(FontAwesomeIcon)`
   width: 100%;
   height: 1.5em;
@@ -35,4 +29,4 @@ const MenuEntry = styled.div`
 `;
 
 export type { EntryContainerProps };
-export { Icon, MenuEntry, Name, Wrapper };
+export { Icon, MenuEntry, Wrapper };
