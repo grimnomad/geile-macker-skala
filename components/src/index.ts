@@ -2,6 +2,7 @@ export * from './atoms';
 export * from './dialogs';
 export * from './forms';
 export * from './hooks';
+export * from './layout';
 export * from './logging';
 export * from './menu';
 export * from './mixins';
