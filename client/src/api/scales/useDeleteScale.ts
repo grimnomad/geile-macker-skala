@@ -1,4 +1,8 @@
-import { useMutation, UseMutationResult, useQueryClient } from 'react-query';
+import {
+  useMutation,
+  UseMutationResult,
+  useQueryClient
+} from '@tanstack/react-query';
 
 import { useAxios } from '../../components';
 import { ScalesQueryFactory } from './ScalesQueryFactory';

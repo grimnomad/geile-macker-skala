@@ -1,7 +1,7 @@
-import { QueryKey } from 'react-query';
+import { QueryKey } from '@tanstack/react-query';
 
 class ScalesQueryFactory {
-  static get all(): [QueryKey] {
+  static get all(): QueryKey {
     return ['scales'];
   }
 
